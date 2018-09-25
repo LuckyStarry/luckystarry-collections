@@ -1,6 +1,7 @@
 import { IEnumerable } from './enumerable'
 import { ICollection } from './collection'
 import { ArgumentOutOfRangeException } from './exceptions'
+import { EnumerableExtensions } from './enumerable-extensions'
 
 export interface IList<T> extends IEnumerable<T>, ICollection<T> {
   Set(index: number, item: T): void
@@ -11,14 +12,21 @@ export interface IList<T> extends IEnumerable<T>, ICollection<T> {
   RemoveAt(index: number): void
 }
 
-export class List<T> implements IList<T> {
+export class List<T> extends EnumerableExtensions<T> implements IList<T> {
   private items: Array<T> = []
 
-  public constructor(collection?: IEnumerable<T>) {
-    this.AddRange(collection)
+  public constructor(collection?: IEnumerable<T> | Array<T>) {
+    super()
+    if (collection) {
+      if (collection instanceof Array) {
+        this.items = collection.map(x => x)
+      } else {
+        this.AddRange(collection)
+      }
+    }
   }
 
-  public get Count(): number {
+  public get Length(): number {
     return this.items.length
   }
 
@@ -27,14 +35,14 @@ export class List<T> implements IList<T> {
   }
 
   public Set(index: number, item: T): void {
-    if (index < 0 || index >= this.Count) {
+    if (index < 0 || index >= this.Length) {
       throw new ArgumentOutOfRangeException('index', index)
     }
     this.items[index] = item
   }
 
   public Get(index: number): T {
-    if (index < 0 || index >= this.Count) {
+    if (index < 0 || index >= this.Length) {
       throw new ArgumentOutOfRangeException('index', index)
     }
     return this.items[index]
@@ -72,7 +80,7 @@ export class List<T> implements IList<T> {
   }
 
   public Insert(index: number, item: T): void {
-    if (index < 0 || index >= this.Count) {
+    if (index < 0 || index >= this.Length) {
       throw new ArgumentOutOfRangeException('index', index)
     }
     this.items.splice(index, 0, item)
@@ -88,7 +96,7 @@ export class List<T> implements IList<T> {
   }
 
   public RemoveAt(index: number): void {
-    if (index < 0 || index >= this.Count) {
+    if (index < 0 || index >= this.Length) {
       throw new ArgumentOutOfRangeException('index', index)
     }
     this.items.splice(index, 1)

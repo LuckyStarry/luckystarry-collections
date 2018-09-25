@@ -1,6 +1,14 @@
-export class ArgumentOutOfRangeException extends Error {
+import { ArgumentException } from './argument-exception'
+
+export class ArgumentOutOfRangeException extends ArgumentException {
+  private actualValue: any
+
   public constructor(paramName?: string, actualValue?: any, message?: string) {
-    super(composite(paramName, actualValue, message))
+    super(paramName, composite(paramName, actualValue, message))
+  }
+
+  public get ActualValue(): any {
+    return this.actualValue
   }
 }
 

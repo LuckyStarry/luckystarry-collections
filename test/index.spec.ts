@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import DEFAULT, { Enumerable, List } from '../src/index'
 
-describe('Index', function() {
+describe('./index.ts', function() {
   it('存在 默认导出', function() {
     // tslint:disable-next-line:no-unused-expression
     expect(DEFAULT).not.null
