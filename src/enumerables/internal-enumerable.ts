@@ -1,17 +1,13 @@
-import { EnumerableExtensions } from '../enumerable-extensions'
+import { EnumerableImpl } from '../enumerable-impl'
 
-export class InternalEnumerable<TSource> extends EnumerableExtensions<TSource> {
-  private iteratable: { [Symbol.iterator](): IterableIterator<TSource> }
-  public constructor(iteratable: {
-    [Symbol.iterator](): IterableIterator<TSource>
-  }) {
+export class InternalEnumerable<TSource> extends EnumerableImpl<TSource> {
+  private iteratable: Iterable<TSource>
+  public constructor(iteratable: Iterable<TSource>) {
     super()
     this.iteratable = iteratable
   }
 
   public *[Symbol.iterator](): IterableIterator<TSource> {
-    for (let item of this.iteratable) {
-      yield item
-    }
+    yield* this.iteratable
   }
 }

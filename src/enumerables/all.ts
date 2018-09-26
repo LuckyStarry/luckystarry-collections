@@ -2,7 +2,7 @@ import { IEnumerable, Enumerable } from '../enumerable'
 import { throws } from '../utils'
 
 export function all<TSource>(
-  source: IEnumerable<TSource>,
+  source: IEnumerable<TSource> | Iterable<TSource>,
   predicate: (item: TSource) => boolean
 ): boolean {
   throws.ThrowIfNull('source', source)

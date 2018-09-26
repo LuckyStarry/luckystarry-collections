@@ -1,7 +1,7 @@
 import { IEnumerable } from './enumerable'
 import { ICollection } from './collection'
 import { ArgumentOutOfRangeException } from './exceptions'
-import { EnumerableExtensions } from './enumerable-extensions'
+import { EnumerableImpl } from './enumerable-impl'
 
 export interface IList<T> extends IEnumerable<T>, ICollection<T> {
   Set(index: number, item: T): void
@@ -12,7 +12,7 @@ export interface IList<T> extends IEnumerable<T>, ICollection<T> {
   RemoveAt(index: number): void
 }
 
-export class List<T> extends EnumerableExtensions<T> implements IList<T> {
+export class List<T> extends EnumerableImpl<T> implements IList<T> {
   private items: Array<T> = []
 
   public constructor(collection?: IEnumerable<T> | Array<T>) {

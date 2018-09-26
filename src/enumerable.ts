@@ -1,8 +1,33 @@
-import { IEnumerableExtensions } from './enumerable-extensions'
 import * as enumerables from './enumerables'
+import { IEqualityComparer } from './equality-comparer'
+import { IGrouping } from './grouping'
+import { IList } from './list'
 
-export interface IEnumerable<TSource> extends IEnumerableExtensions<TSource> {
+export interface IEnumerable<TSource> {
   [Symbol.iterator](): IterableIterator<TSource>
+
+  All(predicate: (item: TSource) => boolean): boolean
+  Any(predicate?: (item: TSource) => boolean): boolean
+  Contains(value: TSource, comparer?: IEqualityComparer<TSource>): boolean
+  Count(predicate?: (item: TSource) => boolean): number
+  ElementAt(index: number): TSource
+  GroupBy<TKey, TElement = TSource>(
+    keySelector: (item: TSource) => TKey,
+    elementSelector: (item: TSource) => TElement,
+    comparer?: IEqualityComparer<TKey>
+  ): IEnumerable<IGrouping<TKey, TElement>>
+  First(predicate?: (item: TSource) => boolean): TSource
+  FirstOrDefault(
+    defaultValue: TSource,
+    predicate?: (item: TSource) => boolean
+  ): TSource
+  Select<TResult>(
+    selector: (item: TSource, index?: number) => TResult
+  ): IEnumerable<TResult>
+  ToList(): IList<TSource>
+  Where(
+    predicate: (item: TSource, index?: number) => boolean
+  ): IEnumerable<TSource>
 }
 
 export class Enumerable {
@@ -26,4 +51,5 @@ export class Enumerable {
   public static Sum = enumerables.sum
   public static ToList = enumerables.toList
   public static Where = enumerables.where
+  public static AsEnumerable = enumerables.asEnumerable
 }

@@ -1,5 +1,6 @@
 export { all } from './all'
 export { any } from './any'
+export { asEnumerable } from './as-enumerable'
 export { average } from './average'
 export { concat } from './concat'
 export { contains } from './contains'

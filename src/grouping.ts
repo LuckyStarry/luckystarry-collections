@@ -1,11 +1,11 @@
 import { IEnumerable } from './enumerable'
-import { EnumerableExtensions } from './enumerable-extensions'
+import { EnumerableImpl } from './enumerable-impl'
 
 export interface IGrouping<TKey, TElement> extends IEnumerable<TElement> {
   readonly Key: TKey
 }
 
-export class Grouping<TKey, TElement> extends EnumerableExtensions<TElement>
+export class Grouping<TKey, TElement> extends EnumerableImpl<TElement>
   implements IGrouping<TKey, TElement> {
   private key: TKey
   private source: IEnumerable<TElement>

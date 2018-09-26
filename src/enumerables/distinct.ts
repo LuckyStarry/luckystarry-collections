@@ -5,7 +5,7 @@ import * as utils from '../utils'
 import * as assistance from './assistance'
 
 export function distinct<TSource>(
-  source: IEnumerable<TSource>,
+  source: IEnumerable<TSource> | Iterable<TSource>,
   comparer?: IEqualityComparer<TSource>
 ): IEnumerable<TSource> {
   utils.throws.ThrowIfNull('source', source)
@@ -15,5 +15,5 @@ export function distinct<TSource>(
       assistance.distinct(source, (x, y) => comparer.Equal(x, y))
     )
   }
-  return null
+  return Enumerable.Empty()
 }

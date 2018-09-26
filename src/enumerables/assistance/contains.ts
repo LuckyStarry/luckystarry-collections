@@ -1,7 +1,5 @@
 export function contains<T>(
-  source: {
-    [Symbol.iterator](): IterableIterator<T>
-  },
+  source: Iterable<T>,
   target: T,
   compare?: (x: T, y: T) => boolean
 ): boolean {

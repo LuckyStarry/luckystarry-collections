@@ -3,7 +3,7 @@ import { throws, IsNullOrUndefined } from '../utils'
 import { ArgumentNullException } from '../exceptions'
 
 export function average<TSource>(
-  source: IEnumerable<TSource>,
+  source: IEnumerable<TSource> | Iterable<TSource>,
   selector?: (item: TSource) => number
 ): number | null {
   throws.ThrowIfNull('source', source)
@@ -13,6 +13,9 @@ export function average<TSource>(
   selector =
     selector ||
     (x => {
+      if (IsNullOrUndefined(x)) {
+        return null
+      }
       if (typeof x === 'number') {
         return x
       } else {
@@ -33,12 +36,8 @@ export function average<TSource>(
     }
     count++
   }
-  if (count) {
-    if (allNull) {
-      return null
-    }
-    return sum / count
-  } else {
+  if (allNull) {
     return null
   }
+  return sum / count
 }

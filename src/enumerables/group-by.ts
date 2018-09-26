@@ -1,7 +1,7 @@
 import { IEnumerable } from '../enumerable'
 import { IEqualityComparer, EqualityComparer } from '../equality-comparer'
 import { IGrouping, Grouping } from '../grouping'
-import { InternalEnumerable } from 'enumerables/internal-enumerable'
+import { InternalEnumerable } from './internal-enumerable'
 import * as utils from '../utils'
 import * as assistance from './assistance'
 

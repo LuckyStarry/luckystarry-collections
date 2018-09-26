@@ -4,7 +4,7 @@ import * as utils from '../utils'
 import * as assistance from './assistance'
 
 export function contains<TSource>(
-  source: IEnumerable<TSource>,
+  source: IEnumerable<TSource> | Iterable<TSource>,
   value: TSource,
   comparer?: IEqualityComparer<TSource>
 ): boolean {

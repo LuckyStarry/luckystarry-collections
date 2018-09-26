@@ -1,17 +1,11 @@
-export function* concat<T>(
-  first: {
-    [Symbol.iterator](): IterableIterator<T>
-  },
-  second: {
-    [Symbol.iterator](): IterableIterator<T>
-  }
-): {
-  [Symbol.iterator](): IterableIterator<T>
-} {
-  for (let item of first) {
-    yield item
-  }
-  for (let item of second) {
-    yield item
+export function concat<T>(
+  first: Iterable<T>,
+  second: Iterable<T>
+): Iterable<T> {
+  return {
+    *[Symbol.iterator]() {
+      yield* first
+      yield* second
+    }
   }
 }
