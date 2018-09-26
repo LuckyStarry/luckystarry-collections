@@ -5,8 +5,8 @@ import * as utils from '../utils'
 import * as assistance from './assistance'
 
 export function except<TSource>(
-  first: IEnumerable<TSource>,
-  second: IEnumerable<TSource>,
+  first: Iterable<TSource>,
+  second: Iterable<TSource>,
   comparer?: IEqualityComparer<TSource>
 ): IEnumerable<TSource> {
   utils.throws.ThrowIfNull('first', first)

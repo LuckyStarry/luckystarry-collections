@@ -6,7 +6,7 @@ import * as utils from '../utils'
 import * as assistance from './assistance'
 
 export function groupBy<TSource, TKey, TElement = TSource>(
-  source: IEnumerable<TSource>,
+  source: Iterable<TSource>,
   keySelector: (item: TSource) => TKey,
   elementSelector: (item: TSource) => TElement,
   comparer?: IEqualityComparer<TKey>

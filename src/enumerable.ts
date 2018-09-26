@@ -3,9 +3,10 @@ import { IEqualityComparer } from './equality-comparer'
 import { IGrouping } from './grouping'
 import { IList } from './list'
 
-export interface IEnumerable<TSource> {
+export interface IEnumerable<TSource> extends Iterable<TSource> {
   [Symbol.iterator](): IterableIterator<TSource>
 
+  AsEnumerable(): IEnumerable<TSource>
   All(predicate: (item: TSource) => boolean): boolean
   Any(predicate?: (item: TSource) => boolean): boolean
   Contains(value: TSource, comparer?: IEqualityComparer<TSource>): boolean
@@ -31,6 +32,7 @@ export interface IEnumerable<TSource> {
 }
 
 export class Enumerable {
+  public static AsEnumerable = enumerables.asEnumerable
   public static All = enumerables.all
   public static Any = enumerables.any
   public static Average = enumerables.average
@@ -51,5 +53,4 @@ export class Enumerable {
   public static Sum = enumerables.sum
   public static ToList = enumerables.toList
   public static Where = enumerables.where
-  public static AsEnumerable = enumerables.asEnumerable
 }

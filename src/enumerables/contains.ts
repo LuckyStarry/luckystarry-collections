@@ -1,10 +1,9 @@
-import { IEnumerable } from '../enumerable'
 import { IEqualityComparer, EqualityComparer } from '../equality-comparer'
 import * as utils from '../utils'
 import * as assistance from './assistance'
 
 export function contains<TSource>(
-  source: IEnumerable<TSource> | Iterable<TSource>,
+  source: Iterable<TSource>,
   value: TSource,
   comparer?: IEqualityComparer<TSource>
 ): boolean {

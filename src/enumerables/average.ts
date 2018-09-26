@@ -1,9 +1,9 @@
-import { IEnumerable, Enumerable } from '../enumerable'
+import { Enumerable } from '../enumerable'
 import { throws, IsNullOrUndefined } from '../utils'
 import { ArgumentNullException } from '../exceptions'
 
 export function average<TSource>(
-  source: IEnumerable<TSource> | Iterable<TSource>,
+  source: Iterable<TSource>,
   selector?: (item: TSource) => number
 ): number | null {
   throws.ThrowIfNull('source', source)

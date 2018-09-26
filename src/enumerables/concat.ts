@@ -4,8 +4,8 @@ import { InternalEnumerable } from './internal-enumerable'
 import * as assistance from './assistance'
 
 export function concat<TSource>(
-  first: IEnumerable<TSource> | Iterable<TSource>,
-  second: IEnumerable<TSource> | Iterable<TSource>
+  first: Iterable<TSource>,
+  second: Iterable<TSource>
 ): IEnumerable<TSource> {
   throws.ThrowIfNull('first', first)
   throws.ThrowIfNull('second', second)

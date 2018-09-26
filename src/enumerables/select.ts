@@ -3,7 +3,7 @@ import { InternalEnumerable } from './internal-enumerable'
 import * as utils from '../utils'
 
 export function select<TSource, TResult>(
-  source: IEnumerable<TSource>,
+  source: Iterable<TSource>,
   selector: (item: TSource, index?: number) => TResult
 ): IEnumerable<TResult> {
   utils.throws.ThrowIfNull('source', source)
@@ -12,11 +12,9 @@ export function select<TSource, TResult>(
 }
 
 function* mapping<TSource, TResult>(
-  source: IEnumerable<TSource>,
+  source: Iterable<TSource>,
   selector: (item: TSource, index?: number) => TResult
-): {
-  [Symbol.iterator](): IterableIterator<TResult>
-} {
+): Iterable<TResult> {
   let index = 0
   for (let item of source) {
     yield selector(item, index++)

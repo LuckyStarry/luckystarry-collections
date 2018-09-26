@@ -1,23 +1,21 @@
 export function group<T, TKey, TElement = T>(
-  source: {
-    [Symbol.iterator](): IterableIterator<T>
-  },
+  source: Iterable<T>,
   keySelector: (item: T) => TKey,
   elementSelector: (item: T) => TElement,
   compare?: (x: TKey, y: TKey) => boolean
 ): {
   Key: TKey
-  List: { [Symbol.iterator](): IterableIterator<TElement> }
+  List: Iterable<TElement>
 }[] {
   let results = new Array<{
     Key: TKey
-    List: { [Symbol.iterator](): IterableIterator<TElement> }
+    List: Iterable<TElement>
   }>()
   if (source) {
     compare = compare || ((x, y) => x === y)
     let target = {} as {
       Key: TKey
-      List: { [Symbol.iterator](): IterableIterator<TElement> }
+      List: Iterable<TElement>
     }
     let first = true
     let list = new Array<TElement>()

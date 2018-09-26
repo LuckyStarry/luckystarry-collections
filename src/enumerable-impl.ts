@@ -6,6 +6,10 @@ import { IGrouping } from './grouping'
 export abstract class EnumerableImpl<TSource> implements IEnumerable<TSource> {
   public abstract [Symbol.iterator](): IterableIterator<TSource>
 
+  public AsEnumerable(): IEnumerable<TSource> {
+    return Enumerable.AsEnumerable(this)
+  }
+
   public All(predicate: (item: TSource) => boolean): boolean {
     return Enumerable.All(this, predicate)
   }

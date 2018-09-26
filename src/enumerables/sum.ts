@@ -1,9 +1,8 @@
-import { IEnumerable } from '../enumerable'
 import { ArgumentNullException } from '../exceptions'
 import * as utils from '../utils'
 
 export function sum<TSource>(
-  source: IEnumerable<TSource>,
+  source: Iterable<TSource>,
   selector?: (item: TSource) => number
 ): number | null {
   utils.throws.ThrowIfNull('source', source)

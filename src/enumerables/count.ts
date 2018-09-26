@@ -1,8 +1,7 @@
-import { IEnumerable } from '../enumerable'
 import { throws } from '../utils'
 
 export function count<TSource>(
-  source: IEnumerable<TSource> | Iterable<TSource>,
+  source: Iterable<TSource>,
   predicate?: (item: TSource) => boolean
 ): number {
   throws.ThrowIfNull('source', source)

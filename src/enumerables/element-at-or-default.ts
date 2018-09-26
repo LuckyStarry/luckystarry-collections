@@ -1,8 +1,7 @@
-import { IEnumerable } from '../enumerable'
 import * as utils from '../utils'
 
 export function elementAtOrDefault<TSource>(
-  source: IEnumerable<TSource>,
+  source: Iterable<TSource>,
   defaultValue: TSource,
   index: number
 ) {

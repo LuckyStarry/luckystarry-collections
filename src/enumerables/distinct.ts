@@ -5,7 +5,7 @@ import * as utils from '../utils'
 import * as assistance from './assistance'
 
 export function distinct<TSource>(
-  source: IEnumerable<TSource> | Iterable<TSource>,
+  source: Iterable<TSource>,
   comparer?: IEqualityComparer<TSource>
 ): IEnumerable<TSource> {
   utils.throws.ThrowIfNull('source', source)

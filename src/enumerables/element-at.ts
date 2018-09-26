@@ -1,9 +1,8 @@
-import { IEnumerable } from '../enumerable'
 import { ArgumentOutOfRangeException } from '../exceptions'
 import * as utils from '../utils'
 
 export function elementAt<TSource>(
-  source: IEnumerable<TSource> | Iterable<TSource>,
+  source: Iterable<TSource>,
   index: number
 ): TSource {
   utils.throws.ThrowIfNull('source', source)

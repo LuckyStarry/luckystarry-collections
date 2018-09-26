@@ -15,7 +15,7 @@ export interface IList<T> extends IEnumerable<T>, ICollection<T> {
 export class List<T> extends EnumerableImpl<T> implements IList<T> {
   private items: Array<T> = []
 
-  public constructor(collection?: IEnumerable<T> | Array<T>) {
+  public constructor(collection?: Iterable<T>) {
     super()
     if (collection) {
       if (collection instanceof Array) {
@@ -52,7 +52,7 @@ export class List<T> extends EnumerableImpl<T> implements IList<T> {
     this.items.push(item)
   }
 
-  public AddRange(collection: IEnumerable<T>) {
+  public AddRange(collection: Iterable<T>) {
     if (collection) {
       for (let item of collection) {
         this.Add(item)

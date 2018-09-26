@@ -1,8 +1,7 @@
-import { IEnumerable } from '../enumerable'
 import * as utils from '../utils'
 
 export function firstOrDefault<TSource>(
-  source: IEnumerable<TSource>,
+  source: Iterable<TSource>,
   defaultValue: TSource,
   predicate?: (item: TSource) => boolean
 ): TSource {

@@ -1,16 +1,10 @@
 import { contains } from './contains'
 
 export function except<T>(
-  first: {
-    [Symbol.iterator](): IterableIterator<T>
-  },
-  second: {
-    [Symbol.iterator](): IterableIterator<T>
-  },
+  first: Iterable<T>,
+  second: Iterable<T>,
   compare?: (x: T, y: T) => boolean
-): {
-  [Symbol.iterator](): IterableIterator<T>
-} {
+): Iterable<T> {
   if (first && second) {
     compare = compare || ((x, y) => x === y)
     let [target, ...sub] = first
