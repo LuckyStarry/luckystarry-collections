@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import { distinct } from '../../src/enumerables/distinct'
 import { List } from '../../src'
+import { IEqualityComparer } from '../../src/equality-comparer'
 
 describe('./enumerables/distinct.ts', function() {
   it('存在 distinct 方法', function() {
@@ -85,4 +86,57 @@ describe('./enumerables/distinct.ts', function() {
     expect(list.Get(5)).is.equal(6)
     expect(list.Get(6)).is.equal(7)
   })
+
+  it('distinct(特殊类型) => true', function() {
+    let list = [
+      new Spec('1', '2'),
+      new Spec('2', '3'),
+      new Spec('3', '2'),
+      new Spec('2', '1')
+    ]
+    let distincted = distinct(list, new EqualityImpl())
+    expect(distincted.Count()).is.equal(4)
+    expect(distincted.ElementAt(0).Text).is.equal('1')
+    expect(distincted.ElementAt(0).Value).is.equal('2')
+    expect(distincted.ElementAt(1).Text).is.equal('2')
+    expect(distincted.ElementAt(1).Value).is.equal('3')
+    expect(distincted.ElementAt(2).Text).is.equal('3')
+    expect(distincted.ElementAt(2).Value).is.equal('2')
+    expect(distincted.ElementAt(3).Text).is.equal('2')
+    expect(distincted.ElementAt(3).Value).is.equal('1')
+  })
+
+  it('distinct(特殊类型) => true', function() {
+    let list = [
+      new Spec('1', '2'),
+      new Spec('2', '3'),
+      new Spec('3', '2'),
+      new Spec('2', '1')
+    ]
+    let distincted = distinct(list, new EqualityImplPlus())
+    expect(distincted.Count()).is.equal(2)
+    expect(distincted.ElementAt(0).Text).is.equal('1')
+    expect(distincted.ElementAt(0).Value).is.equal('2')
+    expect(distincted.ElementAt(1).Text).is.equal('2')
+    expect(distincted.ElementAt(1).Value).is.equal('3')
+  })
 })
+
+class Spec {
+  constructor(public Text: string, public Value: string) {}
+}
+
+class EqualityImpl implements IEqualityComparer<Spec> {
+  public Equal(x: Spec, y: Spec): boolean {
+    return x.Text === y.Text && x.Value === y.Value
+  }
+}
+
+class EqualityImplPlus implements IEqualityComparer<Spec> {
+  public Equal(x: Spec, y: Spec): boolean {
+    return (
+      (x.Text === y.Text || x.Text === y.Value) &&
+      (x.Value === y.Value || x.Value === y.Text)
+    )
+  }
+}
