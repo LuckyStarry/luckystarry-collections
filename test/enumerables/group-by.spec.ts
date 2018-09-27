@@ -109,16 +109,79 @@ describe('./enumerables/group-by.ts', function() {
     expect(results.ElementAt(2).Count()).is.equal(1)
     expect(results.ElementAt(2).ElementAt(0)).is.equal(6)
   })
+
+  it('groupBy([{text:1, value:2},{text:2, value:3},{text:3, value:2},{text:2, value:1}], (x, y) => x.text === y.text && x.value === y.value) => [{text:1, value:2},{text:2, value:3},{text:3, value:2},{text:2, value:1}]', function() {
+    let list = [
+      new Spec('1', '2'),
+      new Spec('2', '3'),
+      new Spec('3', '2'),
+      new Spec('2', '1')
+    ]
+    let groupByed = groupBy(list, x => x, e => e, new EqualityImpl())
+    expect(groupByed.Count()).is.equal(4)
+    expect(groupByed.ElementAt(0).Key.Text).is.equal('1')
+    expect(groupByed.ElementAt(0).Key.Value).is.equal('2')
+    expect(groupByed.ElementAt(0).Count()).is.equal(1)
+    expect(groupByed.ElementAt(0).ElementAt(0).Text).is.equal('1')
+    expect(groupByed.ElementAt(0).ElementAt(0).Value).is.equal('2')
+    expect(groupByed.ElementAt(1).Key.Text).is.equal('2')
+    expect(groupByed.ElementAt(1).Key.Value).is.equal('3')
+    expect(groupByed.ElementAt(1).Count()).is.equal(1)
+    expect(groupByed.ElementAt(1).ElementAt(0).Text).is.equal('2')
+    expect(groupByed.ElementAt(1).ElementAt(0).Value).is.equal('3')
+    expect(groupByed.ElementAt(2).Key.Text).is.equal('3')
+    expect(groupByed.ElementAt(2).Key.Value).is.equal('2')
+    expect(groupByed.ElementAt(2).Count()).is.equal(1)
+    expect(groupByed.ElementAt(2).ElementAt(0).Text).is.equal('3')
+    expect(groupByed.ElementAt(2).ElementAt(0).Value).is.equal('2')
+    expect(groupByed.ElementAt(3).Key.Text).is.equal('2')
+    expect(groupByed.ElementAt(3).Key.Value).is.equal('1')
+    expect(groupByed.ElementAt(3).Count()).is.equal(1)
+    expect(groupByed.ElementAt(3).ElementAt(0).Text).is.equal('2')
+    expect(groupByed.ElementAt(3).ElementAt(0).Value).is.equal('1')
+  })
+
+  it('groupBy([{text:1, value:2},{text:2, value:3},{text:3, value:2},{text:2, value:1}], (x, y) => x.text === y.text|value && x.value === y.text|value) => [{text:1, value:2},{text:2, value:3}]', function() {
+    let list = [
+      new Spec('1', '2'),
+      new Spec('2', '3'),
+      new Spec('3', '2'),
+      new Spec('2', '1')
+    ]
+    let groupByed = groupBy(list, x => x, e => e, new EqualityImplPlus())
+    expect(groupByed.Count()).is.equal(2)
+    expect(groupByed.ElementAt(0).Key.Text).is.equal('1')
+    expect(groupByed.ElementAt(0).Key.Value).is.equal('2')
+    expect(groupByed.ElementAt(0).Count()).is.equal(2)
+    expect(groupByed.ElementAt(0).ElementAt(0).Text).is.equal('1')
+    expect(groupByed.ElementAt(0).ElementAt(0).Value).is.equal('2')
+    expect(groupByed.ElementAt(0).ElementAt(1).Text).is.equal('2')
+    expect(groupByed.ElementAt(0).ElementAt(1).Value).is.equal('1')
+    expect(groupByed.ElementAt(1).Key.Text).is.equal('2')
+    expect(groupByed.ElementAt(1).Key.Value).is.equal('3')
+    expect(groupByed.ElementAt(1).Count()).is.equal(2)
+    expect(groupByed.ElementAt(1).ElementAt(0).Text).is.equal('2')
+    expect(groupByed.ElementAt(1).ElementAt(0).Value).is.equal('3')
+    expect(groupByed.ElementAt(1).ElementAt(1).Text).is.equal('3')
+    expect(groupByed.ElementAt(1).ElementAt(1).Value).is.equal('2')
+  })
 })
 
-class NumberEqualityImpl implements IEqualityComparer<number> {
-  public Equal(x: number, y: number): boolean {
-    return x === y
+class Spec {
+  constructor(public Text: string, public Value: string) {}
+}
+
+class EqualityImpl implements IEqualityComparer<Spec> {
+  public Equal(x: Spec, y: Spec): boolean {
+    return x.Text === y.Text && x.Value === y.Value
   }
 }
 
-class NumberEqualityImplPlus implements IEqualityComparer<number> {
-  public Equal(x: number, y: number): boolean {
-    return x === y + 1
+class EqualityImplPlus implements IEqualityComparer<Spec> {
+  public Equal(x: Spec, y: Spec): boolean {
+    return (
+      (x.Text === y.Text || x.Text === y.Value) &&
+      (x.Value === y.Value || x.Value === y.Text)
+    )
   }
 }
