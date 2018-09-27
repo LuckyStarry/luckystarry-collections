@@ -7,12 +7,20 @@ export function except<T>(
 ): Iterable<T> {
   if (first && second) {
     compare = compare || ((x, y) => x === y)
-    let [target, ...sub] = first
-    if (contains(second, target, compare)) {
-      return except(sub, second, compare)
-    } else {
-      return [target, ...except(sub, second, compare)]
-    }
+    return [...process(first, second, compare)]
   }
   return first
+}
+
+function* process<T>(
+  first: Iterable<T>,
+  second: Iterable<T>,
+  compare: (x: T, y: T) => boolean
+): Iterable<T> {
+  for (let item of first) {
+    if (contains(second, item, compare)) {
+      continue
+    }
+    yield item
+  }
 }

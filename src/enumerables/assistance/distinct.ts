@@ -7,7 +7,9 @@ export function distinct<T>(
     let target
     let first = true
     let sub = new Array<T>()
+    let count = 0
     for (let item of source) {
+      count++
       if (first) {
         target = item
         first = false
@@ -18,10 +20,12 @@ export function distinct<T>(
       }
       sub.push(item)
     }
-    if (sub.length) {
-      return [target, ...distinct(sub, compare)]
-    } else {
-      return [target]
+    if (count) {
+      if (sub.length) {
+        return [target, ...distinct(sub, compare)]
+      } else {
+        return [target]
+      }
     }
   }
   return source

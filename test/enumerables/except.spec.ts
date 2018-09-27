@@ -1,0 +1,78 @@
+import { expect } from 'chai'
+import { except } from '../../src/enumerables/except'
+import { List } from '../../src'
+
+describe('./enumerables/except.ts', function() {
+  it('存在 except 方法', function() {
+    // tslint:disable-next-line:no-unused-expression
+    expect(except).not.null
+    // tslint:disable-next-line:no-unused-expression
+    expect(except).not.undefined
+    expect(typeof except).to.equal('function')
+  })
+
+  it('except(null, []) => throw', function() {
+    expect(() => {
+      except(null, [])
+    }).to.throw(`参数 first 不可为空`)
+  })
+
+  it('except(undefined, []) => throw', function() {
+    expect(() => {
+      except(undefined, [])
+    }).to.throw(`参数 first 不可为空`)
+  })
+
+  it('except([], []) => throw', function() {
+    expect(() => {
+      except([], null)
+    }).to.throw(`参数 second 不可为空`)
+  })
+
+  it('except([], undefined) => throw', function() {
+    expect(() => {
+      except([], undefined)
+    }).to.throw(`参数 second 不可为空`)
+  })
+
+  it('except([], []) => Empty', function() {
+    // tslint:disable-next-line:no-unused-expression
+    expect(except([], []).Any()).is.false
+  })
+
+  it('except([1], [2]) => [1]', function() {
+    let excepted = except([1], [2])
+    // tslint:disable-next-line:no-unused-expression
+    expect(excepted.Any()).is.true
+    expect(excepted.Count()).is.equal(1)
+    expect(excepted.ElementAt(0)).is.equal(1)
+  })
+
+  it('except([2], [1]) => [2]', function() {
+    let excepted = except([2], [1])
+    // tslint:disable-next-line:no-unused-expression
+    expect(excepted.Any()).is.true
+    expect(excepted.Count()).is.equal(1)
+    expect(excepted.ElementAt(0)).is.equal(2)
+  })
+
+  it('except([1, 2, 3, 4], [4, 5, 6, 6]) => [1, 2, 3]', function() {
+    let excepted = except([1, 2, 3, 4], [4, 5, 6, 7])
+    // tslint:disable-next-line:no-unused-expression
+    expect(excepted.Any()).is.true
+    expect(excepted.Count()).is.equal(3)
+    expect(excepted.ElementAt(0)).is.equal(1)
+    expect(excepted.ElementAt(1)).is.equal(2)
+    expect(excepted.ElementAt(2)).is.equal(3)
+  })
+
+  it('except([1, 2, 3, 4], new List([4, 5, 6, 7])) => [1, 2, 3]', function() {
+    let excepted = except([1, 2, 3, 4], new List([4, 5, 6, 7]))
+    // tslint:disable-next-line:no-unused-expression
+    expect(excepted.Any()).is.true
+    expect(excepted.Count()).is.equal(3)
+    expect(excepted.ElementAt(0)).is.equal(1)
+    expect(excepted.ElementAt(1)).is.equal(2)
+    expect(excepted.ElementAt(2)).is.equal(3)
+  })
+})
