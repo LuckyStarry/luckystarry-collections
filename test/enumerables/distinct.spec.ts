@@ -87,7 +87,7 @@ describe('./enumerables/distinct.ts', function() {
     expect(list.Get(6)).is.equal(7)
   })
 
-  it('distinct(特殊类型) => true', function() {
+  it('distinct([{text:1, value:2},{text:2, value:3},{text:3, value:2},{text:2, value:1}], (x, y) => x.text === y.text && x.value === y.value) => [{text:1, value:2},{text:2, value:3},{text:3, value:2},{text:2, value:1}]', function() {
     let list = [
       new Spec('1', '2'),
       new Spec('2', '3'),
@@ -106,7 +106,7 @@ describe('./enumerables/distinct.ts', function() {
     expect(distincted.ElementAt(3).Value).is.equal('1')
   })
 
-  it('distinct(特殊类型) => true', function() {
+  it('distinct([{text:1, value:2},{text:2, value:3},{text:3, value:2},{text:2, value:1}], (x, y) => x.text === y.text|value && x.value === y.text|value) => [{text:1, value:2},{text:2, value:3}]', function() {
     let list = [
       new Spec('1', '2'),
       new Spec('2', '3'),
