@@ -10,10 +10,10 @@ export function firstOrDefault<TSource>(
     if (predicate) {
       if (predicate(item)) {
         return item
-      } else {
-        return item
       }
+      continue
     }
+    return item
   }
   return defaultValue
 }

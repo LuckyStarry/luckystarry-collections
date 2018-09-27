@@ -9,10 +9,10 @@ export function first<TSource>(
     if (predicate) {
       if (predicate(item)) {
         return item
-      } else {
-        return item
       }
+      continue
     }
+    return item
   }
   if (predicate) {
     utils.throws.ThrowInvalidOperation('没有元素满足条件或源序列为空')
