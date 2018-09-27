@@ -8,7 +8,7 @@ export function where<TSource>(
 ): IEnumerable<TSource> {
   utils.throws.ThrowIfNull('source', source)
   utils.throws.ThrowIfNull('predicate', predicate)
-  return new InternalEnumerable(filter(source, predicate))
+  return new InternalEnumerable([...filter(source, predicate)])
 }
 
 function* filter<TSource>(

@@ -9,9 +9,9 @@ export function groupJoin<TOuter, TInner, TKey, TResult>(
   inner: Iterable<TInner>,
   outerKeySelector: (item: TOuter) => TKey,
   innerKeySelector: (item: TInner) => TKey,
-  resultSelector: (item: TOuter, inners: Iterable<TInner>) => TResult,
+  resultSelector: (item: TOuter, inners: IEnumerable<TInner>) => TResult,
   comparer?: IEqualityComparer<TKey>
-): Iterable<TResult> {
+): IEnumerable<TResult> {
   utils.throws.ThrowIfNull('outer', outer)
   utils.throws.ThrowIfNull('inner', inner)
   utils.throws.ThrowIfNull('outerKeySelector', outerKeySelector)
@@ -25,9 +25,9 @@ export function groupJoin<TOuter, TInner, TKey, TResult>(
     .Where(item => outerKeys.Contains(innerKeySelector(item), comparer))
     .GroupBy(item => innerKeySelector(item), g => g, comparer)
     .ToList()
-  return new InternalEnumerable(
-    join(outer, outerKeySelector, groupedInner, resultSelector, comparer)
-  )
+  return new InternalEnumerable([
+    ...join(outer, outerKeySelector, groupedInner, resultSelector, comparer)
+  ])
 }
 
 function* join<TOuter, TInner, TKey, TResult>(

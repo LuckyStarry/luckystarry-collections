@@ -64,10 +64,6 @@ export class List<T> extends EnumerableImpl<T> implements IList<T> {
     this.items = []
   }
 
-  public Contains(item: T): boolean {
-    return this.IndexOf(item) >= 0
-  }
-
   public CopyTo(array: T[], arrayIndex: number): void {
     let i = 0
     for (let item of this) {
