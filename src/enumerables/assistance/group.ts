@@ -20,6 +20,7 @@ export function group<T, TKey, TElement = T>(
     let first = true
     let list = new Array<TElement>()
     let sub = new Array<T>()
+    let count = 0
     for (let item of source) {
       if (first) {
         if (item === null || item === undefined) {
@@ -28,19 +29,23 @@ export function group<T, TKey, TElement = T>(
         target.Key = keySelector(item)
         list.push(elementSelector(item))
         first = false
+        count++
         continue
       }
+      count++
       if (compare(target.Key, keySelector(item))) {
         list.push(elementSelector(item))
         continue
       }
       sub.push(item)
     }
-    target.List = list
-    if (sub.length) {
-      return [target, ...group(sub, keySelector, elementSelector, compare)]
-    } else {
-      return [target]
+    if (count) {
+      target.List = list
+      if (sub.length) {
+        return [target, ...group(sub, keySelector, elementSelector, compare)]
+      } else {
+        return [target]
+      }
     }
   }
   return results
