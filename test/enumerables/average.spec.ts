@@ -1,12 +1,11 @@
+/* tslint:disable */
 import { expect } from 'chai'
 import { average } from '../../src/enumerables/average'
 import { List } from '../../src'
 
 describe('./enumerables/average.ts', function() {
   it('存在 average 方法', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(average).not.null
-    // tslint:disable-next-line:no-unused-expression
     expect(average).not.undefined
     expect(typeof average).to.equal('function')
   })
@@ -24,7 +23,6 @@ describe('./enumerables/average.ts', function() {
   })
 
   it('average([]) => null', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(average([])).is.null
   })
 
@@ -45,12 +43,10 @@ describe('./enumerables/average.ts', function() {
   })
 
   it('average([null, null, null, null]) => null', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(average([null, null, null, null])).is.null
   })
 
   it('average([], x => x * 2) => null', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(average([], x => x * 2)).is.null
   })
 

@@ -1,14 +1,11 @@
 /* tslint:disable */
 import { expect } from 'chai'
 import { groupBy } from '../../src/enumerables/group-by'
-import { List } from '../../src'
 import { IEqualityComparer } from '../../src/equality-comparer'
 
 describe('./enumerables/group-by.ts', function() {
   it('存在 groupBy 方法', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(groupBy).not.null
-    // tslint:disable-next-line:no-unused-expression
     expect(groupBy).not.undefined
     expect(typeof groupBy).to.equal('function')
   })

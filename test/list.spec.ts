@@ -1,11 +1,10 @@
+/* tslint:disable */
 import { expect } from 'chai'
 import { List } from '../src/list'
 
 describe('./list.ts', function() {
   it('存在 Class List', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(List).not.null
-    // tslint:disable-next-line:no-unused-expression
     expect(List).not.undefined
     expect(typeof List).to.equal('function')
   })

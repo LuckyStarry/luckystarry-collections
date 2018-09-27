@@ -1,11 +1,10 @@
+/* tslint:disable */
 import { expect } from 'chai'
 import { elementAtOrDefault } from '../../src/enumerables/element-at-or-default'
 
 describe('./enumerables/element-at-or-default.ts', function() {
   it('存在 elementAtOrDefault 方法', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(elementAtOrDefault).not.null
-    // tslint:disable-next-line:no-unused-expression
     expect(elementAtOrDefault).not.undefined
     expect(typeof elementAtOrDefault).to.equal('function')
   })
@@ -54,9 +53,7 @@ describe('./enumerables/element-at-or-default.ts', function() {
 
   it('elementAtOrDefault([1, 2, 3], null, 4) => null', function() {
     let value = elementAtOrDefault([1, 2, 3], null, 4)
-    // tslint:disable-next-line:no-unused-expression
     expect(value).is.null
-    // tslint:disable-next-line:no-unused-expression
     expect(value).is.not.undefined
   })
 })

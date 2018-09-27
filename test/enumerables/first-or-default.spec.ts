@@ -1,12 +1,11 @@
+/* tslint:disable */
 import { expect } from 'chai'
 import { firstOrDefault } from '../../src/enumerables/first-or-default'
 import { List } from '../../src/list'
 
 describe('./enumerables/first-or-default.ts', function() {
   it('存在 firstOrDefault 方法', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(firstOrDefault).not.null
-    // tslint:disable-next-line:no-unused-expression
     expect(firstOrDefault).not.undefined
     expect(typeof firstOrDefault).to.equal('function')
   })
@@ -65,7 +64,6 @@ describe('./enumerables/first-or-default.ts', function() {
 
   it('firstOrDefault([1, 2, 3], null, x => x > 3) => 3', function() {
     let value = firstOrDefault([1, 2, 3], null, x => x > 3)
-    // tslint:disable-next-line:no-unused-expression
     expect(value).is.null
   })
 

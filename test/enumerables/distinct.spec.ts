@@ -1,3 +1,4 @@
+/* tslint:disable */
 import { expect } from 'chai'
 import { distinct } from '../../src/enumerables/distinct'
 import { List } from '../../src'
@@ -5,9 +6,7 @@ import { IEqualityComparer } from '../../src/equality-comparer'
 
 describe('./enumerables/distinct.ts', function() {
   it('存在 distinct 方法', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(distinct).not.null
-    // tslint:disable-next-line:no-unused-expression
     expect(distinct).not.undefined
     expect(typeof distinct).to.equal('function')
   })
@@ -25,13 +24,11 @@ describe('./enumerables/distinct.ts', function() {
   })
 
   it('distinct([]) => Empty', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(distinct([]).Any()).is.false
   })
 
   it('distinct([1, 2]) => [1, 2]', function() {
     let distincted = distinct([1, 2])
-    // tslint:disable-next-line:no-unused-expression
     expect(distincted.Any()).is.true
     expect(distincted.Count()).is.equal(2)
 
@@ -43,7 +40,6 @@ describe('./enumerables/distinct.ts', function() {
 
   it('distinct([2, 1]) => [2, 1]', function() {
     let distincted = distinct([2, 1])
-    // tslint:disable-next-line:no-unused-expression
     expect(distincted.Any()).is.true
     expect(distincted.Count()).is.equal(2)
 
@@ -55,7 +51,6 @@ describe('./enumerables/distinct.ts', function() {
 
   it('distinct([1, 2, 3, 4, 4, 5, 6, 7]) => [1, 2, 3, 4, 5, 6, 7]', function() {
     let distincted = distinct([1, 2, 3, 4, 4, 5, 6, 7])
-    // tslint:disable-next-line:no-unused-expression
     expect(distincted.Any()).is.true
     expect(distincted.Count()).is.equal(7)
 
@@ -72,7 +67,6 @@ describe('./enumerables/distinct.ts', function() {
 
   it('distinct(new List([1, 2, 3, 4, 4, 5, 6, 7])) => [1, 2, 3, 4, 5, 6, 7]', function() {
     let distincted = distinct(new List([1, 2, 3, 4, 4, 5, 6, 7]))
-    // tslint:disable-next-line:no-unused-expression
     expect(distincted.Any()).is.true
     expect(distincted.Count()).is.equal(7)
 

@@ -1,11 +1,10 @@
+/* tslint:disable */
 import { expect } from 'chai'
 import { elementAt } from '../../src/enumerables/element-at'
 
 describe('./enumerables/element-at-or-default.ts', function() {
   it('存在 elementAt 方法', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(elementAt).not.null
-    // tslint:disable-next-line:no-unused-expression
     expect(elementAt).not.undefined
     expect(typeof elementAt).to.equal('function')
   })

@@ -1,12 +1,11 @@
+/* tslint:disable */
 import { expect } from 'chai'
 import { concat } from '../../src/enumerables/concat'
 import { List } from '../../src'
 
 describe('./enumerables/concat.ts', function() {
   it('存在 concat 方法', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(concat).not.null
-    // tslint:disable-next-line:no-unused-expression
     expect(concat).not.undefined
     expect(typeof concat).to.equal('function')
   })
@@ -36,13 +35,11 @@ describe('./enumerables/concat.ts', function() {
   })
 
   it('concat([], []) => Empty', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(concat([], []).Any()).is.false
   })
 
   it('concat([1], [2]) => [1, 2]', function() {
     let concated = concat([1], [2])
-    // tslint:disable-next-line:no-unused-expression
     expect(concated.Any()).is.true
     expect(concated.Count()).is.equal(2)
 
@@ -54,7 +51,6 @@ describe('./enumerables/concat.ts', function() {
 
   it('concat([2], [1]) => [2, 1]', function() {
     let concated = concat([2], [1])
-    // tslint:disable-next-line:no-unused-expression
     expect(concated.Any()).is.true
     expect(concated.Count()).is.equal(2)
 
@@ -66,7 +62,6 @@ describe('./enumerables/concat.ts', function() {
 
   it('concat([1, 2, 3, 4], [4, 5, 6, 6]) => [1, 2, 3, 4, 4, 5, 6, 7]', function() {
     let concated = concat([1, 2, 3, 4], [4, 5, 6, 7])
-    // tslint:disable-next-line:no-unused-expression
     expect(concated.Any()).is.true
     expect(concated.Count()).is.equal(8)
 
@@ -84,7 +79,6 @@ describe('./enumerables/concat.ts', function() {
 
   it('concat([1, 2, 3, 4], new List([4, 5, 6, 7])) => [1, 2, 3, 4, 4, 5, 6, 7]', function() {
     let concated = concat([1, 2, 3, 4], new List([4, 5, 6, 7]))
-    // tslint:disable-next-line:no-unused-expression
     expect(concated.Any()).is.true
     expect(concated.Count()).is.equal(8)
 

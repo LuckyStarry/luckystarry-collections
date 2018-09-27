@@ -1,12 +1,11 @@
+/* tslint:disable */
 import { expect } from 'chai'
 import { first } from '../../src/enumerables/first'
 import { List } from '../../src/list'
 
 describe('./enumerables/first.ts', function() {
   it('存在 first 方法', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(first).not.null
-    // tslint:disable-next-line:no-unused-expression
     expect(first).not.undefined
     expect(typeof first).to.equal('function')
   })

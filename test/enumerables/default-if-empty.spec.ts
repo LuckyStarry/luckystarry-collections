@@ -1,3 +1,4 @@
+/* tslint:disable */
 import { expect } from 'chai'
 import { defaultIfEmpty } from '../../src/enumerables/default-if-empty'
 import { List } from '../../src/list'
@@ -5,9 +6,7 @@ import { InternalEnumerable } from '../../src/enumerables/internal-enumerable'
 
 describe('./enumerables/defaultIfEmpty.ts', function() {
   it('存在 defaultIfEmpty 方法', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(defaultIfEmpty).not.null
-    // tslint:disable-next-line:no-unused-expression
     expect(defaultIfEmpty).not.undefined
     expect(typeof defaultIfEmpty).to.equal('function')
   })

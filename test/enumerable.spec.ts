@@ -1,21 +1,18 @@
+/* tslint:disable */
 import { expect } from 'chai'
 import { Enumerable } from '../src/enumerable'
 import { List } from '../src'
 
 describe('./enumerable.ts', function() {
   it('存在 Class Enumerable', function() {
-    // tslint:disable-next-line:no-unused-expression
     expect(Enumerable).not.null
-    // tslint:disable-next-line:no-unused-expression
     expect(Enumerable).not.undefined
     expect(typeof Enumerable).to.equal('function')
   })
 
   it('Enumerable.Empty 可生成空的可枚举对象', function() {
     let empty = Enumerable.Empty<number>()
-    // tslint:disable-next-line:no-unused-expression
     expect(empty).not.null
-    // tslint:disable-next-line:no-unused-expression
     expect(empty).not.undefined
     expect(empty.Count()).is.equal(0)
   })
