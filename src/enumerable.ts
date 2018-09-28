@@ -42,6 +42,13 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
     second: IEnumerable<TSource>,
     comparer?: IEqualityComparer<TSource>
   ): IEnumerable<TSource>
+  Join<TInner, TKey, TResult>(
+    inner: IEnumerable<TInner>,
+    outerKeySelector: (item: TSource) => TKey,
+    innerKeySelector: (item: TInner) => TKey,
+    resultSelector: (item: TSource, inners: TInner) => TResult,
+    comparer?: IEqualityComparer<TKey>
+  ): IEnumerable<TResult>
   Select<TResult>(
     selector: (item: TSource, index?: number) => TResult
   ): IEnumerable<TResult>
@@ -70,6 +77,7 @@ export class Enumerable {
   public static GroupBy = enumerables.groupBy
   public static GroupJoin = enumerables.groupJoin
   public static Intersect = enumerables.intersect
+  public static Join = enumerables.join
   public static Select = enumerables.select
   public static Sum = enumerables.sum
   public static ToList = enumerables.toList

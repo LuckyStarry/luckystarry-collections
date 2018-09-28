@@ -105,6 +105,23 @@ export abstract class EnumerableImpl<TSource> implements IEnumerable<TSource> {
     return Enumerable.Intersect(this, second, comparer)
   }
 
+  public Join<TInner, TKey, TResult>(
+    inner: IEnumerable<TInner>,
+    outerKeySelector: (item: TSource) => TKey,
+    innerKeySelector: (item: TInner) => TKey,
+    resultSelector: (item: TSource, inners: TInner) => TResult,
+    comparer?: IEqualityComparer<TKey>
+  ): IEnumerable<TResult> {
+    return Enumerable.Join(
+      this,
+      inner,
+      outerKeySelector,
+      innerKeySelector,
+      resultSelector,
+      comparer
+    )
+  }
+
   public Select<TResult>(
     selector: (item: TSource, index?: number) => TResult
   ): IEnumerable<TResult> {
