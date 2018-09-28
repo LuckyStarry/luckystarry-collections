@@ -49,6 +49,11 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
     resultSelector: (item: TSource, inners: TInner) => TResult,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<TResult>
+  Last(predicate?: (item: TSource) => boolean): TSource
+  LastOrDefault(
+    defaultValue: TSource,
+    predicate?: (item: TSource) => boolean
+  ): TSource
   Select<TResult>(
     selector: (item: TSource, index?: number) => TResult
   ): IEnumerable<TResult>
@@ -78,6 +83,8 @@ export class Enumerable {
   public static GroupJoin = enumerables.groupJoin
   public static Intersect = enumerables.intersect
   public static Join = enumerables.join
+  public static Last = enumerables.last
+  public static LastOrDefault = enumerables.lastOrDefault
   public static Select = enumerables.select
   public static Sum = enumerables.sum
   public static ToList = enumerables.toList

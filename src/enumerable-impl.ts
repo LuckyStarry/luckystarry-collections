@@ -122,6 +122,17 @@ export abstract class EnumerableImpl<TSource> implements IEnumerable<TSource> {
     )
   }
 
+  public Last(predicate?: (item: TSource) => boolean): TSource {
+    return Enumerable.Last(this, predicate)
+  }
+
+  public LastOrDefault(
+    defaultValue: TSource,
+    predicate?: (item: TSource) => boolean
+  ): TSource {
+    return Enumerable.LastOrDefault(this, defaultValue, predicate)
+  }
+
   public Select<TResult>(
     selector: (item: TSource, index?: number) => TResult
   ): IEnumerable<TResult> {
