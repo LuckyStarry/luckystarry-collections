@@ -133,6 +133,14 @@ export abstract class EnumerableImpl<TSource> implements IEnumerable<TSource> {
     return Enumerable.LastOrDefault(this, defaultValue, predicate)
   }
 
+  public Max(selector?: (item: TSource) => number): number | null {
+    return Enumerable.Max(this, selector)
+  }
+
+  public Min(selector?: (item: TSource) => number): number | null {
+    return Enumerable.Min(this, selector)
+  }
+
   public Select<TResult>(
     selector: (item: TSource, index?: number) => TResult
   ): IEnumerable<TResult> {

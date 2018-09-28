@@ -54,6 +54,8 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
     defaultValue: TSource,
     predicate?: (item: TSource) => boolean
   ): TSource
+  Max(selector?: (item: TSource) => number): number | null
+  Min(selector?: (item: TSource) => number): number | null
   Select<TResult>(
     selector: (item: TSource, index?: number) => TResult
   ): IEnumerable<TResult>
@@ -85,6 +87,8 @@ export class Enumerable {
   public static Join = enumerables.join
   public static Last = enumerables.last
   public static LastOrDefault = enumerables.lastOrDefault
+  public static Max = enumerables.max
+  public static Min = enumerables.min
   public static Select = enumerables.select
   public static Sum = enumerables.sum
   public static ToList = enumerables.toList
