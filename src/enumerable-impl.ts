@@ -141,6 +141,10 @@ export abstract class EnumerableImpl<TSource> implements IEnumerable<TSource> {
     return Enumerable.Min(this, selector)
   }
 
+  public Reverse(): IEnumerable<TSource> {
+    return Enumerable.Reverse(this)
+  }
+
   public Select<TResult>(
     selector: (item: TSource, index?: number) => TResult
   ): IEnumerable<TResult> {
