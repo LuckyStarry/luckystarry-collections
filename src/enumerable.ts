@@ -6,22 +6,42 @@ import { IList } from './list'
 export interface IEnumerable<TSource> extends Iterable<TSource> {
   [Symbol.iterator](): IterableIterator<TSource>
 
-  AsEnumerable(): IEnumerable<TSource>
   All(predicate: (item: TSource) => boolean): boolean
   Any(predicate?: (item: TSource) => boolean): boolean
+  AsEnumerable(): IEnumerable<TSource>
+  Average(selector?: (item: TSource) => number): number | null
+  Concat(second: IEnumerable<TSource>): IEnumerable<TSource>
   Contains(value: TSource, comparer?: IEqualityComparer<TSource>): boolean
   Count(predicate?: (item: TSource) => boolean): number
+  DefaultIfEmpty(defaultValue?: IEnumerable<TSource>): IEnumerable<TSource>
+  Distinct(comparer?: IEqualityComparer<TSource>): IEnumerable<TSource>
   ElementAt(index: number): TSource
-  GroupBy<TKey, TElement = TSource>(
-    keySelector: (item: TSource) => TKey,
-    elementSelector: (item: TSource) => TElement,
-    comparer?: IEqualityComparer<TKey>
-  ): IEnumerable<IGrouping<TKey, TElement>>
+  ElementAtOrDefault(defaultValue: TSource, index: number): TSource
+  Except(
+    second: IEnumerable<TSource>,
+    comparer?: IEqualityComparer<TSource>
+  ): IEnumerable<TSource>
   First(predicate?: (item: TSource) => boolean): TSource
   FirstOrDefault(
     defaultValue: TSource,
     predicate?: (item: TSource) => boolean
   ): TSource
+  GroupBy<TKey, TElement = TSource>(
+    keySelector: (item: TSource) => TKey,
+    elementSelector: (item: TSource) => TElement,
+    comparer?: IEqualityComparer<TKey>
+  ): IEnumerable<IGrouping<TKey, TElement>>
+  GroupJoin<TInner, TKey, TResult>(
+    inner: IEnumerable<TInner>,
+    outerKeySelector: (item: TSource) => TKey,
+    innerKeySelector: (item: TInner) => TKey,
+    resultSelector: (item: TSource, inners: IEnumerable<TInner>) => TResult,
+    comparer?: IEqualityComparer<TKey>
+  ): IEnumerable<TResult>
+  Intersect(
+    second: IEnumerable<TSource>,
+    comparer?: IEqualityComparer<TSource>
+  ): IEnumerable<TSource>
   Select<TResult>(
     selector: (item: TSource, index?: number) => TResult
   ): IEnumerable<TResult>
@@ -49,6 +69,7 @@ export class Enumerable {
   public static FirstOrDefault = enumerables.firstOrDefault
   public static GroupBy = enumerables.groupBy
   public static GroupJoin = enumerables.groupJoin
+  public static Intersect = enumerables.intersect
   public static Select = enumerables.select
   public static Sum = enumerables.sum
   public static ToList = enumerables.toList
