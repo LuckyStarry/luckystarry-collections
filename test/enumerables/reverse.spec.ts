@@ -2,7 +2,6 @@
 import { expect } from 'chai'
 import { reverse } from '../../src/enumerables/reverse'
 import { List } from '../../src'
-import { IEqualityComparer } from '../../src/equality-comparer'
 
 describe('./enumerables/reverse.ts', function() {
   it('存在 reverse 方法', function() {
