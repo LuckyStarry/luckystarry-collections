@@ -60,6 +60,13 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
   Select<TResult>(
     selector: (item: TSource, index?: number) => TResult
   ): IEnumerable<TResult>
+  SelectMany<TCollection, TResult>(
+    collectionSelector: (
+      item: TSource,
+      index?: number
+    ) => IEnumerable<TCollection>,
+    resultSelector: (item: TSource, collection: TCollection) => TResult
+  ): IEnumerable<TResult>
   ToList(): IList<TSource>
   Where(
     predicate: (item: TSource, index?: number) => boolean
@@ -92,6 +99,7 @@ export class Enumerable {
   public static Min = enumerables.min
   public static Reverse = enumerables.reverse
   public static Select = enumerables.select
+  public static SelectMany = enumerables.selectMany
   public static Sum = enumerables.sum
   public static ToList = enumerables.toList
   public static Where = enumerables.where

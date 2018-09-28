@@ -1,8 +1,6 @@
 /* tslint:disable */
 import { expect } from 'chai'
 import { select } from '../../src/enumerables/select'
-import { List } from '../../src'
-import { IEqualityComparer } from '../../src/equality-comparer'
 
 describe('./enumerables/select.ts', function() {
   it('存在 select 方法', function() {

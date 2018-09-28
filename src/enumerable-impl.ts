@@ -151,6 +151,16 @@ export abstract class EnumerableImpl<TSource> implements IEnumerable<TSource> {
     return Enumerable.Select(this, selector)
   }
 
+  public SelectMany<TCollection, TResult>(
+    collectionSelector: (
+      item: TSource,
+      index?: number
+    ) => IEnumerable<TCollection>,
+    resultSelector: (item: TSource, collection: TCollection) => TResult
+  ): IEnumerable<TResult> {
+    return Enumerable.SelectMany(this, collectionSelector, resultSelector)
+  }
+
   public ToList(): IList<TSource> {
     return Enumerable.ToList(this)
   }
