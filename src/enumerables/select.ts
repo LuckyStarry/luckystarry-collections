@@ -8,7 +8,7 @@ export function select<TSource, TResult>(
 ): IEnumerable<TResult> {
   utils.throws.ThrowIfNull('source', source)
   utils.throws.ThrowIfNull('selector', selector)
-  return new InternalEnumerable(mapping(source, selector))
+  return new InternalEnumerable([...mapping(source, selector)])
 }
 
 function* mapping<TSource, TResult>(
