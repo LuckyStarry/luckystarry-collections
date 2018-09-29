@@ -1,8 +1,8 @@
 /* tslint:disable */
 import { expect } from 'chai'
 import { contains } from '../../src/enumerables/contains'
+import { EqualityComparer } from '../../src/equality-comparer'
 import { List } from '../../src'
-import { IEqualityComparer } from '../../src/equality-comparer'
 
 describe('./enumerables/contains.ts', function() {
   it('存在 contains 方法', function() {
@@ -69,14 +69,14 @@ describe('./enumerables/contains.ts', function() {
   })
 })
 
-class NumberEqualityImpl implements IEqualityComparer<number> {
-  public Equal(x: number, y: number): boolean {
+class NumberEqualityImpl extends EqualityComparer<number> {
+  public Equals(x: number, y: number): boolean {
     return x === y
   }
 }
 
-class NumberEqualityImplPlus implements IEqualityComparer<number> {
-  public Equal(x: number, y: number): boolean {
+class NumberEqualityImplPlus extends EqualityComparer<number> {
+  public Equals(x: number, y: number): boolean {
     return x === y + 1
   }
 }

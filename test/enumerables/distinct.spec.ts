@@ -1,8 +1,8 @@
 /* tslint:disable */
 import { expect } from 'chai'
 import { distinct } from '../../src/enumerables/distinct'
+import { EqualityComparer } from '../../src/equality-comparer'
 import { List } from '../../src'
-import { IEqualityComparer } from '../../src/equality-comparer'
 
 describe('./enumerables/distinct.ts', function() {
   it('存在 distinct 方法', function() {
@@ -120,14 +120,14 @@ class Spec {
   constructor(public Text: string, public Value: string) {}
 }
 
-class EqualityImpl implements IEqualityComparer<Spec> {
-  public Equal(x: Spec, y: Spec): boolean {
+class EqualityImpl extends EqualityComparer<Spec> {
+  public Equals(x: Spec, y: Spec): boolean {
     return x.Text === y.Text && x.Value === y.Value
   }
 }
 
-class EqualityImplPlus implements IEqualityComparer<Spec> {
-  public Equal(x: Spec, y: Spec): boolean {
+class EqualityImplPlus extends EqualityComparer<Spec> {
+  public Equals(x: Spec, y: Spec): boolean {
     return (
       (x.Text === y.Text || x.Text === y.Value) &&
       (x.Value === y.Value || x.Value === y.Text)

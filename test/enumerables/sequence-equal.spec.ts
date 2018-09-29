@@ -67,8 +67,8 @@ describe('./enumerables/sequence-equal.ts', function() {
   })
 })
 
-class SpecEqual implements EqualityComparer<number> {
-  public Equal(x: number, y: number): boolean {
+class SpecEqual extends EqualityComparer<number> {
+  public Equals(x: number, y: number): boolean {
     return x % 2 === y % 2
   }
 }

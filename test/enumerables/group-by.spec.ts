@@ -1,7 +1,7 @@
 /* tslint:disable */
 import { expect } from 'chai'
 import { groupBy } from '../../src/enumerables/group-by'
-import { IEqualityComparer } from '../../src/equality-comparer'
+import { EqualityComparer } from '../../src/equality-comparer'
 
 describe('./enumerables/group-by.ts', function() {
   it('存在 groupBy 方法', function() {
@@ -168,14 +168,14 @@ class Spec {
   constructor(public Text: string, public Value: string) {}
 }
 
-class EqualityImpl implements IEqualityComparer<Spec> {
-  public Equal(x: Spec, y: Spec): boolean {
+class EqualityImpl extends EqualityComparer<Spec> {
+  public Equals(x: Spec, y: Spec): boolean {
     return x.Text === y.Text && x.Value === y.Value
   }
 }
 
-class EqualityImplPlus implements IEqualityComparer<Spec> {
-  public Equal(x: Spec, y: Spec): boolean {
+class EqualityImplPlus extends EqualityComparer<Spec> {
+  public Equals(x: Spec, y: Spec): boolean {
     return (
       (x.Text === y.Text || x.Text === y.Value) &&
       (x.Value === y.Value || x.Value === y.Text)
