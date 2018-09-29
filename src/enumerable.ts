@@ -71,6 +71,11 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
     second: Iterable<TSource>,
     comparer?: IEqualityComparer<TSource>
   ): boolean
+  Single(predicate?: (item: TSource) => boolean): TSource
+  SingleOrDefault(
+    defaultValue: TSource,
+    predicate?: (item: TSource) => boolean
+  ): TSource
   ToList(): IList<TSource>
   Where(
     predicate: (item: TSource, index?: number) => boolean
@@ -105,6 +110,8 @@ export class Enumerable {
   public static Select = enumerables.select
   public static SelectMany = enumerables.selectMany
   public static SequenceEqual = enumerables.sequenceEqual
+  public static Single = enumerables.single
+  public static SingleOrDefault = enumerables.singleOrDefault
   public static Sum = enumerables.sum
   public static ToList = enumerables.toList
   public static Where = enumerables.where

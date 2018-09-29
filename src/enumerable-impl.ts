@@ -168,6 +168,17 @@ export abstract class EnumerableImpl<TSource> implements IEnumerable<TSource> {
     return Enumerable.SequenceEqual(this, second, comparer)
   }
 
+  public Single(predicate?: (item: TSource) => boolean): TSource {
+    return Enumerable.Single(this, predicate)
+  }
+
+  public SingleOrDefault(
+    defaultValue: TSource,
+    predicate?: (item: TSource) => boolean
+  ): TSource {
+    return Enumerable.SingleOrDefault(this, defaultValue, predicate)
+  }
+
   public ToList(): IList<TSource> {
     return Enumerable.ToList(this)
   }
