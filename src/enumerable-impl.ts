@@ -193,6 +193,16 @@ export abstract class EnumerableImpl<TSource> implements IEnumerable<TSource> {
     return Enumerable.Sum(this, selector)
   }
 
+  public Take(count: number): IEnumerable<TSource> {
+    return Enumerable.Take(this, count)
+  }
+
+  public TakeWhile(
+    predicate: (item: TSource, index?: number) => boolean
+  ): IEnumerable<TSource> {
+    return Enumerable.TakeWhile(this, predicate)
+  }
+
   public ToList(): IList<TSource> {
     return Enumerable.ToList(this)
   }
