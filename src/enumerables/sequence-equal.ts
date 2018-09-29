@@ -19,7 +19,7 @@ export function sequenceEqual<TSource>(
     } else if (y.done) {
       return false
     }
-    if (!comparer.Equal(x.value, y.value)) {
+    if (!comparer.Equals(x.value, y.value)) {
       return false
     }
   }

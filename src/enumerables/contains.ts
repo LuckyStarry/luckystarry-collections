@@ -9,5 +9,5 @@ export function contains<TSource>(
 ): boolean {
   utils.throws.ThrowIfNull('source', source)
   comparer = comparer || EqualityComparer.Default()
-  return assistance.contains(source, value, (x, y) => comparer.Equal(x, y))
+  return assistance.contains(source, value, (x, y) => comparer.Equals(x, y))
 }
