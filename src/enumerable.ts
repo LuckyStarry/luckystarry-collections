@@ -67,6 +67,10 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
     ) => IEnumerable<TCollection>,
     resultSelector: (item: TSource, collection: TCollection) => TResult
   ): IEnumerable<TResult>
+  SequenceEqual(
+    second: Iterable<TSource>,
+    comparer?: IEqualityComparer<TSource>
+  ): boolean
   ToList(): IList<TSource>
   Where(
     predicate: (item: TSource, index?: number) => boolean
@@ -100,6 +104,7 @@ export class Enumerable {
   public static Reverse = enumerables.reverse
   public static Select = enumerables.select
   public static SelectMany = enumerables.selectMany
+  public static SequenceEqual = enumerables.sequenceEqual
   public static Sum = enumerables.sum
   public static ToList = enumerables.toList
   public static Where = enumerables.where

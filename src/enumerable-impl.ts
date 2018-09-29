@@ -161,6 +161,13 @@ export abstract class EnumerableImpl<TSource> implements IEnumerable<TSource> {
     return Enumerable.SelectMany(this, collectionSelector, resultSelector)
   }
 
+  public SequenceEqual(
+    second: Iterable<TSource>,
+    comparer?: IEqualityComparer<TSource>
+  ): boolean {
+    return Enumerable.SequenceEqual(this, second, comparer)
+  }
+
   public ToList(): IList<TSource> {
     return Enumerable.ToList(this)
   }
