@@ -80,6 +80,7 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
   SkipWhile(
     predicate: (item: TSource, index?: number) => boolean
   ): IEnumerable<TSource>
+  Sum(selector?: (item: TSource) => number): number | null
   ToList(): IList<TSource>
   Where(
     predicate: (item: TSource, index?: number) => boolean

@@ -9,6 +9,9 @@ export function sum<TSource>(
   selector =
     selector ||
     (x => {
+      if (utils.IsNullOrUndefined(x)) {
+        return null
+      }
       if (typeof x === 'number') {
         return x
       } else {

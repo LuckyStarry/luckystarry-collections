@@ -189,6 +189,10 @@ export abstract class EnumerableImpl<TSource> implements IEnumerable<TSource> {
     return Enumerable.SkipWhile(this, predicate)
   }
 
+  public Sum(selector?: (item: TSource) => number): number | null {
+    return Enumerable.Sum(this, selector)
+  }
+
   public ToList(): IList<TSource> {
     return Enumerable.ToList(this)
   }
