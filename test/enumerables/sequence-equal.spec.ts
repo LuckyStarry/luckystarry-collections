@@ -1,7 +1,7 @@
 /* tslint:disable */
 import { expect } from 'chai'
 import { sequenceEqual } from '../../src/enumerables/sequence-equal'
-import { List } from '../../src'
+import { EqualityComparer } from '../../src/equality-comparer'
 
 describe('./enumerables/sequence-equal.ts', function() {
   it('存在 sequenceEqual 方法', function() {
@@ -61,4 +61,14 @@ describe('./enumerables/sequence-equal.ts', function() {
   it('sequenceEqual([1, 2, 3, 4], [1, 2, 3]) => false', function() {
     expect(sequenceEqual([1, 2, 3, 4], [1, 2, 3])).is.false
   })
+
+  it('sequenceEqual([3, 2, 4, 10], [7, 4, 12, 6], (x, y) => x % 2 === y % 2) => true', function() {
+    expect(sequenceEqual([3, 2, 4, 10], [7, 4, 12, 6], new SpecEqual())).is.true
+  })
 })
+
+class SpecEqual implements EqualityComparer<number> {
+  public Equal(x: number, y: number): boolean {
+    return x % 2 === y % 2
+  }
+}
