@@ -8,7 +8,6 @@
   "scripts": {
     "prebuild": "del-cli dist -f",
     "build": "tsc",
-    "pretest": "del-cli .nyc_output coverage -f",
     "test": "nyc mocha",
     "testonly": "mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls",

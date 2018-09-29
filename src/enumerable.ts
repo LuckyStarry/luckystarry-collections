@@ -76,6 +76,10 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
     defaultValue: TSource,
     predicate?: (item: TSource) => boolean
   ): TSource
+  Skip(count: number): IEnumerable<TSource>
+  SkipWhile(
+    predicate: (item: TSource, index?: number) => boolean
+  ): IEnumerable<TSource>
   ToList(): IList<TSource>
   Where(
     predicate: (item: TSource, index?: number) => boolean
@@ -112,6 +116,8 @@ export class Enumerable {
   public static SequenceEqual = enumerables.sequenceEqual
   public static Single = enumerables.single
   public static SingleOrDefault = enumerables.singleOrDefault
+  public static Skip = enumerables.skip
+  public static SkipWhile = enumerables.skipWhile
   public static Sum = enumerables.sum
   public static ToList = enumerables.toList
   public static Where = enumerables.where

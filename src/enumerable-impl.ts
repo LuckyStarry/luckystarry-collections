@@ -179,6 +179,16 @@ export abstract class EnumerableImpl<TSource> implements IEnumerable<TSource> {
     return Enumerable.SingleOrDefault(this, defaultValue, predicate)
   }
 
+  public Skip(count: number): IEnumerable<TSource> {
+    return Enumerable.Skip(this, count)
+  }
+
+  public SkipWhile(
+    predicate: (item: TSource, index?: number) => boolean
+  ): IEnumerable<TSource> {
+    return Enumerable.SkipWhile(this, predicate)
+  }
+
   public ToList(): IList<TSource> {
     return Enumerable.ToList(this)
   }
