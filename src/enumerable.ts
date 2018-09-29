@@ -85,6 +85,7 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
   TakeWhile(
     predicate: (item: TSource, index?: number) => boolean
   ): IEnumerable<TSource>
+  ToArray(): Array<TSource>
   ToList(): IList<TSource>
   Where(
     predicate: (item: TSource, index?: number) => boolean
@@ -126,6 +127,7 @@ export class Enumerable {
   public static Sum = enumerables.sum
   public static Take = enumerables.take
   public static TakeWhile = enumerables.takeWhile
+  public static ToArray = enumerables.toArray
   public static ToList = enumerables.toList
   public static Where = enumerables.where
 }
