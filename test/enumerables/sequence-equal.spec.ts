@@ -57,4 +57,8 @@ describe('./enumerables/sequence-equal.ts', function() {
   it('sequenceEqual([5, 1, 2, 3, 4], [1, 2, 3, 4, 5]) => false', function() {
     expect(sequenceEqual([5, 1, 2, 3, 4], [1, 2, 3, 4, 5])).is.false
   })
+
+  it('sequenceEqual([1, 2, 3, 4], [1, 2, 3]) => false', function() {
+    expect(sequenceEqual([1, 2, 3, 4], [1, 2, 3])).is.false
+  })
 })
