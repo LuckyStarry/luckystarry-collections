@@ -14,11 +14,14 @@ export abstract class EqualityComparer<T> implements IEqualityComparer<T> {
       if (typeof obj === 'number') {
         return obj
       }
+      if (typeof obj === 'string') {
+        return stringHashCode(obj)
+      }
       hash = obj[HASH_CODE]
       if (hash !== undefined) {
         return hash
       }
-      hash = getHashCode(obj)
+      hash = getHashCode()
       obj[HASH_CODE] = hash
     }
     return hash
@@ -35,36 +38,33 @@ class DefaultEqualityComparer<T> extends EqualityComparer<T> {
   }
 }
 
-function getHashCode(obj: any): number {
-  if (typeof obj === 'number') {
-    return obj
-  }
-  if (typeof obj === 'string') {
-    return stringHashCode(obj)
-  }
-  return randomHashCode()
-}
-
-function stringHashCode(value: string): number {
-  let h = 0
-  if (value) {
-    let len = value.length
-    let t = 2147483648
-    for (let i = 0; i < len; i++) {
-      h = 31 * h + value.charCodeAt(i)
-      if (h > 2147483647) h %= t
-    }
-  }
-  return h
-}
-
-function randomHashCode() {
+function getHashCode(): number {
   let timestamp = new Date().valueOf()
   let word = randomWord(6, 32)
   return stringHashCode(word + timestamp.toString())
 }
 
-const alphas = [
+function stringHashCode(text: string): number {
+  let hash = 0
+  if (text) {
+    for (let i = 0; i < text.length; i++) {
+      hash = hash * 31 + text.charCodeAt(i)
+      hash = intValue(hash)
+    }
+  }
+  return hash
+}
+
+function intValue(num) {
+  if (num > MAX_VALUE || num < MIN_VALUE) {
+    return (num &= 0xffffffff)
+  }
+  return num
+}
+
+const MAX_VALUE = 0x7fffffff
+const MIN_VALUE = -0x80000000
+const ALPHAS = [
   '0',
   '1',
   '2',
@@ -110,8 +110,8 @@ function randomWord(min: number, max?: number): string {
     length = Math.round(Math.random() * (max - min)) + min
   }
   for (let i = 0; i < length; i++) {
-    let position = Math.round(Math.random() * (alphas.length - 1))
-    text += alphas[position]
+    let position = Math.round(Math.random() * (ALPHAS.length - 1))
+    text += ALPHAS[position]
   }
   return text
 }
