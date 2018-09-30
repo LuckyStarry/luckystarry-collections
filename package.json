@@ -1,6 +1,6 @@
 {
   "name": "luckystarry-collections",
-  "version": "0.0.1",
+  "version": "0.1.0-alpha",
   "description": "模仿 .NET 的集合类",
   "keywords": [
     "collections"
