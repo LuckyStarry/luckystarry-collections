@@ -29,7 +29,6 @@
   },
   "main": "dist/index.js",
   "dependencies": {
-    "reflect-metadata": "^0.1.12",
     "typescript": "^3.0.3"
   },
   "license": "MIT",
