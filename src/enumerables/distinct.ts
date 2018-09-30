@@ -12,7 +12,7 @@ export function distinct<TSource>(
   if (Enumerable.Any(source)) {
     comparer = comparer || EqualityComparer.Default()
     return new InternalEnumerable(
-      assistance.distinct(source, (x, y) => comparer.Equal(x, y))
+      assistance.distinct(source, (x, y) => comparer.Equals(x, y))
     )
   }
   return Enumerable.Empty()

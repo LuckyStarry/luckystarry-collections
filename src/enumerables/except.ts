@@ -14,9 +14,9 @@ export function except<TSource>(
   comparer = comparer || EqualityComparer.Default()
   return new InternalEnumerable(
     assistance.except(
-      assistance.distinct(first, (x, y) => comparer.Equal(x, y)),
-      assistance.distinct(second, (x, y) => comparer.Equal(x, y)),
-      (x, y) => comparer.Equal(x, y)
+      assistance.distinct(first, (x, y) => comparer.Equals(x, y)),
+      assistance.distinct(second, (x, y) => comparer.Equals(x, y)),
+      (x, y) => comparer.Equals(x, y)
     )
   )
 }

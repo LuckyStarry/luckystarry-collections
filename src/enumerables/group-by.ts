@@ -18,7 +18,7 @@ export function groupBy<TSource, TKey, TElement = TSource>(
   return new InternalEnumerable(
     assistance
       .group(source, keySelector, elementSelector, (x, y) =>
-        comparer.Equal(x, y)
+        comparer.Equals(x, y)
       )
       .map(g => new Grouping(g.Key, new InternalEnumerable(g.List)))
   )

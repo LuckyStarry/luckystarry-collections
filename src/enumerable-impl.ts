@@ -203,6 +203,10 @@ export abstract class EnumerableImpl<TSource> implements IEnumerable<TSource> {
     return Enumerable.TakeWhile(this, predicate)
   }
 
+  public ToArray(): Array<TSource> {
+    return Enumerable.ToArray(this)
+  }
+
   public ToList(): IList<TSource> {
     return Enumerable.ToList(this)
   }

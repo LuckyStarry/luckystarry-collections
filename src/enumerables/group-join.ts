@@ -41,7 +41,7 @@ function* join<TOuter, TInner, TKey, TResult>(
     let key = outerKeySelector(item)
     let inners: IEnumerable<TInner> = Enumerable.AsEnumerable(
       groupedInner
-    ).FirstOrDefault(null, g => comparer.Equal(g.Key, key))
+    ).FirstOrDefault(null, g => comparer.Equals(g.Key, key))
     if (!inners) {
       inners = Enumerable.Empty<TInner>()
     } else {
