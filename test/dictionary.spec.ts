@@ -18,6 +18,33 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Count()).is.equal(0)
   })
 
+  it('Dictionary 可使用容量构造函数 (0)', function() {
+    let dictionary = new Dictionary(0)
+    expect(dictionary.Count()).is.equal(0)
+  })
+
+  it('Dictionary 可使用容量构造函数 (2)', function() {
+    let dictionary = new Dictionary(2)
+    expect(dictionary.Count()).is.equal(0)
+  })
+
+  it('Dictionary 可使用容量构造函数 (3)', function() {
+    let dictionary = new Dictionary(3)
+    expect(dictionary.Count()).is.equal(0)
+  })
+
+  it('Dictionary 可使用容量构造函数 (7199369 + 1)', function() {
+    this.slow()
+    let dictionary = new Dictionary(7199369 + 1)
+    expect(dictionary.Count()).is.equal(0)
+  })
+
+  it('Dictionary 可使用容量构造函数 (-1) => throw', function() {
+    expect(() => {
+      new Dictionary(-1)
+    }).to.throw('capacity 小于 0')
+  })
+
   it('Dictionary 可使用 Map 构造函数', function() {
     let original = new Map()
     original.set(1, 2)
@@ -197,6 +224,144 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Get(2)).is.equal(3)
 
     expect(() => dictionary.Add(2, 300)).to.throw('已经存在相同的Key')
+  })
+
+  it('Dictionary.Get Key存在时正常', function() {
+    let original = new Map()
+    original.set('KEY_01', 2)
+    original.set('KEY_02', 3)
+    let dictionary = new Dictionary(original)
+    expect(dictionary.Get('KEY_01')).is.equal(2)
+    expect(dictionary.Get('KEY_02')).is.equal(3)
+  })
+
+  it('Dictionary.Get Key不存在时异常', function() {
+    let original = new Map()
+    original.set('KEY_01', 2)
+    original.set('KEY_02', 3)
+    let dictionary = new Dictionary(original)
+
+    expect(() => dictionary.Get('KEY_03')).to.throw('不存在的Key')
+  })
+
+  it('Dictionary.ContainsKey 空字典返回 false', function() {
+    let dictionary = new Dictionary()
+    expect(dictionary.Count()).is.equal(0)
+    expect(dictionary.ContainsKey('KEY_03')).is.false
+    expect(dictionary.Count()).is.equal(0)
+  })
+
+  it('Dictionary.ContainsKey 不存在返回 false', function() {
+    let dictionary = new Dictionary()
+    dictionary.Set('KEY_01', 100)
+    dictionary.Set('KEY_02', 200)
+    expect(dictionary.Count()).is.equal(2)
+    expect(dictionary.Get('KEY_01')).is.equal(100)
+    expect(dictionary.Get('KEY_02')).is.equal(200)
+    expect(dictionary.ContainsKey('KEY_03')).is.false
+    expect(dictionary.Count()).is.equal(2)
+    expect(dictionary.Get('KEY_01')).is.equal(100)
+    expect(dictionary.Get('KEY_02')).is.equal(200)
+  })
+
+  it('Dictionary.ContainsKey 存在返回 true', function() {
+    let dictionary = new Dictionary()
+    dictionary.Set('KEY_01', 100)
+    dictionary.Set('KEY_02', 200)
+    dictionary.Set('KEY_03', 300)
+    expect(dictionary.Count()).is.equal(3)
+    expect(dictionary.Get('KEY_01')).is.equal(100)
+    expect(dictionary.Get('KEY_02')).is.equal(200)
+    expect(dictionary.Get('KEY_03')).is.equal(300)
+    expect(dictionary.ContainsKey('KEY_02')).is.true
+    expect(dictionary.Count()).is.equal(3)
+    expect(dictionary.Get('KEY_01')).is.equal(100)
+    expect(dictionary.Get('KEY_02')).is.equal(200)
+    expect(dictionary.Get('KEY_03')).is.equal(300)
+  })
+
+  it('Dictionary.Clear 空字典正常', function() {
+    let dictionary = new Dictionary()
+    expect(dictionary.Count()).is.equal(0)
+    dictionary.Clear()
+    expect(dictionary.Count()).is.equal(0)
+  })
+
+  it('Dictionary.Clear 有数据的字典正常', function() {
+    let dictionary = new Dictionary()
+    dictionary.Set('KEY_01', 100)
+    dictionary.Set('KEY_02', 200)
+    expect(dictionary.Count()).is.equal(2)
+    dictionary.Clear()
+    expect(dictionary.Count()).is.equal(0)
+  })
+
+  it('Dictionary.Remove 空字典返回 false', function() {
+    let dictionary = new Dictionary()
+    expect(dictionary.Count()).is.equal(0)
+    expect(dictionary.Remove('KEY_01')).is.false
+    expect(dictionary.Count()).is.equal(0)
+  })
+
+  it('Dictionary.Remove 不存在返回 false', function() {
+    let dictionary = new Dictionary()
+    dictionary.Set('KEY_01', 100)
+    dictionary.Set('KEY_02', 200)
+    expect(dictionary.Count()).is.equal(2)
+    expect(dictionary.Get('KEY_01')).is.equal(100)
+    expect(dictionary.Get('KEY_02')).is.equal(200)
+    expect(dictionary.Remove('KEY_03')).is.false
+    expect(dictionary.Count()).is.equal(2)
+    expect(dictionary.Get('KEY_01')).is.equal(100)
+    expect(dictionary.Get('KEY_02')).is.equal(200)
+  })
+
+  it('Dictionary.Remove 存在删除正常返回 true', function() {
+    let dictionary = new Dictionary()
+    dictionary.Set('KEY_01', 100)
+    dictionary.Set('KEY_02', 200)
+    dictionary.Set('KEY_03', 300)
+    expect(dictionary.Count()).is.equal(3)
+    expect(dictionary.Get('KEY_01')).is.equal(100)
+    expect(dictionary.Get('KEY_02')).is.equal(200)
+    expect(dictionary.Get('KEY_03')).is.equal(300)
+    expect(dictionary.Remove('KEY_02')).is.true
+    expect(dictionary.Count()).is.equal(2)
+    expect(dictionary.Get('KEY_01')).is.equal(100)
+    expect(dictionary.Get('KEY_03')).is.equal(300)
+  })
+
+  it('Dictionary.TryGetValue 不存在返回 [false, undefined]', function() {
+    let dictionary = new Dictionary()
+    dictionary.Set('KEY_01', 100)
+    dictionary.Set('KEY_02', 200)
+    expect(dictionary.Count()).is.equal(2)
+    expect(dictionary.Get('KEY_01')).is.equal(100)
+    expect(dictionary.Get('KEY_02')).is.equal(200)
+    let [ok, value] = dictionary.TryGetValue('KEY_03')
+    expect(ok).is.false
+    expect(value).is.undefined
+    expect(dictionary.Count()).is.equal(2)
+    expect(dictionary.Get('KEY_01')).is.equal(100)
+    expect(dictionary.Get('KEY_02')).is.equal(200)
+  })
+
+  it('Dictionary.TryGetValue 存在返回 [true, value]', function() {
+    let dictionary = new Dictionary()
+    dictionary.Set('KEY_01', 100)
+    dictionary.Set('KEY_02', 200)
+    dictionary.Set('KEY_03', 300)
+    expect(dictionary.Count()).is.equal(3)
+    expect(dictionary.Get('KEY_01')).is.equal(100)
+    expect(dictionary.Get('KEY_02')).is.equal(200)
+    expect(dictionary.Get('KEY_03')).is.equal(300)
+    let [ok, value] = dictionary.TryGetValue('KEY_02')
+    expect(ok).is.true
+    expect(value).is.equal(200)
+    expect(dictionary.Count()).is.equal(3)
+    expect(dictionary.Get('KEY_01')).is.equal(100)
+    expect(dictionary.Get('KEY_02')).is.equal(200)
+    expect(dictionary.Get('KEY_03')).is.equal(300)
   })
 
   it('Dictionary.All 方法正常运作', function() {

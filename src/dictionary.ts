@@ -1,6 +1,10 @@
 import { IEnumerable, Enumerable } from './enumerable'
 import { IEqualityComparer, EqualityComparer } from './equality-comparer'
-import { ArgumentException, KeyNotFoundException } from './exceptions'
+import {
+  ArgumentException,
+  KeyNotFoundException,
+  ArgumentOutOfRangeException
+} from './exceptions'
 import { KeyValuePair } from './key-value-pair'
 import { IGrouping } from './grouping'
 import { IList } from './list'
@@ -30,16 +34,29 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
   public constructor(
     dictionary?:
       | Iterable<KeyValuePair<TKey, TValue>>
-      | Iterable<[TKey, TValue]>,
+      | Iterable<[TKey, TValue]>
+      | number,
     comparer?: IEqualityComparer<TKey>
   ) {
     this.comparer = comparer || EqualityComparer.Default()
     if (dictionary) {
-      for (let item of dictionary) {
-        if (item instanceof KeyValuePair) {
-          this.Set(item.Key, item.Value)
-        } else {
-          this.Set(item[0], item[1])
+      if (typeof dictionary === 'number') {
+        let capacity = dictionary
+        if (capacity < 0) {
+          throw new ArgumentOutOfRangeException(
+            'capacity',
+            capacity,
+            'capacity 小于 0'
+          )
+        }
+        this.Initialize(capacity)
+      } else {
+        for (let item of dictionary) {
+          if (item instanceof KeyValuePair) {
+            this.Set(item.Key, item.Value)
+          } else {
+            this.Set(item[0], item[1])
+          }
         }
       }
     }
