@@ -903,6 +903,18 @@ describe('./dictionary.ts', function() {
     expect(listed.Get(2).Value).is.equal(3)
   })
 
+  it('Dictionary.Union 方法正常运作', function() {
+    let left = new Dictionary<string, number>()
+    left.Set('KEY_01', 1)
+    left.Set('KEY_02', 2)
+    left.Set('KEY_03', 3)
+    let right = new Dictionary<string, number>()
+    right.Set('KEY_04', 4)
+    right.Set('KEY_05', 5)
+    let enumerables = left.Union(right)
+    expect(enumerables.Count()).is.equal(5)
+  })
+
   it('Dictionary.Where 方法正常运作', function() {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)

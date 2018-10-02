@@ -231,6 +231,13 @@ export class EnumerableContainer<TSource> {
     return Enumerable.ToList(this)
   }
 
+  public Union(
+    second: Iterable<TSource>,
+    comparer?: IEqualityComparer<TSource>
+  ): IEnumerable<TSource> {
+    return Enumerable.Union(this, second, comparer)
+  }
+
   public Where(
     predicate: (item: TSource, index?: number) => boolean
   ): IEnumerable<TSource> {

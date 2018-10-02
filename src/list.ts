@@ -305,6 +305,13 @@ export class List<T> implements IList<T> {
     return Enumerable.ToList(this)
   }
 
+  public Union(
+    second: Iterable<T>,
+    comparer?: IEqualityComparer<T>
+  ): IEnumerable<T> {
+    return Enumerable.Union(this, second, comparer)
+  }
+
   public Where(
     predicate: (item: T, index?: number) => boolean
   ): IEnumerable<T> {

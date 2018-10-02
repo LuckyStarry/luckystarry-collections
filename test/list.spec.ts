@@ -546,6 +546,13 @@ describe('./list.ts', function() {
     expect(listed.Get(2)).is.equal(3)
   })
 
+  it('List.Union 方法正常运作', function() {
+    let left = new List([1, 2])
+    let right = new List([2, 3])
+    let enumerables = left.Union(right)
+    expect(enumerables.Count()).is.equal(3)
+  })
+
   it('List.Where 方法正常运作', function() {
     let list = new List([1, 2, 3, 1, 2])
     let filtered = list.Where(x => x >= 2)

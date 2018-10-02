@@ -97,6 +97,10 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
     comparer?: IEqualityComparer<TKey>
   ): IDictionary<TKey, TElement>
   ToList(): IList<TSource>
+  Union(
+    second: Iterable<TSource>,
+    comparer?: IEqualityComparer<TSource>
+  ): IEnumerable<TSource>
   Where(
     predicate: (item: TSource, index?: number) => boolean
   ): IEnumerable<TSource>
@@ -140,5 +144,6 @@ export class Enumerable {
   public static ToArray = enumerables.toArray
   public static ToDictionary = enumerables.toDictionary
   public static ToList = enumerables.toList
+  public static Union = enumerables.union
   public static Where = enumerables.where
 }

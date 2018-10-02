@@ -310,6 +310,13 @@ describe('./enumerables/enumerable-container.ts', function() {
     expect(listed.Get(2)).is.equal(3)
   })
 
+  it('EnumerableContainer.Union 方法正常运作', function() {
+    let left = new EnumerableContainer([1, 2])
+    let right = new EnumerableContainer([2, 3])
+    let enumerables = left.Union(right)
+    expect(enumerables.Count()).is.equal(3)
+  })
+
   it('EnumerableContainer.Where 方法正常运作', function() {
     let list = new EnumerableContainer([1, 2, 3, 1, 2])
     let filtered = list.Where(x => x >= 2)

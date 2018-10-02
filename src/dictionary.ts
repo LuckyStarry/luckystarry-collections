@@ -530,6 +530,13 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.ToList(this)
   }
 
+  public Union(
+    second: Iterable<KeyValuePair<TKey, TValue>>,
+    comparer?: IEqualityComparer<KeyValuePair<TKey, TValue>>
+  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+    return Enumerable.Union(this, second, comparer)
+  }
+
   public Where(
     predicate: (item: KeyValuePair<TKey, TValue>, index?: number) => boolean
   ): IEnumerable<KeyValuePair<TKey, TValue>> {
