@@ -38,6 +38,227 @@ describe('./list.ts', function() {
     expect(list.Get(4)).is.equal(original.Get(4))
   })
 
+  it('List.IsReadOnly => false', function() {
+    let list = new List([1, 2, 3, 1, 2])
+    expect(list.IsReadOnly).is.false
+  })
+
+  it('List.Add 可正常追加数据', function() {
+    let list = new List([1, 2])
+    expect(list.Count()).is.equal(2)
+    list.Add(10)
+    expect(list.Count()).is.equal(3)
+    list.Add(20)
+    list.Add(30)
+    list.Add(40)
+    expect(list.Count()).is.equal(6)
+  })
+
+  it('List.AddRange 追加空数组正常', function() {
+    let list = new List([1, 2])
+    expect(list.Count()).is.equal(2)
+    list.AddRange([])
+    expect(list.Count()).is.equal(2)
+  })
+
+  it('List.AddRange 追加非空数组正常', function() {
+    let list = new List([1, 2])
+    expect(list.Count()).is.equal(2)
+    list.AddRange([10, 20, 30, 40])
+    expect(list.Count()).is.equal(6)
+  })
+
+  it('List.AddRange 追加 null 正常', function() {
+    let list = new List([1, 2])
+    expect(list.Count()).is.equal(2)
+    list.AddRange(null)
+    expect(list.Count()).is.equal(2)
+  })
+
+  it('List.AddRange 追加 undefined 正常', function() {
+    let list = new List([1, 2])
+    expect(list.Count()).is.equal(2)
+    list.AddRange(undefined)
+    expect(list.Count()).is.equal(2)
+  })
+
+  it('List.Set 索引范围内正常赋值', function() {
+    let list = new List([1, 2])
+    expect(list.Get(0)).is.equal(1)
+    list.Set(0, 100)
+    expect(list.Get(0)).is.equal(100)
+    list.Set(0, 1000)
+    expect(list.Get(0)).is.equal(1000)
+    list.Set(1, 999)
+    expect(list.Get(0)).is.equal(1000)
+    expect(list.Get(1)).is.equal(999)
+  })
+
+  it('List.Set 索引范围外异常', function() {
+    let list = new List([1, 2])
+    expect(() => {
+      list.Set(-1, 100)
+    }).to.throw(`参数 index 的范围越界 ${-1}`)
+    expect(() => {
+      list.Set(2, 0)
+    }).to.throw(`参数 index 的范围越界 ${2}`)
+  })
+
+  it('List.Get 下标范围外异常', function() {
+    let list = new List([2, 3, 4, 5])
+    expect(() => {
+      list.Get(-1)
+    }).to.throw(`参数 index 的范围越界 ${-1}`)
+    expect(() => {
+      list.Get(5)
+    }).to.throw(`参数 index 的范围越界 ${5}`)
+  })
+
+  it('List.Clear 空数组正常', function() {
+    let list = new List()
+    expect(list.Count()).is.equal(0)
+    list.Clear()
+    expect(list.Count()).is.equal(0)
+  })
+
+  it('List.Clear 有数据的数组正常', function() {
+    let list = new List([1, 2, 3, 4, 5])
+    expect(list.Count()).is.equal(5)
+    list.Clear()
+    expect(list.Count()).is.equal(0)
+  })
+
+  it('List.CopyTo 空数组正常', function() {
+    let list = new List()
+    let array = []
+    list.CopyTo(array, 0)
+    expect(array.length).is.equal(0)
+  })
+
+  it('List.CopyTo 有数据的数组正常', function() {
+    let list = new List([2, 3, 4, 5])
+    let array = []
+    list.CopyTo(array, 0)
+    expect(array.length).is.equal(4)
+    expect(array[0]).is.equal(2)
+    expect(array[1]).is.equal(3)
+    expect(array[2]).is.equal(4)
+    expect(array[3]).is.equal(5)
+  })
+
+  it('List.CopyTo 二次Copy正常', function() {
+    let list = new List([2, 3, 4, 5])
+    let array = []
+    list.CopyTo(array, 0)
+    expect(array.length).is.equal(4)
+    expect(array[0]).is.equal(2)
+    expect(array[1]).is.equal(3)
+    expect(array[2]).is.equal(4)
+    expect(array[3]).is.equal(5)
+    list.CopyTo(array, 2)
+    expect(array.length).is.equal(6)
+    expect(array[0]).is.equal(2)
+    expect(array[1]).is.equal(3)
+    expect(array[2]).is.equal(2)
+    expect(array[3]).is.equal(3)
+    expect(array[4]).is.equal(4)
+    expect(array[5]).is.equal(5)
+  })
+
+  it('List.IndexOf 元素不存在 => -1', function() {
+    let list = new List([2, 3, 4, 5])
+    expect(list.IndexOf(1)).is.equal(-1)
+  })
+
+  it('List.IndexOf 元素存在 => 下标', function() {
+    let list = new List([2, 3, 4, 5])
+    expect(list.IndexOf(4)).is.equal(2)
+  })
+
+  it('List.Insert 下标范围内正常插入', function() {
+    let list = new List([2, 3, 4, 5])
+    expect(list.Count()).is.equal(4)
+    expect(list.Get(0)).is.equal(2)
+    list.Insert(0, 1)
+    expect(list.Count()).is.equal(5)
+    expect(list.Get(0)).is.equal(1)
+    expect(list.Get(1)).is.equal(2)
+  })
+
+  it('List.Insert 下标范围外异常', function() {
+    let list = new List([2, 3, 4, 5])
+    expect(() => {
+      list.Insert(-1, 100)
+    }).to.throw(`参数 index 的范围越界 ${-1}`)
+    expect(() => {
+      list.Insert(5, 0)
+    }).to.throw(`参数 index 的范围越界 ${5}`)
+  })
+
+  it('List.Remove 存在可正常删除返回 true', function() {
+    let list = new List([2, 3, 4, 5])
+    expect(list.Count()).is.equal(4)
+    expect(list.Get(0)).is.equal(2)
+    expect(list.Get(1)).is.equal(3)
+    expect(list.Get(2)).is.equal(4)
+    expect(list.Get(3)).is.equal(5)
+    expect(list.Remove(3)).is.true
+    expect(list.Count()).is.equal(3)
+    expect(list.Get(0)).is.equal(2)
+    expect(list.Get(1)).is.equal(4)
+    expect(list.Get(2)).is.equal(5)
+  })
+
+  it('List.Remove 不存在返回 false', function() {
+    let list = new List([2, 3, 4, 5])
+    expect(list.Count()).is.equal(4)
+    expect(list.Get(0)).is.equal(2)
+    expect(list.Get(1)).is.equal(3)
+    expect(list.Get(2)).is.equal(4)
+    expect(list.Get(3)).is.equal(5)
+    expect(list.Remove(0)).is.false
+    expect(list.Count()).is.equal(4)
+    expect(list.Get(0)).is.equal(2)
+    expect(list.Get(1)).is.equal(3)
+    expect(list.Get(2)).is.equal(4)
+    expect(list.Get(3)).is.equal(5)
+  })
+
+  it('List.Remove 多个元素一次仅删除一个', function() {
+    let list = new List([2, 3, 4, 5, 3])
+    expect(list.Count()).is.equal(5)
+    expect(list.Get(0)).is.equal(2)
+    expect(list.Get(1)).is.equal(3)
+    expect(list.Get(2)).is.equal(4)
+    expect(list.Get(3)).is.equal(5)
+    expect(list.Get(4)).is.equal(3)
+    expect(list.Remove(3)).is.true
+    expect(list.Count()).is.equal(4)
+    expect(list.Get(0)).is.equal(2)
+    expect(list.Get(1)).is.equal(4)
+    expect(list.Get(2)).is.equal(5)
+    expect(list.Get(3)).is.equal(3)
+  })
+
+  it('List.RemoveAt 下标范围内正常删除', function() {
+    let list = new List([2, 3, 4, 5])
+    expect(list.Count()).is.equal(4)
+    expect(list.Get(0)).is.equal(2)
+    list.RemoveAt(0)
+    expect(list.Count()).is.equal(3)
+    expect(list.Get(0)).is.equal(3)
+  })
+
+  it('List.RemoveAt 下标范围外异常', function() {
+    let list = new List([2, 3, 4, 5])
+    expect(() => {
+      list.RemoveAt(-1)
+    }).to.throw(`参数 index 的范围越界 ${-1}`)
+    expect(() => {
+      list.RemoveAt(5)
+    }).to.throw(`参数 index 的范围越界 ${5}`)
+  })
+
   it('List.All 方法正常运作', function() {
     let list = new List([1, 2])
     expect(list.All(item => item > 0)).is.true
