@@ -1,6 +1,6 @@
 import { IEnumerable } from '../enumerable'
 import { isEnumerable } from './is-enumerable'
-import { InternalEnumerable } from './internal-enumerable'
+import { EnumerableContainer } from './enumerable-container'
 
 export function asEnumerable<TSource>(
   source: IEnumerable<TSource> | Iterable<TSource>
@@ -8,6 +8,6 @@ export function asEnumerable<TSource>(
   if (isEnumerable(source)) {
     return source
   } else {
-    return new InternalEnumerable(source)
+    return new EnumerableContainer(source)
   }
 }

@@ -1,6 +1,6 @@
 import { IEnumerable } from '../enumerable'
-import { InternalEnumerable } from './internal-enumerable'
+import { EnumerableContainer } from './enumerable-container'
 
 export function empty<TSource>(): IEnumerable<TSource> {
-  return new InternalEnumerable([])
+  return new EnumerableContainer([])
 }

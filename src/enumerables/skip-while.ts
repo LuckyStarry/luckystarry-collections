@@ -1,5 +1,5 @@
 import { IEnumerable } from '../enumerable'
-import { InternalEnumerable } from './internal-enumerable'
+import { EnumerableContainer } from './enumerable-container'
 import * as utils from '../utils'
 
 export function skipWhile<TSource>(
@@ -8,7 +8,7 @@ export function skipWhile<TSource>(
 ): IEnumerable<TSource> {
   utils.throws.ThrowIfNull('source', source)
   utils.throws.ThrowIfNull('predicate', predicate)
-  return new InternalEnumerable([...process(source, predicate)])
+  return new EnumerableContainer([...process(source, predicate)])
 }
 
 function* process<TSource>(

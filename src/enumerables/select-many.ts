@@ -1,6 +1,6 @@
 import { IEnumerable } from '../enumerable'
+import { EnumerableContainer } from './enumerable-container'
 import * as utils from '../utils'
-import { InternalEnumerable } from './internal-enumerable'
 
 export function selectMany<TSource, TCollection, TResult = TCollection>(
   source: Iterable<TSource>,
@@ -14,7 +14,7 @@ export function selectMany<TSource, TCollection, TResult = TCollection>(
   utils.throws.ThrowIfNull('collectionSelector', collectionSelector)
   let _resultSelector: any =
     resultSelector || ((item, collection) => collection)
-  return new InternalEnumerable([
+  return new EnumerableContainer([
     ...mapping<TSource, TCollection, TResult>(
       source,
       collectionSelector,

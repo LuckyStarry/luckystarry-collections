@@ -2,6 +2,7 @@ import * as enumerables from './enumerables'
 import { IEqualityComparer } from './equality-comparer'
 import { IGrouping } from './grouping'
 import { IList } from './list'
+import { IDictionary } from './dictionary'
 
 export interface IEnumerable<TSource> extends Iterable<TSource> {
   [Symbol.iterator](): IterableIterator<TSource>
@@ -90,7 +91,16 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
     predicate: (item: TSource, index?: number) => boolean
   ): IEnumerable<TSource>
   ToArray(): Array<TSource>
+  ToDictionary<TKey, TElement = TSource>(
+    keySelector: (item: TSource) => TKey,
+    elementSelector?: (item: TSource) => TElement,
+    comparer?: IEqualityComparer<TKey>
+  ): IDictionary<TKey, TElement>
   ToList(): IList<TSource>
+  Union(
+    second: Iterable<TSource>,
+    comparer?: IEqualityComparer<TSource>
+  ): IEnumerable<TSource>
   Where(
     predicate: (item: TSource, index?: number) => boolean
   ): IEnumerable<TSource>
@@ -132,6 +142,8 @@ export class Enumerable {
   public static Take = enumerables.take
   public static TakeWhile = enumerables.takeWhile
   public static ToArray = enumerables.toArray
+  public static ToDictionary = enumerables.toDictionary
   public static ToList = enumerables.toList
+  public static Union = enumerables.union
   public static Where = enumerables.where
 }

@@ -1,6 +1,10 @@
 import { IEnumerable, Enumerable } from './enumerable'
 import { IEqualityComparer, EqualityComparer } from './equality-comparer'
-import { ArgumentException, KeyNotFoundException } from './exceptions'
+import {
+  ArgumentException,
+  KeyNotFoundException,
+  ArgumentOutOfRangeException
+} from './exceptions'
 import { KeyValuePair } from './key-value-pair'
 import { IGrouping } from './grouping'
 import { IList } from './list'
@@ -30,16 +34,29 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
   public constructor(
     dictionary?:
       | Iterable<KeyValuePair<TKey, TValue>>
-      | Iterable<[TKey, TValue]>,
+      | Iterable<[TKey, TValue]>
+      | number,
     comparer?: IEqualityComparer<TKey>
   ) {
     this.comparer = comparer || EqualityComparer.Default()
     if (dictionary) {
-      for (let item of dictionary) {
-        if (item instanceof KeyValuePair) {
-          this.Set(item.Key, item.Value)
-        } else {
-          this.Set(item[0], item[1])
+      if (typeof dictionary === 'number') {
+        let capacity = dictionary
+        if (capacity < 0) {
+          throw new ArgumentOutOfRangeException(
+            'capacity',
+            capacity,
+            'capacity 小于 0'
+          )
+        }
+        this.Initialize(capacity)
+      } else {
+        for (let item of dictionary) {
+          if (item instanceof KeyValuePair) {
+            this.Set(item.Key, item.Value)
+          } else {
+            this.Set(item[0], item[1])
+          }
         }
       }
     }
@@ -340,19 +357,23 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.FirstOrDefault(this, defaultValue, predicate)
   }
 
-  public GroupBy<TGroupKey, TElement>(
+  public GroupBy<TGroupKey, TElement = KeyValuePair<TKey, TValue>>(
     keySelector: (item: KeyValuePair<TKey, TValue>) => TGroupKey,
-    elementSelector: (item: KeyValuePair<TKey, TValue>) => TElement,
+    elementSelector?: (item: KeyValuePair<TKey, TValue>) => TElement,
     comparer?: IEqualityComparer<TGroupKey>
   ): IEnumerable<IGrouping<TGroupKey, TElement>> {
     return Enumerable.GroupBy(this, keySelector, elementSelector, comparer)
   }
 
-  public GroupJoin<TInner, TGroupKey, TResult>(
+  public GroupJoin<
+    TInner,
+    TGroupKey,
+    TResult = { Outer: KeyValuePair<TKey, TValue>; Inners: IEnumerable<TInner> }
+  >(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: KeyValuePair<TKey, TValue>) => TGroupKey,
     innerKeySelector: (item: TInner) => TGroupKey,
-    resultSelector: (
+    resultSelector?: (
       item: KeyValuePair<TKey, TValue>,
       inners: IEnumerable<TInner>
     ) => TResult,
@@ -375,11 +396,15 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.Intersect(this, second, comparer)
   }
 
-  public Join<TInner, TGroupKey, TResult>(
+  public Join<
+    TInner,
+    TGroupKey,
+    TResult = { Outer: KeyValuePair<TKey, TValue>; Inner: TInner }
+  >(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: KeyValuePair<TKey, TValue>) => TGroupKey,
     innerKeySelector: (item: TInner) => TGroupKey,
-    resultSelector: (
+    resultSelector?: (
       item: KeyValuePair<TKey, TValue>,
       inners: TInner
     ) => TResult,
@@ -430,12 +455,12 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.Select(this, selector)
   }
 
-  public SelectMany<TCollection, TResult>(
+  public SelectMany<TCollection, TResult = TCollection>(
     collectionSelector: (
       item: KeyValuePair<TKey, TValue>,
       index?: number
     ) => IEnumerable<TCollection>,
-    resultSelector: (
+    resultSelector?: (
       item: KeyValuePair<TKey, TValue>,
       collection: TCollection
     ) => TResult
@@ -493,8 +518,23 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.ToArray(this)
   }
 
+  public ToDictionary<TDictionaryKey, TElement = KeyValuePair<TKey, TValue>>(
+    keySelector: (item: KeyValuePair<TKey, TValue>) => TDictionaryKey,
+    elementSelector?: (item: KeyValuePair<TKey, TValue>) => TElement,
+    comparer?: IEqualityComparer<TDictionaryKey>
+  ): IDictionary<TDictionaryKey, TElement> {
+    return Enumerable.ToDictionary(this, keySelector, elementSelector, comparer)
+  }
+
   public ToList(): IList<KeyValuePair<TKey, TValue>> {
     return Enumerable.ToList(this)
+  }
+
+  public Union(
+    second: Iterable<KeyValuePair<TKey, TValue>>,
+    comparer?: IEqualityComparer<KeyValuePair<TKey, TValue>>
+  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+    return Enumerable.Union(this, second, comparer)
   }
 
   public Where(

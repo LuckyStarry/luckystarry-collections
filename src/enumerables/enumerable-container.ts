@@ -2,8 +2,9 @@ import { IEnumerable, Enumerable } from '../enumerable'
 import { IEqualityComparer } from '../equality-comparer'
 import { IGrouping } from '../grouping'
 import { IList } from '../list'
+import { IDictionary } from '../dictionary'
 
-export class InternalEnumerable<TSource> {
+export class EnumerableContainer<TSource> {
   private iteratable: Iterable<TSource>
   public constructor(iteratable: Iterable<TSource>) {
     this.iteratable = iteratable
@@ -82,17 +83,21 @@ export class InternalEnumerable<TSource> {
 
   public GroupBy<TKey, TElement = TSource>(
     keySelector: (item: TSource) => TKey,
-    elementSelector: (item: TSource) => TElement,
+    elementSelector?: (item: TSource) => TElement,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<IGrouping<TKey, TElement>> {
     return Enumerable.GroupBy(this, keySelector, elementSelector, comparer)
   }
 
-  public GroupJoin<TInner, TKey, TResult>(
+  public GroupJoin<
+    TInner,
+    TKey,
+    TResult = { Outer: TSource; Inners: IEnumerable<TInner> }
+  >(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: TSource) => TKey,
     innerKeySelector: (item: TInner) => TKey,
-    resultSelector: (item: TSource, inners: IEnumerable<TInner>) => TResult,
+    resultSelector?: (item: TSource, inners: IEnumerable<TInner>) => TResult,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<TResult> {
     return Enumerable.GroupJoin(
@@ -112,11 +117,11 @@ export class InternalEnumerable<TSource> {
     return Enumerable.Intersect(this, second, comparer)
   }
 
-  public Join<TInner, TKey, TResult>(
+  public Join<TInner, TKey, TResult = { Outer: TSource; Inner: TInner }>(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: TSource) => TKey,
     innerKeySelector: (item: TInner) => TKey,
-    resultSelector: (item: TSource, inners: TInner) => TResult,
+    resultSelector?: (item: TSource, inners: TInner) => TResult,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<TResult> {
     return Enumerable.Join(
@@ -158,12 +163,12 @@ export class InternalEnumerable<TSource> {
     return Enumerable.Select(this, selector)
   }
 
-  public SelectMany<TCollection, TResult>(
+  public SelectMany<TCollection, TResult = TCollection>(
     collectionSelector: (
       item: TSource,
       index?: number
     ) => IEnumerable<TCollection>,
-    resultSelector: (item: TSource, collection: TCollection) => TResult
+    resultSelector?: (item: TSource, collection: TCollection) => TResult
   ): IEnumerable<TResult> {
     return Enumerable.SelectMany(this, collectionSelector, resultSelector)
   }
@@ -214,8 +219,23 @@ export class InternalEnumerable<TSource> {
     return Enumerable.ToArray(this)
   }
 
+  public ToDictionary<TKey, TElement = TSource>(
+    keySelector: (item: TSource) => TKey,
+    elementSelector?: (item: TSource) => TElement,
+    comparer?: IEqualityComparer<TKey>
+  ): IDictionary<TKey, TElement> {
+    return Enumerable.ToDictionary(this, keySelector, elementSelector, comparer)
+  }
+
   public ToList(): IList<TSource> {
     return Enumerable.ToList(this)
+  }
+
+  public Union(
+    second: Iterable<TSource>,
+    comparer?: IEqualityComparer<TSource>
+  ): IEnumerable<TSource> {
+    return Enumerable.Union(this, second, comparer)
   }
 
   public Where(
