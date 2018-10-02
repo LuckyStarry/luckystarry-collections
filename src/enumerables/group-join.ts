@@ -1,6 +1,6 @@
 import { IEnumerable, Enumerable } from '../enumerable'
 import { IEqualityComparer, EqualityComparer } from '../equality-comparer'
-import { InternalEnumerable } from './internal-enumerable'
+import { EnumerableContainer } from './enumerable-container'
 import { IGrouping } from '../grouping'
 import * as utils from '../utils'
 
@@ -40,7 +40,7 @@ export function groupJoin<
       comparer
     )
   )
-  return new InternalEnumerable([
+  return new EnumerableContainer([
     ...join<TOuter, TInner, TKey, TResult>(
       outer,
       outerKeySelector,

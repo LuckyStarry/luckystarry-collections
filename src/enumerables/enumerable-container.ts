@@ -4,7 +4,7 @@ import { IGrouping } from '../grouping'
 import { IList } from '../list'
 import { IDictionary } from '../dictionary'
 
-export class InternalEnumerable<TSource> {
+export class EnumerableContainer<TSource> {
   private iteratable: Iterable<TSource>
   public constructor(iteratable: Iterable<TSource>) {
     this.iteratable = iteratable
