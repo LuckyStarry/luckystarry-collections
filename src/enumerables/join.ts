@@ -4,19 +4,28 @@ import { InternalEnumerable } from './internal-enumerable'
 import { IGrouping } from '../grouping'
 import * as utils from '../utils'
 
-export function join<TOuter, TInner, TKey, TResult>(
+export function join<
+  TOuter,
+  TInner,
+  TKey,
+  TResult = { Outer: TOuter; Inner: TInner }
+>(
   outer: Iterable<TOuter>,
   inner: Iterable<TInner>,
   outerKeySelector: (item: TOuter) => TKey,
   innerKeySelector: (item: TInner) => TKey,
-  resultSelector: (item: TOuter, inners: TInner) => TResult,
+  resultSelector?: (item: TOuter, inners: TInner) => TResult,
   comparer?: IEqualityComparer<TKey>
 ): IEnumerable<TResult> {
   utils.throws.ThrowIfNull('outer', outer)
   utils.throws.ThrowIfNull('inner', inner)
   utils.throws.ThrowIfNull('outerKeySelector', outerKeySelector)
   utils.throws.ThrowIfNull('innerKeySelector', innerKeySelector)
-  utils.throws.ThrowIfNull('resultSelector', resultSelector)
+  let _resultSelector: any =
+    resultSelector ||
+    ((o, i) => {
+      return { Outer: o, Inner: i }
+    })
   comparer = comparer || EqualityComparer.Default()
   let outerKeys = Enumerable.ToList(
     Enumerable.Select(outer, item => outerKeySelector(item))
@@ -32,7 +41,13 @@ export function join<TOuter, TInner, TKey, TResult>(
     )
   )
   return new InternalEnumerable([
-    ...process(outer, outerKeySelector, groupedInner, resultSelector, comparer)
+    ...process<TOuter, TInner, TKey, TResult>(
+      outer,
+      outerKeySelector,
+      groupedInner,
+      _resultSelector,
+      comparer
+    )
   ])
 }
 
