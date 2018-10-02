@@ -1,6 +1,6 @@
 import { IEnumerable } from '../enumerable'
-import * as utils from '../utils'
 import { InternalEnumerable } from './internal-enumerable'
+import * as utils from '../utils'
 
 export function selectMany<TSource, TCollection, TResult = TCollection>(
   source: Iterable<TSource>,

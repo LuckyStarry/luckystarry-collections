@@ -340,19 +340,23 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.FirstOrDefault(this, defaultValue, predicate)
   }
 
-  public GroupBy<TGroupKey, TElement>(
+  public GroupBy<TGroupKey, TElement = KeyValuePair<TKey, TValue>>(
     keySelector: (item: KeyValuePair<TKey, TValue>) => TGroupKey,
-    elementSelector: (item: KeyValuePair<TKey, TValue>) => TElement,
+    elementSelector?: (item: KeyValuePair<TKey, TValue>) => TElement,
     comparer?: IEqualityComparer<TGroupKey>
   ): IEnumerable<IGrouping<TGroupKey, TElement>> {
     return Enumerable.GroupBy(this, keySelector, elementSelector, comparer)
   }
 
-  public GroupJoin<TInner, TGroupKey, TResult>(
+  public GroupJoin<
+    TInner,
+    TGroupKey,
+    TResult = { Outer: KeyValuePair<TKey, TValue>; Inners: IEnumerable<TInner> }
+  >(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: KeyValuePair<TKey, TValue>) => TGroupKey,
     innerKeySelector: (item: TInner) => TGroupKey,
-    resultSelector: (
+    resultSelector?: (
       item: KeyValuePair<TKey, TValue>,
       inners: IEnumerable<TInner>
     ) => TResult,
@@ -375,11 +379,15 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.Intersect(this, second, comparer)
   }
 
-  public Join<TInner, TGroupKey, TResult>(
+  public Join<
+    TInner,
+    TGroupKey,
+    TResult = { Outer: KeyValuePair<TKey, TValue>; Inner: TInner }
+  >(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: KeyValuePair<TKey, TValue>) => TGroupKey,
     innerKeySelector: (item: TInner) => TGroupKey,
-    resultSelector: (
+    resultSelector?: (
       item: KeyValuePair<TKey, TValue>,
       inners: TInner
     ) => TResult,
@@ -430,12 +438,12 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.Select(this, selector)
   }
 
-  public SelectMany<TCollection, TResult>(
+  public SelectMany<TCollection, TResult = TCollection>(
     collectionSelector: (
       item: KeyValuePair<TKey, TValue>,
       index?: number
     ) => IEnumerable<TCollection>,
-    resultSelector: (
+    resultSelector?: (
       item: KeyValuePair<TKey, TValue>,
       collection: TCollection
     ) => TResult
