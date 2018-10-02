@@ -3,7 +3,7 @@ import { InternalEnumerable } from './internal-enumerable'
 import * as utils from '../utils'
 
 export function where<TSource>(
-  source: IEnumerable<TSource>,
+  source: Iterable<TSource>,
   predicate: (item: TSource, index?: number) => boolean
 ): IEnumerable<TSource> {
   utils.throws.ThrowIfNull('source', source)
@@ -12,7 +12,7 @@ export function where<TSource>(
 }
 
 function* filter<TSource>(
-  source: IEnumerable<TSource>,
+  source: Iterable<TSource>,
   predicate: (item: TSource, index?: number) => boolean
 ): {
   [Symbol.iterator](): IterableIterator<TSource>
