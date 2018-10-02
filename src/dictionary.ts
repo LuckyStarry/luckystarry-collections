@@ -202,6 +202,8 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     } else {
       if (this.count === entries.length) {
         this.Resize()
+        entries = this.entries
+        buckets = this.buckets
         targetBucket = hashCode % buckets.length
       }
       index = this.count
@@ -242,9 +244,8 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
 
   public *[Symbol.iterator](): IterableIterator<KeyValuePair<TKey, TValue>> {
     if (this.entries) {
-      let i = 0
       for (let item of this.entries) {
-        if (i++ < this.count) {
+        if (item.key !== undefined) {
           yield new KeyValuePair(item.key, item.value)
         }
       }
@@ -289,7 +290,11 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
   public Count(
     predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
   ): number {
-    return Enumerable.Count(this, predicate)
+    if (predicate) {
+      return Enumerable.Count(this, predicate)
+    } else {
+      return this.count - this.freeCount
+    }
   }
 
   public DefaultIfEmpty(
