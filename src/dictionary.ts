@@ -28,13 +28,19 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
   private comparer: IEqualityComparer<TKey>
 
   public constructor(
-    dictionary?: Iterable<[TKey, TValue]>,
+    dictionary?:
+      | Iterable<KeyValuePair<TKey, TValue>>
+      | Iterable<[TKey, TValue]>,
     comparer?: IEqualityComparer<TKey>
   ) {
     this.comparer = comparer || EqualityComparer.Default()
     if (dictionary) {
-      for (let [k, v] of dictionary) {
-        this.Set(k, v)
+      for (let item of dictionary) {
+        if (item instanceof KeyValuePair) {
+          this.Set(item.Key, item.Value)
+        } else {
+          this.Set(item[0], item[1])
+        }
       }
     }
   }
@@ -235,10 +241,12 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
   }
 
   public *[Symbol.iterator](): IterableIterator<KeyValuePair<TKey, TValue>> {
-    let i = 0
-    for (let item of this.entries) {
-      if (i++ < this.count) {
-        yield new KeyValuePair(item.key, item.value)
+    if (this.entries) {
+      let i = 0
+      for (let item of this.entries) {
+        if (i++ < this.count) {
+          yield new KeyValuePair(item.key, item.value)
+        }
       }
     }
   }

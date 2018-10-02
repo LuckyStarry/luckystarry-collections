@@ -21,7 +21,7 @@ describe('./dictionary.ts', function() {
     let dictionary = new Dictionary(original)
     expect(dictionary.Count()).is.equal(2)
     expect(dictionary.Get(1)).is.equal(2)
-    expect(dictionary.Get(3)).is.equal(4)
+    expect(dictionary.Get(2)).is.equal(3)
   })
 
   it('Dictionary 可使用 IEnumerable 构造函数', function() {
@@ -32,6 +32,6 @@ describe('./dictionary.ts', function() {
     let dictionary = new Dictionary(original)
     expect(dictionary.Count()).is.equal(2)
     expect(dictionary.Get(1)).is.equal(2)
-    expect(dictionary.Get(3)).is.equal(4)
+    expect(dictionary.Get(2)).is.equal(3)
   })
 })

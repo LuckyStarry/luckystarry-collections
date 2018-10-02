@@ -1,17 +1,17 @@
 import { IEnumerable } from './enumerable'
-import { EnumerableImpl } from './enumerable-impl'
+import { InternalEnumerable } from './enumerables/internal-enumerable'
 
 export interface IGrouping<TKey, TElement> extends IEnumerable<TElement> {
   readonly Key: TKey
 }
 
-export class Grouping<TKey, TElement> extends EnumerableImpl<TElement>
+export class Grouping<TKey, TElement> extends InternalEnumerable<TElement>
   implements IGrouping<TKey, TElement> {
   private key: TKey
   private source: IEnumerable<TElement>
 
   public constructor(key: TKey, source: IEnumerable<TElement>) {
-    super()
+    super([])
     this.key = key
     this.source = source
   }
