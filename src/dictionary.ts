@@ -2,9 +2,11 @@ import { IEnumerable } from './enumerable'
 import { IEqualityComparer, EqualityComparer } from './equality-comparer'
 import { ArgumentException, KeyNotFoundException } from './exceptions'
 import { EnumerableImpl } from './enumerable-impl'
+import { KeyValuePair } from './key-value-pair'
 import * as utils from './utils'
 
-export interface IDictionary<TKey, TValue> extends IEnumerable<[TKey, TValue]> {
+export interface IDictionary<TKey, TValue>
+  extends IEnumerable<KeyValuePair<TKey, TValue>> {
   Add(key: TKey, value: TValue): void
   Clear(): void
   Set(key: TKey, value: TValue): void
@@ -15,7 +17,8 @@ export interface IDictionary<TKey, TValue> extends IEnumerable<[TKey, TValue]> {
   TryGetValue(key: TKey): [boolean, TValue]
 }
 
-export class Dictionary<TKey, TValue> extends EnumerableImpl<[TKey, TValue]>
+export class Dictionary<TKey, TValue>
+  extends EnumerableImpl<KeyValuePair<TKey, TValue>>
   implements IDictionary<TKey, TValue> {
   private freeList: number = -1
   private freeCount: number = 0
@@ -233,11 +236,11 @@ export class Dictionary<TKey, TValue> extends EnumerableImpl<[TKey, TValue]>
     this.entries = newEntries
   }
 
-  public *[Symbol.iterator](): IterableIterator<[TKey, TValue]> {
+  public *[Symbol.iterator](): IterableIterator<KeyValuePair<TKey, TValue>> {
     let i = 0
     for (let item of this.entries) {
       if (i++ < this.count) {
-        yield [item.key, item.value]
+        yield new KeyValuePair(item.key, item.value)
       }
     }
   }
