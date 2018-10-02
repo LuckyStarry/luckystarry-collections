@@ -83,17 +83,21 @@ export class EnumerableContainer<TSource> {
 
   public GroupBy<TKey, TElement = TSource>(
     keySelector: (item: TSource) => TKey,
-    elementSelector: (item: TSource) => TElement,
+    elementSelector?: (item: TSource) => TElement,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<IGrouping<TKey, TElement>> {
     return Enumerable.GroupBy(this, keySelector, elementSelector, comparer)
   }
 
-  public GroupJoin<TInner, TKey, TResult>(
+  public GroupJoin<
+    TInner,
+    TKey,
+    TResult = { Outer: TSource; Inners: IEnumerable<TInner> }
+  >(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: TSource) => TKey,
     innerKeySelector: (item: TInner) => TKey,
-    resultSelector: (item: TSource, inners: IEnumerable<TInner>) => TResult,
+    resultSelector?: (item: TSource, inners: IEnumerable<TInner>) => TResult,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<TResult> {
     return Enumerable.GroupJoin(
@@ -113,11 +117,11 @@ export class EnumerableContainer<TSource> {
     return Enumerable.Intersect(this, second, comparer)
   }
 
-  public Join<TInner, TKey, TResult>(
+  public Join<TInner, TKey, TResult = { Outer: TSource; Inner: TInner }>(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: TSource) => TKey,
     innerKeySelector: (item: TInner) => TKey,
-    resultSelector: (item: TSource, inners: TInner) => TResult,
+    resultSelector?: (item: TSource, inners: TInner) => TResult,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<TResult> {
     return Enumerable.Join(
@@ -159,12 +163,12 @@ export class EnumerableContainer<TSource> {
     return Enumerable.Select(this, selector)
   }
 
-  public SelectMany<TCollection, TResult>(
+  public SelectMany<TCollection, TResult = TCollection>(
     collectionSelector: (
       item: TSource,
       index?: number
     ) => IEnumerable<TCollection>,
-    resultSelector: (item: TSource, collection: TCollection) => TResult
+    resultSelector?: (item: TSource, collection: TCollection) => TResult
   ): IEnumerable<TResult> {
     return Enumerable.SelectMany(this, collectionSelector, resultSelector)
   }
