@@ -1,7 +1,6 @@
 /* tslint:disable */
 import { expect } from 'chai'
 import { toDictionary } from '../../src/enumerables/to-dictionary'
-import { List } from '../../src/list'
 
 describe('./enumerables/to-dictionary.ts', function() {
   it('存在 toDictionary 方法', function() {
