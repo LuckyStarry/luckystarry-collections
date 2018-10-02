@@ -2,6 +2,7 @@ import { IEnumerable, Enumerable } from '../enumerable'
 import { IEqualityComparer } from '../equality-comparer'
 import { IGrouping } from '../grouping'
 import { IList } from '../list'
+import { IDictionary } from '../dictionary'
 
 export class InternalEnumerable<TSource> {
   private iteratable: Iterable<TSource>
@@ -212,6 +213,14 @@ export class InternalEnumerable<TSource> {
 
   public ToArray(): Array<TSource> {
     return Enumerable.ToArray(this)
+  }
+
+  public ToDictionary<TKey, TElement = TSource>(
+    keySelector: (item: TSource) => TKey,
+    elementSelector?: (item: TSource) => TElement,
+    comparer?: IEqualityComparer<TKey>
+  ): IDictionary<TKey, TElement> {
+    return Enumerable.ToDictionary(this, keySelector, elementSelector, comparer)
   }
 
   public ToList(): IList<TSource> {

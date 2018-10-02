@@ -871,6 +871,23 @@ describe('./dictionary.ts', function() {
     expect(array[2].Value).is.equal(3)
   })
 
+  it('Dictionary.ToDictionary 方法正常运作', function() {
+    let dictionary = new Dictionary<string, number>()
+    dictionary.Set('KEY_01', 1)
+    dictionary.Set('KEY_02', 2)
+    dictionary.Set('KEY_03', 3)
+    dictionary.Set('KEY_04', 4)
+    dictionary.Set('KEY_05', 5)
+    let dic = dictionary.ToDictionary(x => x.Key, y => y.Value * 3)
+    expect(dic).is.instanceof(Dictionary)
+    expect(dic.Count()).is.equal(5)
+    expect(dic.Get('KEY_01')).is.equal(3)
+    expect(dic.Get('KEY_02')).is.equal(6)
+    expect(dic.Get('KEY_03')).is.equal(9)
+    expect(dic.Get('KEY_04')).is.equal(12)
+    expect(dic.Get('KEY_05')).is.equal(15)
+  })
+
   it('Dictionary.ToList 方法正常运作', function() {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)

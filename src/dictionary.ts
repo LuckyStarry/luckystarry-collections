@@ -518,6 +518,14 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.ToArray(this)
   }
 
+  public ToDictionary<TDictionaryKey, TElement = KeyValuePair<TKey, TValue>>(
+    keySelector: (item: KeyValuePair<TKey, TValue>) => TDictionaryKey,
+    elementSelector?: (item: KeyValuePair<TKey, TValue>) => TElement,
+    comparer?: IEqualityComparer<TDictionaryKey>
+  ): IDictionary<TDictionaryKey, TElement> {
+    return Enumerable.ToDictionary(this, keySelector, elementSelector, comparer)
+  }
+
   public ToList(): IList<KeyValuePair<TKey, TValue>> {
     return Enumerable.ToList(this)
   }

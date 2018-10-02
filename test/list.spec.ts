@@ -1,7 +1,8 @@
 /* tslint:disable */
 import { expect } from 'chai'
-import { List } from '../src/list'
 import { EqualityComparer } from '../src/equality-comparer'
+import { List } from '../src/list'
+import { Dictionary } from '../src/dictionary'
 
 describe('./list.ts', function() {
   it('存在 Class List', function() {
@@ -523,6 +524,16 @@ describe('./list.ts', function() {
     expect(array[0]).is.equal(1)
     expect(array[1]).is.equal(2)
     expect(array[2]).is.equal(3)
+  })
+
+  it('List.ToDictionary 方法正常运作', function() {
+    let list = new List([3, 1, 2])
+    let dic = list.ToDictionary(x => x, y => y * 3)
+    expect(dic).is.instanceof(Dictionary)
+    expect(dic.Count()).is.equal(3)
+    expect(dic.Get(3)).is.equal(9)
+    expect(dic.Get(1)).is.equal(3)
+    expect(dic.Get(2)).is.equal(6)
   })
 
   it('List.ToList 方法正常运作', function() {
