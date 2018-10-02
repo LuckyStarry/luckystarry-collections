@@ -165,17 +165,21 @@ export class List<T> implements IList<T> {
 
   public GroupBy<TKey, TElement = T>(
     keySelector: (item: T) => TKey,
-    elementSelector: (item: T) => TElement,
+    elementSelector?: (item: T) => TElement,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<IGrouping<TKey, TElement>> {
     return Enumerable.GroupBy(this, keySelector, elementSelector, comparer)
   }
 
-  public GroupJoin<TInner, TKey, TResult>(
+  public GroupJoin<
+    TInner,
+    TKey,
+    TResult = { Outer: T; Inners: IEnumerable<TInner> }
+  >(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: T) => TKey,
     innerKeySelector: (item: TInner) => TKey,
-    resultSelector: (item: T, inners: IEnumerable<TInner>) => TResult,
+    resultSelector?: (item: T, inners: IEnumerable<TInner>) => TResult,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<TResult> {
     return Enumerable.GroupJoin(
@@ -195,11 +199,11 @@ export class List<T> implements IList<T> {
     return Enumerable.Intersect(this, second, comparer)
   }
 
-  public Join<TInner, TKey, TResult>(
+  public Join<TInner, TKey, TResult = { Outer: T; Inner: TInner }>(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: T) => TKey,
     innerKeySelector: (item: TInner) => TKey,
-    resultSelector: (item: T, inners: TInner) => TResult,
+    resultSelector?: (item: T, inners: TInner) => TResult,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<TResult> {
     return Enumerable.Join(
@@ -238,9 +242,9 @@ export class List<T> implements IList<T> {
     return Enumerable.Select(this, selector)
   }
 
-  public SelectMany<TCollection, TResult>(
+  public SelectMany<TCollection, TResult = TCollection>(
     collectionSelector: (item: T, index?: number) => IEnumerable<TCollection>,
-    resultSelector: (item: T, collection: TCollection) => TResult
+    resultSelector?: (item: T, collection: TCollection) => TResult
   ): IEnumerable<TResult> {
     return Enumerable.SelectMany(this, collectionSelector, resultSelector)
   }
