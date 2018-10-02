@@ -110,69 +110,33 @@ describe('./enumerables/group-join.ts', function() {
     }).to.throw(`参数 innerKeySelector 不可为空`)
   })
 
-  it('groupJoin([], [], o => o, i => i, null) => throw', function() {
-    expect(() => {
-      groupJoin([], [], o => o, i => i, null)
-    }).to.throw(`参数 resultSelector 不可为空`)
-  })
-
-  it('groupJoin([], [], o => o, i => i, undefined) => throw', function() {
-    expect(() => {
-      groupJoin([], [], o => o, i => i, undefined)
-    }).to.throw(`参数 resultSelector 不可为空`)
-  })
-
-  it('groupJoin([], [], o => o, i => i, (o, is) => { return { o: o, is: is } }) => []', function() {
-    let results = groupJoin(
-      [],
-      [],
-      o => o,
-      i => i,
-      (o, is) => {
-        return { o: o, is: is }
-      }
-    )
+  it('groupJoin([], [], o => o, i => i) => []', function() {
+    let results = groupJoin([], [], o => o, i => i)
 
     expect(results).is.not.null
     expect(results).is.not.undefined
     expect(results.Any()).is.false
   })
 
-  it('groupJoin([], [1, 2, 3], o => o, i => i, (o, is) => { return { o: o, is: is } }) => []', function() {
-    let results = groupJoin(
-      [],
-      [1, 2, 3],
-      o => o,
-      i => i,
-      (o, is) => {
-        return { o: o, is: is }
-      }
-    )
+  it('groupJoin([], [1, 2, 3], o => o, i => i) => []', function() {
+    let results = groupJoin([], [1, 2, 3], o => o, i => i)
 
     expect(results).is.not.null
     expect(results).is.not.undefined
     expect(results.Any()).is.false
   })
 
-  it('groupJoin([2], [1, 2, 3], o => o, i => i, (o, is) => { return { o: o, is: is } }) => [{2, [2]}]', function() {
-    let results = groupJoin(
-      [2],
-      [1, 2, 3],
-      o => o,
-      i => i,
-      (o, is) => {
-        return { o: o, is: is }
-      }
-    )
+  it('groupJoin([2], [1, 2, 3], o => o, i => i) => [{2, [2]}]', function() {
+    let results = groupJoin([2], [1, 2, 3], o => o, i => i)
 
     expect(results).is.not.null
     expect(results).is.not.undefined
     expect(results.Count()).is.equal(1)
-    expect(results.ElementAt(0).o).is.equal(2)
-    expect(results.ElementAt(0).is).is.not.null
-    expect(results.ElementAt(0).is).is.not.undefined
-    expect(results.ElementAt(0).is.Count()).is.equal(1)
-    expect(results.ElementAt(0).is.ElementAt(0)).is.equal(2)
+    expect(results.ElementAt(0).Outer).is.equal(2)
+    expect(results.ElementAt(0).Inners).is.not.null
+    expect(results.ElementAt(0).Inners).is.not.undefined
+    expect(results.ElementAt(0).Inners.Count()).is.equal(1)
+    expect(results.ElementAt(0).Inners.ElementAt(0)).is.equal(2)
   })
 
   it('groupJoin([1, 1, 2], [1, 2, 3], o => o, i => i, (o, is) => { return { o: o, is: is } }) => [{1, [1, 1]}, {1, [1, 1]}, {2, [2]}]', function() {
