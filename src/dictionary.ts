@@ -1,8 +1,9 @@
-import { IEnumerable } from './enumerable'
+import { IEnumerable, Enumerable } from './enumerable'
 import { IEqualityComparer, EqualityComparer } from './equality-comparer'
 import { ArgumentException, KeyNotFoundException } from './exceptions'
-import { EnumerableImpl } from './enumerable-impl'
 import { KeyValuePair } from './key-value-pair'
+import { IGrouping } from './grouping'
+import { IList } from './list'
 import * as utils from './utils'
 
 export interface IDictionary<TKey, TValue>
@@ -17,9 +18,7 @@ export interface IDictionary<TKey, TValue>
   TryGetValue(key: TKey): [boolean, TValue]
 }
 
-export class Dictionary<TKey, TValue>
-  extends EnumerableImpl<KeyValuePair<TKey, TValue>>
-  implements IDictionary<TKey, TValue> {
+export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
   private freeList: number = -1
   private freeCount: number = 0
   private version: number = 0
@@ -32,7 +31,6 @@ export class Dictionary<TKey, TValue>
     dictionary?: Iterable<[TKey, TValue]>,
     comparer?: IEqualityComparer<TKey>
   ) {
-    super()
     this.comparer = comparer || EqualityComparer.Default()
     if (dictionary) {
       for (let [k, v] of dictionary) {
@@ -243,6 +241,253 @@ export class Dictionary<TKey, TValue>
         yield new KeyValuePair(item.key, item.value)
       }
     }
+  }
+
+  public All(
+    predicate: (item: KeyValuePair<TKey, TValue>) => boolean
+  ): boolean {
+    return Enumerable.All(this, predicate)
+  }
+
+  public Any(
+    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
+  ): boolean {
+    return Enumerable.Any(this, predicate)
+  }
+
+  public AsEnumerable(): IEnumerable<KeyValuePair<TKey, TValue>> {
+    return Enumerable.AsEnumerable(this)
+  }
+
+  public Average(
+    selector?: (item: KeyValuePair<TKey, TValue>) => number
+  ): number | null {
+    return Enumerable.Average(this, selector)
+  }
+
+  public Concat(
+    second: IEnumerable<KeyValuePair<TKey, TValue>>
+  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+    return Enumerable.Concat(this, second)
+  }
+
+  public Contains(
+    value: KeyValuePair<TKey, TValue>,
+    comparer?: IEqualityComparer<KeyValuePair<TKey, TValue>>
+  ): boolean {
+    return Enumerable.Contains(this, value, comparer)
+  }
+
+  public Count(
+    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
+  ): number {
+    return Enumerable.Count(this, predicate)
+  }
+
+  public DefaultIfEmpty(
+    defaultValue?: IEnumerable<KeyValuePair<TKey, TValue>>
+  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+    return Enumerable.DefaultIfEmpty(this, defaultValue)
+  }
+
+  public Distinct(
+    comparer?: IEqualityComparer<KeyValuePair<TKey, TValue>>
+  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+    return Enumerable.Distinct(this, comparer)
+  }
+
+  public ElementAt(index: number): KeyValuePair<TKey, TValue> {
+    return Enumerable.ElementAt(this, index)
+  }
+
+  public ElementAtOrDefault(
+    defaultValue: KeyValuePair<TKey, TValue>,
+    index: number
+  ): KeyValuePair<TKey, TValue> {
+    return Enumerable.ElementAtOrDefault(this, defaultValue, index)
+  }
+
+  public Except(
+    second: IEnumerable<KeyValuePair<TKey, TValue>>,
+    comparer?: IEqualityComparer<KeyValuePair<TKey, TValue>>
+  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+    return Enumerable.Except(this, second, comparer)
+  }
+
+  public First(
+    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
+  ): KeyValuePair<TKey, TValue> {
+    return Enumerable.First(this, predicate)
+  }
+
+  public FirstOrDefault(
+    defaultValue: KeyValuePair<TKey, TValue>,
+    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
+  ): KeyValuePair<TKey, TValue> {
+    return Enumerable.FirstOrDefault(this, defaultValue, predicate)
+  }
+
+  public GroupBy<TGroupKey, TElement>(
+    keySelector: (item: KeyValuePair<TKey, TValue>) => TGroupKey,
+    elementSelector: (item: KeyValuePair<TKey, TValue>) => TElement,
+    comparer?: IEqualityComparer<TGroupKey>
+  ): IEnumerable<IGrouping<TGroupKey, TElement>> {
+    return Enumerable.GroupBy(this, keySelector, elementSelector, comparer)
+  }
+
+  public GroupJoin<TInner, TGroupKey, TResult>(
+    inner: IEnumerable<TInner>,
+    outerKeySelector: (item: KeyValuePair<TKey, TValue>) => TGroupKey,
+    innerKeySelector: (item: TInner) => TGroupKey,
+    resultSelector: (
+      item: KeyValuePair<TKey, TValue>,
+      inners: IEnumerable<TInner>
+    ) => TResult,
+    comparer?: IEqualityComparer<TGroupKey>
+  ): IEnumerable<TResult> {
+    return Enumerable.GroupJoin(
+      this,
+      inner,
+      outerKeySelector,
+      innerKeySelector,
+      resultSelector,
+      comparer
+    )
+  }
+
+  public Intersect(
+    second: IEnumerable<KeyValuePair<TKey, TValue>>,
+    comparer?: IEqualityComparer<KeyValuePair<TKey, TValue>>
+  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+    return Enumerable.Intersect(this, second, comparer)
+  }
+
+  public Join<TInner, TGroupKey, TResult>(
+    inner: IEnumerable<TInner>,
+    outerKeySelector: (item: KeyValuePair<TKey, TValue>) => TGroupKey,
+    innerKeySelector: (item: TInner) => TGroupKey,
+    resultSelector: (
+      item: KeyValuePair<TKey, TValue>,
+      inners: TInner
+    ) => TResult,
+    comparer?: IEqualityComparer<TGroupKey>
+  ): IEnumerable<TResult> {
+    return Enumerable.Join(
+      this,
+      inner,
+      outerKeySelector,
+      innerKeySelector,
+      resultSelector,
+      comparer
+    )
+  }
+
+  public Last(
+    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
+  ): KeyValuePair<TKey, TValue> {
+    return Enumerable.Last(this, predicate)
+  }
+
+  public LastOrDefault(
+    defaultValue: KeyValuePair<TKey, TValue>,
+    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
+  ): KeyValuePair<TKey, TValue> {
+    return Enumerable.LastOrDefault(this, defaultValue, predicate)
+  }
+
+  public Max(
+    selector?: (item: KeyValuePair<TKey, TValue>) => number
+  ): number | null {
+    return Enumerable.Max(this, selector)
+  }
+
+  public Min(
+    selector?: (item: KeyValuePair<TKey, TValue>) => number
+  ): number | null {
+    return Enumerable.Min(this, selector)
+  }
+
+  public Reverse(): IEnumerable<KeyValuePair<TKey, TValue>> {
+    return Enumerable.Reverse(this)
+  }
+
+  public Select<TResult>(
+    selector: (item: KeyValuePair<TKey, TValue>, index?: number) => TResult
+  ): IEnumerable<TResult> {
+    return Enumerable.Select(this, selector)
+  }
+
+  public SelectMany<TCollection, TResult>(
+    collectionSelector: (
+      item: KeyValuePair<TKey, TValue>,
+      index?: number
+    ) => IEnumerable<TCollection>,
+    resultSelector: (
+      item: KeyValuePair<TKey, TValue>,
+      collection: TCollection
+    ) => TResult
+  ): IEnumerable<TResult> {
+    return Enumerable.SelectMany(this, collectionSelector, resultSelector)
+  }
+
+  public SequenceEqual(
+    second: Iterable<KeyValuePair<TKey, TValue>>,
+    comparer?: IEqualityComparer<KeyValuePair<TKey, TValue>>
+  ): boolean {
+    return Enumerable.SequenceEqual(this, second, comparer)
+  }
+
+  public Single(
+    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
+  ): KeyValuePair<TKey, TValue> {
+    return Enumerable.Single(this, predicate)
+  }
+
+  public SingleOrDefault(
+    defaultValue: KeyValuePair<TKey, TValue>,
+    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
+  ): KeyValuePair<TKey, TValue> {
+    return Enumerable.SingleOrDefault(this, defaultValue, predicate)
+  }
+
+  public Skip(count: number): IEnumerable<KeyValuePair<TKey, TValue>> {
+    return Enumerable.Skip(this, count)
+  }
+
+  public SkipWhile(
+    predicate: (item: KeyValuePair<TKey, TValue>, index?: number) => boolean
+  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+    return Enumerable.SkipWhile(this, predicate)
+  }
+
+  public Sum(
+    selector?: (item: KeyValuePair<TKey, TValue>) => number
+  ): number | null {
+    return Enumerable.Sum(this, selector)
+  }
+
+  public Take(count: number): IEnumerable<KeyValuePair<TKey, TValue>> {
+    return Enumerable.Take(this, count)
+  }
+
+  public TakeWhile(
+    predicate: (item: KeyValuePair<TKey, TValue>, index?: number) => boolean
+  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+    return Enumerable.TakeWhile(this, predicate)
+  }
+
+  public ToArray(): Array<KeyValuePair<TKey, TValue>> {
+    return Enumerable.ToArray(this)
+  }
+
+  public ToList(): IList<KeyValuePair<TKey, TValue>> {
+    return Enumerable.ToList(this)
+  }
+
+  public Where(
+    predicate: (item: KeyValuePair<TKey, TValue>, index?: number) => boolean
+  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+    return Enumerable.Where(this, predicate)
   }
 }
 
