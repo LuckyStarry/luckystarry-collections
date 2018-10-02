@@ -110,66 +110,30 @@ describe('./enumerables/join.ts', function() {
     }).to.throw(`参数 innerKeySelector 不可为空`)
   })
 
-  it('join([], [], o => o, i => i, null) => throw', function() {
-    expect(() => {
-      join([], [], o => o, i => i, null)
-    }).to.throw(`参数 resultSelector 不可为空`)
-  })
-
-  it('join([], [], o => o, i => i, undefined) => throw', function() {
-    expect(() => {
-      join([], [], o => o, i => i, undefined)
-    }).to.throw(`参数 resultSelector 不可为空`)
-  })
-
-  it('join([], [], o => o, i => i, (o, i) => { return { o: o, i: i } }) => []', function() {
-    let results = join(
-      [],
-      [],
-      o => o,
-      i => i,
-      (o, i) => {
-        return { o: o, i: i }
-      }
-    )
+  it('join([], [], o => o, i => i) => []', function() {
+    let results = join([], [], o => o, i => i)
 
     expect(results).is.not.null
     expect(results).is.not.undefined
     expect(results.Any()).is.false
   })
 
-  it('join([], [1, 2, 3], o => o, i => i, (o, i) => { return { o: o, i: i } }) => []', function() {
-    let results = join(
-      [],
-      [1, 2, 3],
-      o => o,
-      i => i,
-      (o, i) => {
-        return { o: o, i: i }
-      }
-    )
+  it('join([], [1, 2, 3], o => o, i => i) => []', function() {
+    let results = join([], [1, 2, 3], o => o, i => i)
 
     expect(results).is.not.null
     expect(results).is.not.undefined
     expect(results.Any()).is.false
   })
 
-  it('join([2], [1, 2, 3], o => o, i => i, (o, i) => { return { o: o, i: i } }) => [{2, 2}]', function() {
-    let results = join(
-      [2],
-      [1, 2, 3],
-      o => o,
-      i => i,
-      (o, i) => {
-        return { o: o, i: i }
-      }
-    )
+  it('join([2], [1, 2, 3], o => o, i => i) => [{2, 2}]', function() {
+    let results = join([2], [1, 2, 3], o => o, i => i)
 
     expect(results).is.not.null
     expect(results).is.not.undefined
     expect(results.Count()).is.equal(1)
-    expect(results.ElementAt(0).o).is.equal(2)
-    expect(results.ElementAt(0).i).is.equal(2)
+    expect(results.ElementAt(0).Outer).is.equal(2)
+    expect(results.ElementAt(0).Inner).is.equal(2)
   })
 
   it('join([1, 1, 2], [1, 2, 3], o => o, i => i, (o, i) => { return { o: o, i: i } }) => [{1, 1}, {1, 1}, {2, 2}]', function() {

@@ -16,14 +16,13 @@ function* process<TSource>(
   predicate: (item: TSource, index?: number) => boolean
 ): Iterable<TSource> {
   let i = 0
-  let skip = true
+  let skip = false
   for (let item of source) {
-    if (skip) {
+    if (!skip) {
       if (predicate(item, i++)) {
-        skip = false
-      } else {
         continue
       }
+      skip = true
     }
     yield item
   }

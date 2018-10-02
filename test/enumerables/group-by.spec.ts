@@ -34,27 +34,15 @@ describe('./enumerables/group-by.ts', function() {
     }).to.throw(`参数 keySelector 不可为空`)
   })
 
-  it('groupBy([], k => k, null) => throw', function() {
-    expect(() => {
-      groupBy([], k => k, null)
-    }).to.throw(`参数 elementSelector 不可为空`)
-  })
-
-  it('groupBy([], k => k, undefined) => throw', function() {
-    expect(() => {
-      groupBy([], k => k, undefined)
-    }).to.throw(`参数 elementSelector 不可为空`)
-  })
-
-  it('groupBy([], k => k, e => e) => throw', function() {
-    let results = groupBy([], k => k, e => e)
+  it('groupBy([], k => k) => throw', function() {
+    let results = groupBy([], k => k)
     expect(results).is.not.null
     expect(results).is.not.undefined
     expect(results.Count()).is.equal(0)
   })
 
-  it('groupBy([1], k => k, e => e) => [{Key:1, [1]}]', function() {
-    let results = groupBy([1], k => k, e => e)
+  it('groupBy([1], k => k) => [{Key:1, [1]}]', function() {
+    let results = groupBy([1], k => k)
     expect(results).is.not.null
     expect(results).is.not.undefined
     expect(results.Count()).is.equal(1)

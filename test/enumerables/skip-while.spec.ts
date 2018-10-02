@@ -35,42 +35,43 @@ describe('./enumerables/skip-while.ts', function() {
     expect(skipWhileped.Any()).is.false
   })
 
-  it('skipWhile([10, 20], x => x > 10) => [20]', function() {
-    let skipWhileped = skipWhile([10, 20], x => x > 10)
+  it('skipWhile([10, 20], x => x <= 10) => [20]', function() {
+    let skipWhileped = skipWhile([10, 20], x => x <= 10)
     expect(skipWhileped.Count()).is.equal(1)
     expect(skipWhileped.ElementAt(0)).is.equal(20)
   })
 
-  it('skipWhile([10, 20, 30], (x, i) => i >= 1) => [20, 30]', function() {
-    let skipWhileped = skipWhile([10, 20, 30], (x, i) => i >= 1)
+  it('skipWhile([10, 20, 30], (x, i) => i < 1) => [20, 30]', function() {
+    let skipWhileped = skipWhile([10, 20, 30], (x, i) => i < 1)
     expect(skipWhileped.Count()).is.equal(2)
     expect(skipWhileped.ElementAt(0)).is.equal(20)
     expect(skipWhileped.ElementAt(1)).is.equal(30)
   })
 
-  it('skipWhile([10, 20, 30, 1], x => x >= 20) => [20, 30, 1]', function() {
+  it('skipWhile([10, 20, 30, 1], x => x >= 20) => [10, 20, 30, 1]', function() {
     let skipWhileped = skipWhile([10, 20, 30, 1], x => x >= 20)
+    expect(skipWhileped.Count()).is.equal(4)
+    expect(skipWhileped.ElementAt(0)).is.equal(10)
+    expect(skipWhileped.ElementAt(1)).is.equal(20)
+    expect(skipWhileped.ElementAt(2)).is.equal(30)
+    expect(skipWhileped.ElementAt(3)).is.equal(1)
+  })
+
+  it('skipWhile([10, 20, 30, 1], x => x < 20) => [20, 30, 1]', function() {
+    let skipWhileped = skipWhile([10, 20, 30, 1], x => x < 20)
     expect(skipWhileped.Count()).is.equal(3)
     expect(skipWhileped.ElementAt(0)).is.equal(20)
     expect(skipWhileped.ElementAt(1)).is.equal(30)
     expect(skipWhileped.ElementAt(2)).is.equal(1)
   })
 
-  it('skipWhile([10, 20, 30, 1], x => x > 20) => [30, 1]', function() {
-    let skipWhileped = skipWhile([10, 20, 30, 1], x => x > 20)
-    expect(skipWhileped.Count()).is.equal(2)
-    expect(skipWhileped.ElementAt(0)).is.equal(30)
-    expect(skipWhileped.ElementAt(1)).is.equal(1)
-  })
-
-  it('skipWhile([1, 0, -1, null, undefined, 3], x => !!x) => [1, 0, -1, null, undefined, 3]', function() {
+  it('skipWhile([1, 0, -1, null, undefined, 3], x => !!x) => [0, -1, null, undefined, 3]', function() {
     let skipWhileped = skipWhile([1, 0, -1, null, undefined, 3], x => !!x)
-    expect(skipWhileped.Count()).is.equal(6)
-    expect(skipWhileped.ElementAt(0)).is.equal(1)
-    expect(skipWhileped.ElementAt(1)).is.equal(0)
-    expect(skipWhileped.ElementAt(2)).is.equal(-1)
-    expect(skipWhileped.ElementAt(3)).is.null
-    expect(skipWhileped.ElementAt(4)).is.undefined
-    expect(skipWhileped.ElementAt(5)).is.equal(3)
+    expect(skipWhileped.Count()).is.equal(5)
+    expect(skipWhileped.ElementAt(0)).is.equal(0)
+    expect(skipWhileped.ElementAt(1)).is.equal(-1)
+    expect(skipWhileped.ElementAt(2)).is.null
+    expect(skipWhileped.ElementAt(3)).is.undefined
+    expect(skipWhileped.ElementAt(4)).is.equal(3)
   })
 })

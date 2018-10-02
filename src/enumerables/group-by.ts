@@ -8,17 +8,20 @@ import * as assistance from './assistance'
 export function groupBy<TSource, TKey, TElement = TSource>(
   source: Iterable<TSource>,
   keySelector: (item: TSource) => TKey,
-  elementSelector: (item: TSource) => TElement,
+  elementSelector?: (item: TSource) => TElement,
   comparer?: IEqualityComparer<TKey>
 ): IEnumerable<IGrouping<TKey, TElement>> {
   utils.throws.ThrowIfNull('source', source)
   utils.throws.ThrowIfNull('keySelector', keySelector)
-  utils.throws.ThrowIfNull('elementSelector', elementSelector)
+  let _elementSelector: any = elementSelector || (x => x)
   comparer = comparer || EqualityComparer.Default()
   return new InternalEnumerable(
     assistance
-      .group(source, keySelector, elementSelector, (x, y) =>
-        comparer.Equals(x, y)
+      .group<TSource, TKey, TElement>(
+        source,
+        keySelector,
+        _elementSelector,
+        (x, y) => comparer.Equals(x, y)
       )
       .map(g => new Grouping(g.Key, new InternalEnumerable(g.List)))
   )
