@@ -31,22 +31,26 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
     elementSelector: (item: TSource) => TElement,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<IGrouping<TKey, TElement>>
-  GroupJoin<TInner, TKey, TResult>(
+  GroupJoin<
+    TInner,
+    TKey,
+    TResult = { Outer: TSource; Inners: IEnumerable<TInner> }
+  >(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: TSource) => TKey,
     innerKeySelector: (item: TInner) => TKey,
-    resultSelector: (item: TSource, inners: IEnumerable<TInner>) => TResult,
+    resultSelector?: (item: TSource, inners: IEnumerable<TInner>) => TResult,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<TResult>
   Intersect(
     second: IEnumerable<TSource>,
     comparer?: IEqualityComparer<TSource>
   ): IEnumerable<TSource>
-  Join<TInner, TKey, TResult>(
+  Join<TInner, TKey, TResult = { Outer: TSource; Inner: TInner }>(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: TSource) => TKey,
     innerKeySelector: (item: TInner) => TKey,
-    resultSelector: (item: TSource, inners: TInner) => TResult,
+    resultSelector?: (item: TSource, inners: TInner) => TResult,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<TResult>
   Last(predicate?: (item: TSource) => boolean): TSource
@@ -60,12 +64,12 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
   Select<TResult>(
     selector: (item: TSource, index?: number) => TResult
   ): IEnumerable<TResult>
-  SelectMany<TCollection, TResult>(
+  SelectMany<TCollection, TResult = TCollection>(
     collectionSelector: (
       item: TSource,
       index?: number
     ) => IEnumerable<TCollection>,
-    resultSelector: (item: TSource, collection: TCollection) => TResult
+    resultSelector?: (item: TSource, collection: TCollection) => TResult
   ): IEnumerable<TResult>
   SequenceEqual(
     second: Iterable<TSource>,
