@@ -1,10 +1,12 @@
 import { IEnumerable, Enumerable } from './enumerable'
 import { ICollection } from './collection'
-import { ArgumentOutOfRangeException } from './exceptions'
+import { ArgumentOutOfRangeException, ArgumentException } from './exceptions'
 import { IEqualityComparer } from './equality-comparer'
 import { IGrouping } from './grouping'
 import { Dictionary } from './dictionary'
 import { ReadOnlyCollection } from './read-only-collection'
+import { Predicate } from './predicate'
+import { throws } from './utils'
 
 export interface IList<T> extends IEnumerable<T>, ICollection<T> {
   Set(index: number, item: T): void
@@ -77,6 +79,94 @@ export class List<T> implements IList<T> {
     }
   }
 
+  public Exists(match: Predicate<T>): boolean {
+    throws.ThrowIfNull('match', match)
+    return this.Any(match)
+  }
+
+  public Find(match: Predicate<T>): T {
+    throws.ThrowIfNull('match', match)
+    return this.FirstOrDefault(null, match)
+  }
+
+  public FindAll(match: Predicate<T>): List<T> {
+    throws.ThrowIfNull('match', match)
+    return this.Where(match).ToList()
+  }
+
+  public FindIndex(
+    startIndex: number,
+    count: number,
+    match: Predicate<T>
+  ): number {
+    if (startIndex < 0 || startIndex >= this.Length) {
+      throw new ArgumentOutOfRangeException('startIndex', startIndex)
+    }
+    if (count < 0 || count > this.Length) {
+      throw new ArgumentOutOfRangeException('count', count)
+    }
+    if (startIndex + count > this.Length) {
+      throw new ArgumentException('startIndex + count')
+    }
+    throws.ThrowIfNull('match', match)
+    let length = this.items.length
+    let times = 0
+    for (let i = startIndex; i < length; i++) {
+      if (++times > count) {
+        break
+      }
+      if (match(this.items[i])) {
+        return i
+      }
+    }
+    return -1
+  }
+
+  public FindLast(match: Predicate<T>): T {
+    throws.ThrowIfNull('match', match)
+    return this.LastOrDefault(null, match)
+  }
+
+  public FindLastIndex(
+    startIndex: number,
+    count: number,
+    match: Predicate<T>
+  ): number {
+    if (startIndex < 0 || startIndex >= this.Length) {
+      throw new ArgumentOutOfRangeException('startIndex', startIndex)
+    }
+    if (count < 0 || count > this.Length) {
+      throw new ArgumentOutOfRangeException('count', count)
+    }
+    if (startIndex + count > this.Length) {
+      throw new ArgumentException('startIndex + count')
+    }
+    throws.ThrowIfNull('match', match)
+    let times = 0
+    for (let i = startIndex; i >= 0; i--) {
+      if (++times > count) {
+        break
+      }
+      if (match(this.items[i])) {
+        return i
+      }
+    }
+    return -1
+  }
+
+  public GetRange(index: number, count: number): List<T> {
+    if (index < 0 || index >= this.Length) {
+      throw new ArgumentOutOfRangeException('index', index)
+    }
+    if (count < 0 || count > this.Length) {
+      throw new ArgumentOutOfRangeException('count', count)
+    }
+    if (index + count > this.Length) {
+      throw new ArgumentException('index + count')
+    }
+    return new List(range(this.items, index, count))
+  }
+
   public IndexOf(item: T): number {
     return this.items.findIndex(x => x === item)
   }
@@ -102,6 +192,11 @@ export class List<T> implements IList<T> {
       throw new ArgumentOutOfRangeException('index', index)
     }
     this.items.splice(index, 1)
+  }
+
+  public TrueForAll(match: Predicate<T>): boolean {
+    throws.ThrowIfNull('match', match)
+    return this.All(match)
   }
 
   public *[Symbol.iterator](): IterableIterator<T> {
@@ -321,5 +416,16 @@ export class List<T> implements IList<T> {
     predicate: (item: T, index?: number) => boolean
   ): IEnumerable<T> {
     return Enumerable.Where(this, predicate)
+  }
+}
+
+function* range<T>(array: Array<T>, index: number, count: number): Iterable<T> {
+  let length = array.length
+  let c = 0
+  for (let i = index; i < length; i++) {
+    if (++c > count) {
+      break
+    }
+    yield array[i]
   }
 }

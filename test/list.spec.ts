@@ -91,6 +91,162 @@ describe('./list.ts', function() {
     expect(readonly.Count()).is.equal(2)
   })
 
+  it('List.Exists 功能正常', function() {
+    let list = new List([1, 2])
+    expect(() => {
+      list.Exists(null)
+    }).to.throw('参数 match 不可为空')
+    expect(() => {
+      list.Exists(undefined)
+    }).to.throw('参数 match 不可为空')
+    expect(list.Exists(x => x > 0)).is.true
+    expect(list.Exists(x => x < 1)).is.false
+    expect(list.Exists(x => x < 2)).is.true
+  })
+
+  it('List.Find 功能正常', function() {
+    let list = new List([1, 2])
+    expect(() => {
+      list.Find(null)
+    }).to.throw('参数 match 不可为空')
+    expect(() => {
+      list.Find(undefined)
+    }).to.throw('参数 match 不可为空')
+    expect(list.Find(x => x > 0)).is.equal(1)
+    expect(list.Find(x => x < 1)).is.null
+    expect(list.Find(x => x < 2)).is.equal(1)
+    expect(list.Find(x => x < 3)).is.equal(1)
+  })
+
+  it('List.FindAll 功能正常', function() {
+    let list = new List([1, 2])
+    expect(() => {
+      list.FindAll(null)
+    }).to.throw('参数 match 不可为空')
+    expect(() => {
+      list.FindAll(undefined)
+    }).to.throw('参数 match 不可为空')
+    let items = list.FindAll(x => x > 0)
+    expect(items).is.instanceOf(List)
+    expect(items.Count()).is.equal(2)
+    expect(list.FindAll(x => x < 1)).is.not.null
+    expect(list.FindAll(x => x < 1)).is.not.undefined
+    expect(list.FindAll(x => x < 1)).is.instanceOf(List)
+    expect(list.FindAll(x => x < 1).Count()).is.equal(0)
+    expect(list.FindAll(x => x < 2).Count()).is.equal(1)
+    expect(list.FindAll(x => x < 2)).is.instanceOf(List)
+    expect(list.FindAll(x => x < 2).Get(0)).is.equal(1)
+  })
+
+  it('List.FindIndex 功能正常', function() {
+    let list = new List([1, 2])
+    expect(() => {
+      list.FindIndex(0, 0, null)
+    }).to.throw('参数 match 不可为空')
+    expect(() => {
+      list.FindIndex(0, 0, undefined)
+    }).to.throw('参数 match 不可为空')
+    expect(() => {
+      list.FindIndex(-1, 0, null)
+    }).to.throw('参数 startIndex 的范围越界 -1')
+    expect(() => {
+      list.FindIndex(2, 0, undefined)
+    }).to.throw('参数 startIndex 的范围越界 2')
+    expect(() => {
+      list.FindIndex(0, -1, null)
+    }).to.throw('参数 count 的范围越界 -1')
+    expect(() => {
+      list.FindIndex(0, 3, undefined)
+    }).to.throw('参数 count 的范围越界 3')
+    expect(() => {
+      list.FindIndex(1, 2, null)
+    }).to.throw('参数 startIndex + count 存在异常')
+
+    expect(list.FindIndex(0, 2, x => x > 0)).is.equal(0)
+    expect(list.FindIndex(1, 1, x => x > 0)).is.equal(1)
+    expect(list.FindIndex(0, 2, x => x < 2)).is.equal(0)
+    expect(list.FindIndex(1, 1, x => x < 2)).is.equal(-1)
+    expect(list.FindIndex(0, 0, x => x > 0)).is.equal(-1)
+  })
+
+  it('List.FindLast 功能正常', function() {
+    let list = new List([1, 2])
+    expect(() => {
+      list.FindLast(null)
+    }).to.throw('参数 match 不可为空')
+    expect(() => {
+      list.FindLast(undefined)
+    }).to.throw('参数 match 不可为空')
+    expect(list.FindLast(x => x > 0)).is.equal(2)
+    expect(list.FindLast(x => x < 1)).is.null
+    expect(list.FindLast(x => x < 2)).is.equal(1)
+    expect(list.FindLast(x => x < 3)).is.equal(2)
+  })
+
+  it('List.FindLastIndex 功能正常', function() {
+    let list = new List([1, 2])
+    expect(() => {
+      list.FindLastIndex(0, 0, null)
+    }).to.throw('参数 match 不可为空')
+    expect(() => {
+      list.FindLastIndex(0, 0, undefined)
+    }).to.throw('参数 match 不可为空')
+    expect(() => {
+      list.FindLastIndex(-1, 0, null)
+    }).to.throw('参数 startIndex 的范围越界 -1')
+    expect(() => {
+      list.FindLastIndex(2, 0, undefined)
+    }).to.throw('参数 startIndex 的范围越界 2')
+    expect(() => {
+      list.FindLastIndex(0, -1, null)
+    }).to.throw('参数 count 的范围越界 -1')
+    expect(() => {
+      list.FindLastIndex(0, 3, undefined)
+    }).to.throw('参数 count 的范围越界 3')
+    expect(() => {
+      list.FindLastIndex(1, 2, null)
+    }).to.throw('参数 startIndex + count 存在异常')
+
+    expect(list.FindLastIndex(0, 2, x => x > 0)).is.equal(0)
+    expect(list.FindLastIndex(1, 1, x => x > 0)).is.equal(1)
+    expect(list.FindLastIndex(0, 2, x => x < 2)).is.equal(0)
+    expect(list.FindLastIndex(1, 1, x => x < 2)).is.equal(-1)
+    expect(list.FindLastIndex(0, 0, x => x > 0)).is.equal(-1)
+  })
+
+  it('List.GetRange 功能正常', function() {
+    let list = new List([1, 2, 3, 4, 5, 6, 7])
+    expect(() => {
+      list.GetRange(-1, 0)
+    }).to.throw('参数 index 的范围越界 -1')
+    expect(() => {
+      list.GetRange(7, 0)
+    }).to.throw('参数 index 的范围越界 7')
+    expect(() => {
+      list.GetRange(0, -1)
+    }).to.throw('参数 count 的范围越界 -1')
+    expect(() => {
+      list.GetRange(0, 8)
+    }).to.throw('参数 count 的范围越界 8')
+    expect(() => {
+      list.GetRange(1, 7)
+    }).to.throw('参数 index + count 存在异常')
+
+    let items = list.GetRange(3, 4)
+    expect(items).is.instanceOf(List)
+    expect(items.Count()).is.equal(4)
+    expect(items.Get(0)).is.equal(4)
+    expect(items.Get(1)).is.equal(5)
+    expect(items.Get(2)).is.equal(6)
+    expect(items.Get(3)).is.equal(7)
+
+    items = list.GetRange(1, 2)
+    expect(items).is.instanceOf(List)
+    expect(items.Count()).is.equal(2)
+    expect(items.Get(0)).is.equal(2)
+    expect(items.Get(1)).is.equal(3)
+  })
+
   it('List.Set 索引范围内正常赋值', function() {
     let list = new List([1, 2])
     expect(list.Get(0)).is.equal(1)
@@ -266,6 +422,19 @@ describe('./list.ts', function() {
     expect(() => {
       list.RemoveAt(5)
     }).to.throw(`参数 index 的范围越界 ${5}`)
+  })
+
+  it('List.TrueForAll 功能正常', function() {
+    let list = new List([1, 2])
+    expect(() => {
+      list.TrueForAll(null)
+    }).to.throw('参数 match 不可为空')
+    expect(() => {
+      list.TrueForAll(undefined)
+    }).to.throw('参数 match 不可为空')
+    expect(list.TrueForAll(x => x > 0)).is.true
+    expect(list.TrueForAll(x => x < 1)).is.false
+    expect(list.TrueForAll(x => x < 2)).is.false
   })
 
   it('List.All 方法正常运作', function() {
