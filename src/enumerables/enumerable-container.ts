@@ -1,8 +1,8 @@
 import { IEnumerable, Enumerable } from '../enumerable'
 import { IEqualityComparer } from '../equality-comparer'
 import { IGrouping } from '../grouping'
-import { IList } from '../list'
-import { IDictionary } from '../dictionary'
+import { List } from '../list'
+import { Dictionary } from '../dictionary'
 
 export class EnumerableContainer<TSource> {
   private iteratable: Iterable<TSource>
@@ -223,11 +223,11 @@ export class EnumerableContainer<TSource> {
     keySelector: (item: TSource) => TKey,
     elementSelector?: (item: TSource) => TElement,
     comparer?: IEqualityComparer<TKey>
-  ): IDictionary<TKey, TElement> {
+  ): Dictionary<TKey, TElement> {
     return Enumerable.ToDictionary(this, keySelector, elementSelector, comparer)
   }
 
-  public ToList(): IList<TSource> {
+  public ToList(): List<TSource> {
     return Enumerable.ToList(this)
   }
 

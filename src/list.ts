@@ -3,7 +3,7 @@ import { ICollection } from './collection'
 import { ArgumentOutOfRangeException } from './exceptions'
 import { IEqualityComparer } from './equality-comparer'
 import { IGrouping } from './grouping'
-import { IDictionary } from './dictionary'
+import { Dictionary } from './dictionary'
 
 export interface IList<T> extends IEnumerable<T>, ICollection<T> {
   Set(index: number, item: T): void
@@ -297,11 +297,11 @@ export class List<T> implements IList<T> {
     keySelector: (item: T) => TKey,
     elementSelector?: (item: T) => TElement,
     comparer?: IEqualityComparer<TKey>
-  ): IDictionary<TKey, TElement> {
+  ): Dictionary<TKey, TElement> {
     return Enumerable.ToDictionary(this, keySelector, elementSelector, comparer)
   }
 
-  public ToList(): IList<T> {
+  public ToList(): List<T> {
     return Enumerable.ToList(this)
   }
 
