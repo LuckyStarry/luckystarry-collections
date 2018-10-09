@@ -1,4 +1,4 @@
-import { IDictionary, Dictionary } from '../dictionary'
+import { Dictionary } from '../dictionary'
 import { IEqualityComparer, EqualityComparer } from '../equality-comparer'
 import * as utils from '../utils'
 
@@ -7,7 +7,7 @@ export function toDictionary<TSource, TKey, TElement = TSource>(
   keySelector: (item: TSource) => TKey,
   elementSelector?: (item: TSource) => TElement,
   comparer?: IEqualityComparer<TKey>
-): IDictionary<TKey, TElement> {
+): Dictionary<TKey, TElement> {
   utils.throws.ThrowIfNull('source', source)
   utils.throws.ThrowIfNull('keySelector', keySelector)
   let _elementSelector: any = elementSelector || (x => x)

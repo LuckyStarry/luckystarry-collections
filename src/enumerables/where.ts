@@ -14,9 +14,7 @@ export function where<TSource>(
 function* filter<TSource>(
   source: Iterable<TSource>,
   predicate: (item: TSource, index?: number) => boolean
-): {
-  [Symbol.iterator](): IterableIterator<TSource>
-} {
+): Iterable<TSource> {
   let index = 0
   for (let item of source) {
     if (predicate(item, index++)) {

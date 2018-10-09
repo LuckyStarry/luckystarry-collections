@@ -7,7 +7,7 @@ import {
 } from './exceptions'
 import { KeyValuePair } from './key-value-pair'
 import { IGrouping } from './grouping'
-import { IList } from './list'
+import { List } from './list'
 import * as utils from './utils'
 
 export interface IDictionary<TKey, TValue>
@@ -522,11 +522,11 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     keySelector: (item: KeyValuePair<TKey, TValue>) => TDictionaryKey,
     elementSelector?: (item: KeyValuePair<TKey, TValue>) => TElement,
     comparer?: IEqualityComparer<TDictionaryKey>
-  ): IDictionary<TDictionaryKey, TElement> {
+  ): Dictionary<TDictionaryKey, TElement> {
     return Enumerable.ToDictionary(this, keySelector, elementSelector, comparer)
   }
 
-  public ToList(): IList<KeyValuePair<TKey, TValue>> {
+  public ToList(): List<KeyValuePair<TKey, TValue>> {
     return Enumerable.ToList(this)
   }
 

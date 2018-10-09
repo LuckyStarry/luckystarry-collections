@@ -1,113 +1,65 @@
 import { IEnumerable, Enumerable } from './enumerable'
-import { ICollection } from './collection'
-import { ArgumentOutOfRangeException } from './exceptions'
+import { InvalidOperationException } from './exceptions'
 import { IEqualityComparer } from './equality-comparer'
 import { IGrouping } from './grouping'
 import { Dictionary } from './dictionary'
-import { ReadOnlyCollection } from './read-only-collection'
+import { IList, List } from './list'
+import { throws } from './utils'
 
-export interface IList<T> extends IEnumerable<T>, ICollection<T> {
-  Set(index: number, item: T): void
-  Get(index: number): T
+export class ReadOnlyCollection<T> implements IList<T> {
+  private list: IList<T>
 
-  IndexOf(item: T): number
-  Insert(index: number, item: T): void
-  RemoveAt(index: number): void
-}
-
-export class List<T> implements IList<T> {
-  private items: Array<T> = []
-
-  public constructor(collection?: Iterable<T>) {
-    if (collection) {
-      if (collection instanceof Array) {
-        this.items = collection.map(x => x)
-      } else {
-        this.AddRange(collection)
-      }
-    }
+  public constructor(list: IList<T>) {
+    throws.ThrowIfNull('list', list)
+    this.list = list
   }
 
   public get Length(): number {
-    return this.items.length
+    return this.list.Length
   }
 
   public get IsReadOnly(): boolean {
-    return false
+    return true
   }
 
   public Set(index: number, item: T): void {
-    if (index < 0 || index >= this.Length) {
-      throw new ArgumentOutOfRangeException('index', index)
-    }
-    this.items[index] = item
+    throw new InvalidOperationException('不可向只读列表中写入数据')
   }
 
   public Get(index: number): T {
-    if (index < 0 || index >= this.Length) {
-      throw new ArgumentOutOfRangeException('index', index)
-    }
-    return this.items[index]
+    return this.list.Get(index)
   }
 
   public Add(item: T): void {
-    this.items.push(item)
-  }
-
-  public AddRange(collection: Iterable<T>) {
-    if (collection) {
-      for (let item of collection) {
-        this.Add(item)
-      }
-    }
-  }
-
-  public AsReadOnly(): ReadOnlyCollection<T> {
-    return new ReadOnlyCollection(this)
+    throw new InvalidOperationException('不可向只读列表中写入数据')
   }
 
   public Clear(): void {
-    this.items = []
+    throw new InvalidOperationException('不可清空只读列表')
   }
 
   public CopyTo(array: T[], arrayIndex: number): void {
-    let i = 0
-    for (let item of this) {
-      array[i++ + arrayIndex] = item
-    }
+    this.list.CopyTo(array, arrayIndex)
   }
 
   public IndexOf(item: T): number {
-    return this.items.findIndex(x => x === item)
+    return this.list.IndexOf(item)
   }
 
   public Insert(index: number, item: T): void {
-    if (index < 0 || index >= this.Length) {
-      throw new ArgumentOutOfRangeException('index', index)
-    }
-    this.items.splice(index, 0, item)
+    throw new InvalidOperationException('不可向只读列表中写入数据')
   }
 
   public Remove(item: T): boolean {
-    let index = this.IndexOf(item)
-    if (index >= 0) {
-      this.RemoveAt(index)
-      return true
-    }
-    return false
+    throw new InvalidOperationException('不可从只读列表中删除数据')
   }
 
   public RemoveAt(index: number): void {
-    if (index < 0 || index >= this.Length) {
-      throw new ArgumentOutOfRangeException('index', index)
-    }
-    this.items.splice(index, 1)
+    throw new InvalidOperationException('不可从只读列表中删除数据')
   }
 
-  public *[Symbol.iterator](): IterableIterator<T> {
-    for (let item of this.items) {
-      yield item
-    }
+  public [Symbol.iterator](): IterableIterator<T> {
+    return this.list[Symbol.iterator]()
   }
 
   public All(predicate: (item: T) => boolean): boolean {
