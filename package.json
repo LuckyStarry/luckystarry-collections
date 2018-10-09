@@ -8,6 +8,7 @@
   "scripts": {
     "prebuild": "del-cli dist -f",
     "build": "tsc",
+    "postbuild": "browserify dist/index.js > dist/index.min.js",
     "test": "nyc mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
@@ -24,6 +25,11 @@
       "src"
     ],
     "all": true
+  },
+  "browserify": {
+    "transform": [
+      ["babelify", { "presets": ["@babel/preset-env"] }]
+    ]
   },
   "main": "dist/index.js",
   "license": "MIT",
