@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "prebuild": "del-cli dist -f",
-    "build": "gulp compile",
+    "build": "tsc",
     "test": "nyc mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
