@@ -3,6 +3,7 @@ import { expect } from 'chai'
 import { EqualityComparer } from '../src/equality-comparer'
 import { List } from '../src/list'
 import { Dictionary } from '../src/dictionary'
+import { ReadOnlyCollection } from '../src/read-only-collection'
 
 describe('./list.ts', function() {
   it('存在 Class List', function() {
@@ -81,6 +82,13 @@ describe('./list.ts', function() {
     expect(list.Count()).is.equal(2)
     list.AddRange(undefined)
     expect(list.Count()).is.equal(2)
+  })
+
+  it('List.AsReadOnly 生成可读列表正常', function() {
+    let list = new List([1, 2])
+    let readonly = list.AsReadOnly()
+    expect(readonly).is.instanceof(ReadOnlyCollection)
+    expect(readonly.Count()).is.equal(2)
   })
 
   it('List.Set 索引范围内正常赋值', function() {

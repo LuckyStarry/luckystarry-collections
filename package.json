@@ -16,17 +16,9 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "nyc": {
-    "extension": [
-      ".ts"
-    ],
-    "reporter": [
-      "lcov",
-      "text",
-      "text-summary"
-    ],
-    "include": [
-      "src"
-    ],
+    "extension": [".ts"],
+    "reporter": ["html", "lcov", "text", "text-summary"],
+    "include": ["src"],
     "all": true
   },
   "main": "dist/index.js",
