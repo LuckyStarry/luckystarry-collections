@@ -5,6 +5,7 @@ import { Dictionary } from './dictionary'
 
 export interface IGrouping<TKey, TElement> extends IEnumerable<TElement> {
   readonly Key: TKey
+  readonly Items: IEnumerable<TElement>
 }
 
 export class Grouping<TKey, TElement> implements IGrouping<TKey, TElement> {

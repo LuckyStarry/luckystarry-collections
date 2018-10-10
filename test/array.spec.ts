@@ -3,8 +3,6 @@ import { expect } from 'chai'
 import { EqualityComparer } from '../src/equality-comparer'
 import { Dictionary } from '../src/dictionary'
 import { List } from '../src/list'
-import '../src'
-import '../src/array'
 
 describe('./array.ts', function() {
   it('Array.All 方法正常运作', function() {
