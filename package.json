@@ -17,26 +17,6 @@
     "test": "nyc mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
-  "nyc": {
-    "check-coverage": true,
-    "lines": 90,
-    "statements": 90,
-    "functions": 90,
-    "branches": 90,
-    "extension": [
-      ".ts"
-    ],
-    "reporter": [
-      "html",
-      "lcov",
-      "text",
-      "text-summary"
-    ],
-    "include": [
-      "src"
-    ],
-    "all": true
-  },
   "main": "dist/index.js",
   "license": "MIT",
   "devDependencies": {

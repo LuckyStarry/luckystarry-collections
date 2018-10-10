@@ -20,6 +20,10 @@ export class Grouping<TKey, TElement> implements IGrouping<TKey, TElement> {
     return this.key
   }
 
+  public get Items(): IEnumerable<TElement> {
+    return this.source
+  }
+
   public [Symbol.iterator](): IterableIterator<TElement> {
     return this.source[Symbol.iterator]()
   }
