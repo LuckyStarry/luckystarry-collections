@@ -1,4 +1,5 @@
---require test/mocha.tshook.js test/**/*.ts
+--require ts-node/register test/**/*.spec.ts
+--require source-map-support/register
 --bail
 --recursive
 --timeout 10000
