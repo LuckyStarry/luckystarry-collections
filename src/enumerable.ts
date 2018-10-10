@@ -29,7 +29,7 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
   ): TSource
   GroupBy<TKey, TElement = TSource>(
     keySelector: (item: TSource) => TKey,
-    elementSelector: (item: TSource) => TElement,
+    elementSelector?: (item: TSource) => TElement,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<IGrouping<TKey, TElement>>
   GroupJoin<

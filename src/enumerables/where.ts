@@ -1,5 +1,4 @@
-import { IEnumerable } from '../enumerable'
-import { EnumerableContainer } from './enumerable-container'
+import { IEnumerable, Enumerable } from '../enumerable'
 import * as utils from '../utils'
 
 export function where<TSource>(
@@ -8,7 +7,7 @@ export function where<TSource>(
 ): IEnumerable<TSource> {
   utils.throws.ThrowIfNull('source', source)
   utils.throws.ThrowIfNull('predicate', predicate)
-  return new EnumerableContainer([...filter(source, predicate)])
+  return Enumerable.AsEnumerable(filter(source, predicate))
 }
 
 function* filter<TSource>(

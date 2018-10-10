@@ -1,7 +1,6 @@
-import { IEnumerable } from '../enumerable'
-import { throws } from '../utils'
-import { EnumerableContainer } from './enumerable-container'
+import { IEnumerable, Enumerable } from '../enumerable'
 import { IEqualityComparer, EqualityComparer } from '../equality-comparer'
+import { throws } from '../utils'
 import * as assistance from './assistance'
 
 export function union<TSource>(
@@ -12,7 +11,7 @@ export function union<TSource>(
   throws.ThrowIfNull('first', first)
   throws.ThrowIfNull('second', second)
   comparer = comparer || EqualityComparer.Default()
-  return new EnumerableContainer(
+  return Enumerable.AsEnumerable(
     assistance.distinct(assistance.concat(first, second), (x, y) =>
       comparer.Equals(x, y)
     )

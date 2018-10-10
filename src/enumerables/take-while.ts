@@ -1,5 +1,4 @@
-import { IEnumerable } from '../enumerable'
-import { EnumerableContainer } from './enumerable-container'
+import { IEnumerable, Enumerable } from '../enumerable'
 import * as utils from '../utils'
 
 export function takeWhile<TSource>(
@@ -8,7 +7,7 @@ export function takeWhile<TSource>(
 ): IEnumerable<TSource> {
   utils.throws.ThrowIfNull('source', source)
   utils.throws.ThrowIfNull('predicate', predicate)
-  return new EnumerableContainer([...process(source, predicate)])
+  return Enumerable.AsEnumerable(process(source, predicate))
 }
 
 function* process<TSource>(

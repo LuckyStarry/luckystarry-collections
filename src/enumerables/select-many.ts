@@ -1,5 +1,4 @@
-import { IEnumerable } from '../enumerable'
-import { EnumerableContainer } from './enumerable-container'
+import { IEnumerable, Enumerable } from '../enumerable'
 import * as utils from '../utils'
 
 export function selectMany<TSource, TCollection, TResult = TCollection>(
@@ -14,13 +13,13 @@ export function selectMany<TSource, TCollection, TResult = TCollection>(
   utils.throws.ThrowIfNull('collectionSelector', collectionSelector)
   let _resultSelector: any =
     resultSelector || ((item, collection) => collection)
-  return new EnumerableContainer([
-    ...mapping<TSource, TCollection, TResult>(
+  return Enumerable.AsEnumerable(
+    mapping<TSource, TCollection, TResult>(
       source,
       collectionSelector,
       _resultSelector
     )
-  ])
+  )
 }
 
 function* mapping<TSource, TCollection, TResult = TCollection>(

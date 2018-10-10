@@ -12,10 +12,17 @@
     "build": "tsc",
     "postbuild": "npm run bundle",
     "bundle": "browserify dist/index.js > dist/index.bundle.js",
+    "postbundle": "npm run uglify",
+    "uglify": "uglifyjs dist/index.bundle.js --compress --mangle --output dist/index.min.js",
     "test": "nyc mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "nyc": {
+    "check-coverage": true,
+    "lines": 90,
+    "statements": 90,
+    "functions": 90,
+    "branches": 90,
     "extension": [
       ".ts"
     ],
@@ -47,7 +54,7 @@
     "tslint": "^5.11.0",
     "tslint-config-standard": "^8.0.1",
     "typescript": "^3.0.3",
-    "uglifyify": "^5.0.1",
+    "uglify-js": "^3.4.9",
     "uuid": "^3.3.2"
   },
   "repository": {

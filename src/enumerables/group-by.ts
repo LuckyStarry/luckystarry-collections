@@ -1,7 +1,6 @@
-import { IEnumerable } from '../enumerable'
+import { IEnumerable, Enumerable } from '../enumerable'
 import { IEqualityComparer, EqualityComparer } from '../equality-comparer'
 import { IGrouping, Grouping } from '../grouping'
-import { EnumerableContainer } from './enumerable-container'
 import * as utils from '../utils'
 import * as assistance from './assistance'
 
@@ -15,7 +14,7 @@ export function groupBy<TSource, TKey, TElement = TSource>(
   utils.throws.ThrowIfNull('keySelector', keySelector)
   let _elementSelector: any = elementSelector || (x => x)
   comparer = comparer || EqualityComparer.Default()
-  return new EnumerableContainer(
+  return Enumerable.AsEnumerable(
     assistance
       .group<TSource, TKey, TElement>(
         source,
@@ -23,6 +22,6 @@ export function groupBy<TSource, TKey, TElement = TSource>(
         _elementSelector,
         (x, y) => comparer.Equals(x, y)
       )
-      .map(g => new Grouping(g.Key, new EnumerableContainer(g.List)))
+      .map(g => new Grouping(g.Key, Enumerable.AsEnumerable(g.List)))
   )
 }

@@ -1,5 +1,4 @@
-import { IEnumerable } from '../enumerable'
-import { EnumerableContainer } from './enumerable-container'
+import { IEnumerable, Enumerable } from '../enumerable'
 import * as utils from '../utils'
 
 export function select<TSource, TResult>(
@@ -8,7 +7,7 @@ export function select<TSource, TResult>(
 ): IEnumerable<TResult> {
   utils.throws.ThrowIfNull('source', source)
   utils.throws.ThrowIfNull('selector', selector)
-  return new EnumerableContainer([...mapping(source, selector)])
+  return Enumerable.AsEnumerable(mapping(source, selector))
 }
 
 function* mapping<TSource, TResult>(
