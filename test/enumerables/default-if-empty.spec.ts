@@ -2,7 +2,6 @@
 import { expect } from 'chai'
 import { defaultIfEmpty } from '../../src/enumerables/default-if-empty'
 import { List } from '../../src/list'
-import { EnumerableContainer } from '../../src/enumerables/enumerable-container'
 
 describe('./enumerables/defaultIfEmpty.ts', function() {
   it('存在 defaultIfEmpty 方法', function() {
@@ -12,11 +11,11 @@ describe('./enumerables/defaultIfEmpty.ts', function() {
   })
 
   it('defaultIfEmpty([]) => 新的空列表', function() {
-    expect(defaultIfEmpty([])).instanceOf(EnumerableContainer)
+    expect(defaultIfEmpty([])).instanceOf(Array)
   })
 
   it('defaultIfEmpty(new List()) => 新的空列表', function() {
-    expect(defaultIfEmpty(new List())).instanceOf(EnumerableContainer)
+    expect(defaultIfEmpty(new List())).instanceOf(Array)
   })
 
   it('defaultIfEmpty([1, 2, 4]) => 新的可枚举的原列表', function() {

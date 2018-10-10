@@ -1,6 +1,5 @@
-import { IEnumerable } from '../enumerable'
+import { IEnumerable, Enumerable } from '../enumerable'
 import { throws } from '../utils'
-import { EnumerableContainer } from './enumerable-container'
 import * as assistance from './assistance'
 
 export function concat<TSource>(
@@ -9,5 +8,5 @@ export function concat<TSource>(
 ): IEnumerable<TSource> {
   throws.ThrowIfNull('first', first)
   throws.ThrowIfNull('second', second)
-  return new EnumerableContainer(assistance.concat(first, second))
+  return Enumerable.AsEnumerable(assistance.concat(first, second))
 }

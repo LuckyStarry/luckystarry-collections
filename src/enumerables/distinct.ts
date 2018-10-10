@@ -1,6 +1,5 @@
 import { IEnumerable, Enumerable } from '../enumerable'
 import { IEqualityComparer, EqualityComparer } from '../equality-comparer'
-import { EnumerableContainer } from './enumerable-container'
 import * as utils from '../utils'
 import * as assistance from './assistance'
 
@@ -11,7 +10,7 @@ export function distinct<TSource>(
   utils.throws.ThrowIfNull('source', source)
   if (Enumerable.Any(source)) {
     comparer = comparer || EqualityComparer.Default()
-    return new EnumerableContainer(
+    return Enumerable.AsEnumerable(
       assistance.distinct(source, (x, y) => comparer.Equals(x, y))
     )
   }

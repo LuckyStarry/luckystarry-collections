@@ -1,6 +1,5 @@
 import { IEnumerable, Enumerable } from '../enumerable'
 import { IEqualityComparer, EqualityComparer } from '../equality-comparer'
-import { EnumerableContainer } from './enumerable-container'
 import { IGrouping } from '../grouping'
 import * as utils from '../utils'
 
@@ -40,15 +39,15 @@ export function join<
       comparer
     )
   )
-  return new EnumerableContainer([
-    ...process<TOuter, TInner, TKey, TResult>(
+  return Enumerable.AsEnumerable(
+    process<TOuter, TInner, TKey, TResult>(
       outer,
       outerKeySelector,
       groupedInner,
       _resultSelector,
       comparer
     )
-  ])
+  )
 }
 
 function* process<TOuter, TInner, TKey, TResult>(

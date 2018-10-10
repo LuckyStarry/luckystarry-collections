@@ -1,5 +1,4 @@
-import { IEnumerable } from '../enumerable'
-import { EnumerableContainer } from './enumerable-container'
+import { IEnumerable, Enumerable } from '../enumerable'
 import * as utils from '../utils'
 
 export function skip<TSource>(
@@ -7,7 +6,7 @@ export function skip<TSource>(
   count: number
 ): IEnumerable<TSource> {
   utils.throws.ThrowIfNull('source', source)
-  return new EnumerableContainer([...process(source, count)])
+  return Enumerable.AsEnumerable(process(source, count))
 }
 
 function* process<TSource>(
