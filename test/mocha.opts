@@ -2,5 +2,4 @@
 --bail
 --recursive
 --no-timeouts
---reporter spec
 ./test/**/*.spec.ts
