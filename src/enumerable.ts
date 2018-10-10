@@ -1,3 +1,4 @@
+import './array'
 import * as enumerables from './enumerables'
 import { IEqualityComparer } from './equality-comparer'
 import { IGrouping } from './grouping'

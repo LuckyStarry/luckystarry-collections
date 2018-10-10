@@ -67,6 +67,7 @@ describe('./enumerables/group-by.ts', function() {
     expect(results).is.not.undefined
     expect(results.Count()).is.equal(3)
     expect(results.ElementAt(0).Key).is.equal(1)
+    expect(results.ElementAt(0).Items.Count()).is.equal(2)
     expect(results.ElementAt(0).Count()).is.equal(2)
     expect(results.ElementAt(0).ElementAt(0)).is.equal(1)
     expect(results.ElementAt(0).ElementAt(1)).is.equal(1)
