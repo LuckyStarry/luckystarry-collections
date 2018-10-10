@@ -17,26 +17,6 @@
     "test": "nyc mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
-  "nyc": {
-    "check-coverage": true,
-    "lines": 90,
-    "statements": 90,
-    "functions": 90,
-    "branches": 90,
-    "extension": [
-      ".ts"
-    ],
-    "reporter": [
-      "html",
-      "lcov",
-      "text",
-      "text-summary"
-    ],
-    "include": [
-      "src"
-    ],
-    "all": true
-  },
   "main": "dist/index.js",
   "license": "MIT",
   "devDependencies": {
@@ -50,6 +30,7 @@
     "mocha": "^5.2.0",
     "nyc": "^13.0.1",
     "should": "^13.2.3",
+    "source-map-support": "^0.5.9",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-config-standard": "^8.0.1",
