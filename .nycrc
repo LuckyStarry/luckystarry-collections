@@ -1,6 +1,4 @@
 {
-  "all": true,
-  "cache": false,
   "check-coverage": true,
   "lines": 90,
   "statements": 90,
@@ -8,7 +6,5 @@
   "branches": 90,
   "extension": [".ts"],
   "reporter": ["html", "lcov", "text", "text-summary"],
-  "include": ["src/**"],
-  "exclude": ["**/*.d.ts"],
-  "report-dir": "./coverage"
+  "include": ["src"]
 }
