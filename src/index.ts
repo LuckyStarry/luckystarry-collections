@@ -10,3 +10,8 @@ import { ReadOnlyCollection } from './read-only-collection'
 export { ReadOnlyCollection }
 
 export default Enumerable
+declare global {
+  interface Array<T> extends IEnumerable<T> {}
+}
+
+import './array'

@@ -22,7 +22,7 @@ describe('./enumerables/defaultIfEmpty.ts', function() {
   it('defaultIfEmpty([1, 2, 4]) => 新的可枚举的原列表', function() {
     let list = [1, 2, 4]
     let after = defaultIfEmpty(list)
-    expect(after).instanceOf(EnumerableContainer)
+    expect(after).instanceOf(Array)
     expect(after.Count()).is.equal(list.length)
     for (let i = 0; i < list.length; i++) {
       expect(after.ElementAt(i)).is.equal(list[i])
