@@ -26,7 +26,7 @@ npm install -S luckystarry-collections
 
 ## Usage
 
-### Array<T>
+### Array&lt;T&gt;
 
 #### All(predicate: (item: T) => boolean): boolean
 
@@ -51,7 +51,7 @@ npm install -S luckystarry-collections
 // false
 ```
 
-#### AsEnumerable(): IEnumerable<T>
+#### AsEnumerable(): IEnumerable&lt;T&gt;
 
 ```typescript
 [1, 2, 3].AsEnumerable()
@@ -68,14 +68,14 @@ npm install -S luckystarry-collections
 // 4
 ```
 
-#### Concat(second: IEnumerable<T>): IEnumerable<T>
+#### Concat(second: IEnumerable&lt;T&gt;): IEnumerable&lt;T&gt;
 
 ```typescript
 [1, 2, 3].Concat([3, 4, 5])
 // [1, 2, 3, 3, 4, 5]
 ```
 
-#### Contains(value: T, comparer?: IEqualityComparer<T>): boolean
+#### Contains(value: T, comparer?: IEqualityComparer&lt;T&gt;): boolean
 
 ```typescript
 [1, 2, 3].Contains(2)
@@ -92,7 +92,7 @@ npm install -S luckystarry-collections
 // 2
 ```
 
-#### DefaultIfEmpty(defaultValue?: IEnumerable<T>): IEnumerable<T>
+#### DefaultIfEmpty(defaultValue?: IEnumerable&lt;T&gt;): IEnumerable&lt;T&gt;
 
 ```typescript
 [1, 2, 3].DefaultIfEmpty()
@@ -102,7 +102,7 @@ npm install -S luckystarry-collections
 // [1]
 ```
 
-#### Distinct(comparer?: IEqualityComparer<T>): IEnumerable<T>
+#### Distinct(comparer?: IEqualityComparer&lt;T&gt;): IEnumerable&lt;T&gt;
 
 ```typescript
 [1, 2, 3].Distinct()
@@ -129,7 +129,7 @@ npm install -S luckystarry-collections
 // 0
 ```
 
-#### Except(second: IEnumerable<T>, comparer?: IEqualityComparer<T>): IEnumerable<T>
+#### Except(second: IEnumerable&lt;T&gt;, comparer?: IEqualityComparer&lt;T&gt;): IEnumerable&lt;T&gt;
 
 ```typescript
 [1, 2, 3].Except([3, 4])
@@ -176,7 +176,7 @@ npm install -S luckystarry-collections
 // [{ Outer: 1, Inners: [] }, { Outer: 2, Inners: [] }, { Outer: 3, Inners: [3] }]
 ```
 
-#### Intersect(second: IEnumerable<T>, comparer?: IEqualityComparer<T>): IEnumerable<T>
+#### Intersect(second: IEnumerable&lt;T&gt;, comparer?: IEqualityComparer&lt;T&gt;): IEnumerable&lt;T&gt;
 
 ```typescript
 [1, 2, 3].Intersect([3, 4])
@@ -233,7 +233,7 @@ npm install -S luckystarry-collections
 // 2
 ```
 
-#### Reverse(): IEnumerable<T>
+#### Reverse(): IEnumerable&lt;T&gt;
 
 ```typescript
 [1, 2, 3].Select(x => x)
@@ -257,7 +257,7 @@ npm install -S luckystarry-collections
 // [1, 2, 2, 3, 3, 4]
 ```
 
-#### SequenceEqual(second: Iterable<T>, comparer?: IEqualityComparer<T>): boolean
+#### SequenceEqual(second: Iterable&lt;T&gt;, comparer?: IEqualityComparer&lt;T&gt;): boolean
 
 ```typescript
 [1, 2, 3].SequenceEqual([1, 2, 3])
@@ -293,14 +293,14 @@ npm install -S luckystarry-collections
 // 0
 ```
 
-#### Skip(count: number): IEnumerable<T>
+#### Skip(count: number): IEnumerable&lt;T&gt;
 
 ```typescript
 [1, 2, 3].Skip(1)
 // [2, 3]
 ```
 
-#### SkipWhile(predicate: (item: T, index?: number) => boolean): IEnumerable<T>
+#### SkipWhile(predicate: (item: T, index?: number) => boolean): IEnumerable&lt;T&gt;
 
 ```typescript
 [1, 2, 3].SkipWhile(x => x < 2)
@@ -317,49 +317,49 @@ npm install -S luckystarry-collections
 // 12
 ```
 
-#### Take(count: number): IEnumerable<T>
+#### Take(count: number): IEnumerable&lt;T&gt;
 
 ```typescript
 [1, 2, 3].Take(2)
 // [1, 2]
 ```
 
-#### TakeWhile(predicate: (item: T, index?: number) => boolean): IEnumerable<T>
+#### TakeWhile(predicate: (item: T, index?: number) => boolean): IEnumerable&lt;T&gt;
 
 ```typescript
 [1, 2, 3].TakeWhile(x => x < 2)
 // [1]
 ```
 
-#### ToArray(): Array<T>
+#### ToArray(): Array&lt;T&gt;
 
 ```typescript
 [1, 2, 3].ToArray()
 // [1, 2, 3]
 ```
 
-#### ToDictionary<TKey, TElement = T>(keySelector: (item: T) => TKey, elementSelector?: (item: T) => TElement, comparer?: IEqualityComparer<TKey>): Dictionary<T>
+#### ToDictionary<TKey, TElement = T>(keySelector: (item: T) => TKey, elementSelector?: (item: T) => TElement, comparer?: IEqualityComparer<TKey>): Dictionary&lt;T&gt;
 
 ```typescript
 [1, 2, 3].ToDictionary(x => x)
 // [{1, 1}, {2, 2}, {3, 3}]
 ```
 
-#### ToList(): List<T>
+#### ToList(): List&lt;T&gt;
 
 ```typescript
 [1, 2, 3].ToList()
 // [1, 2, 3]
 ```
 
-#### Union(second: Iterable<T>, comparer?: IEqualityComparer<T>): IEnumerable<T>
+#### Union(second: Iterable&lt;T&gt;, comparer?: IEqualityComparer&lt;T&gt;): IEnumerable&lt;T&gt;
 
 ```typescript
 [1, 2, 3].Union([3, 4, 5])
 // [1, 2, 3, 4, 5]
 ```
 
-#### Where(predicate: (item: T, index?: number) => boolean): IEnumerable<T>
+#### Where(predicate: (item: T, index?: number) => boolean): IEnumerable&lt;T&gt;
 
 ```typescript
 [1, 2, 3].Where(x => x > 1)
