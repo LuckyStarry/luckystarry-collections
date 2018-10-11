@@ -7,11 +7,11 @@ export function group<T, TKey, TElement = T>(
   Key: TKey
   List: Iterable<TElement>
 }[] {
-  let results = new Array<{
-    Key: TKey
-    List: Iterable<TElement>
-  }>()
   if (source) {
+    let results = new Array<{
+      Key: TKey
+      List: Iterable<TElement>
+    }>()
     compare = compare || ((x, y) => x === y)
     let target = {} as {
       Key: TKey
@@ -47,6 +47,7 @@ export function group<T, TKey, TElement = T>(
         return [target]
       }
     }
+    return results
   }
-  return results
+  return source === undefined ? undefined : null
 }

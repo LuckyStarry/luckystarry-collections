@@ -28,9 +28,13 @@ describe('./enumerables/defaultIfEmpty.ts', function() {
     }
   })
 
-  it('defaultIfEmpty(new List([1, 2, 4])) => 原列表', function() {
+  it('defaultIfEmpty(new List([1, 2, 4])) => 新的可枚举的原列表', function() {
     let list = new List([1, 2, 4])
     let after = defaultIfEmpty(list)
-    expect(after).is.equal(list)
+    expect(after).instanceOf(Array)
+    expect(after.Count()).is.equal(list.Length)
+    for (let i = 0; i < list.Length; i++) {
+      expect(after.ElementAt(i)).is.equal(list.Get(i))
+    }
   })
 })

@@ -1,6 +1,10 @@
-export class Exception extends Error {
+export class Exception implements Error {
+  name: string
+  message: string
+  stack?: string
+
   public constructor(message?: string) {
-    super(message || '程序出现异常')
+    this.message = message || '程序出现异常'
   }
 
   public get Message(): string {

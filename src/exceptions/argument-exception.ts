@@ -1,6 +1,8 @@
-export class ArgumentException extends Error {
-  private paramName: string
+import { Exception } from './exception'
 
+export class ArgumentException extends Exception {
+  private paramName: string
+  /* istanbul ignore next */
   public constructor(paramName?: string, message?: string) {
     super(composite(paramName, message))
 
