@@ -1,7 +1,7 @@
 {
   "name": "luckystarry-collections",
-  "version": "0.1.0-alpha.4",
-  "description": "模仿 .NET 的集合类",
+  "version": "0.1.1-alpha",
+  "description": "模仿 .NET 的集合类，对数组类提供了类似于 LINQ 的方法，如 Select Where ToList 等。",
   "keywords": [
     "collections"
   ],
