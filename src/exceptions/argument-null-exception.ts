@@ -1,6 +1,7 @@
 import { ArgumentException } from './argument-exception'
 
 export class ArgumentNullException extends ArgumentException {
+  /* istanbul ignore next */
   public constructor(paramName?: string, message?: string) {
     super(paramName, composite(paramName, message))
   }

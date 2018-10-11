@@ -1,10 +1,10 @@
 {
   "check-coverage": true,
   "cache": false,
-  "lines": 90,
-  "statements": 90,
-  "functions": 90,
-  "branches": 90,
+  "lines": 95,
+  "statements": 95,
+  "functions": 95,
+  "branches": 95,
   "extension": [".ts"],
   "reporter": ["html", "lcov", "text", "text-summary"],
   "include": ["src"]

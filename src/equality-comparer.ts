@@ -46,6 +46,7 @@ function getHashCode(): number {
 
 function stringHashCode(text: string): number {
   let hash = 0
+  /* istanbul ignore else */
   if (text) {
     for (let i = 0; i < text.length; i++) {
       hash = hash * 31 + text.charCodeAt(i)
@@ -106,6 +107,7 @@ const ALPHAS = [
 function randomWord(min: number, max?: number): string {
   let text = ''
   let length = min
+  /* istanbul ignore else */
   if (max && max > min) {
     length = Math.round(Math.random() * (max - min)) + min
   }

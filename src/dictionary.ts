@@ -568,15 +568,18 @@ class HashHelpers {
   public static readonly HashPrime = 101
 
   public static IsPrime(candidate: number): boolean {
+    /* istanbul ignore else */
     if ((candidate & 1) !== 0) {
       let limit = parseInt(Math.sqrt(candidate).toFixed(0), 10)
       for (let divisor = 3; divisor <= limit; divisor += 2) {
+        /* istanbul ignore next */
         if (candidate % divisor === 0) {
           return false
         }
       }
       return true
     }
+    /* istanbul ignore next */
     return candidate === 2
   }
 
@@ -588,10 +591,12 @@ class HashHelpers {
       }
     }
     for (let i = min | 1; i < 2147483647; i += 2) {
+      /* istanbul ignore else */
       if (HashHelpers.IsPrime(i) && (i - 1) % HashHelpers.HashPrime !== 0) {
         return i
       }
     }
+    /* istanbul ignore next */
     return min
   }
 }
