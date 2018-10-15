@@ -6,7 +6,9 @@ import { Dictionary } from './dictionary'
 import { IList, List } from './list'
 import { throws } from './utils'
 
-export class ReadOnlyCollection<T> implements IList<T> {
+export interface IReadOnlyCollection<T> extends IEnumerable<T> {}
+
+export class ReadOnlyCollection<T> implements IReadOnlyCollection<T>, IList<T> {
   private list: IList<T>
 
   public constructor(list: IList<T>) {
