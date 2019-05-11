@@ -8,6 +8,7 @@
 [![install size](https://packagephobia.now.sh/badge?p=luckystarry-collections)](https://packagephobia.now.sh/result?p=luckystarry-collections)
 [![JSDelivr](https://data.jsdelivr.com/v1/package/npm/luckystarry-collections/badge)](https://www.jsdelivr.com/package/npm/luckystarry-collections)
 [![codebeat badge](https://codebeat.co/badges/6339b0a3-d394-4706-b283-b8bfc6acd0dc)](https://codebeat.co/projects/github-com-luckystarry-luckystarry-collections-master)
+[![Known Vulnerabilities](https://snyk.io/test/github/LuckyStarry/luckystarry-collections/badge.svg?targetFile=package.json)](https://snyk.io/test/github/LuckyStarry/luckystarry-collections?targetFile=package.json)
 [![License Status](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://raw.githubusercontent.com/LuckyStarry/luckystarry-collections/master/LICENSE)
 
 ## Install
