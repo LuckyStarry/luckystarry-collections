@@ -1,45 +1,45 @@
 /* tslint:disable */
 import { expect } from 'chai'
-import { union } from '../../src/enumerables/union'
 import { List } from '../../src'
+import { union } from '../../src/enumerables/union'
 import { EqualityComparer } from '../../src/equality-comparer'
 
-describe('./enumerables/union.ts', function() {
-  it('存在 union 方法', function() {
+describe('./enumerables/union.ts', function () {
+  it('存在 union 方法', function () {
     expect(union).not.null
     expect(union).not.undefined
     expect(typeof union).to.equal('function')
   })
 
-  it('union(null, []) => throw', function() {
+  it('union(null, []) => throw', function () {
     expect(() => {
       union(null, [])
     }).to.throw(`参数 first 不可为空`)
   })
 
-  it('union(undefined, []) => throw', function() {
+  it('union(undefined, []) => throw', function () {
     expect(() => {
       union(undefined, [])
     }).to.throw(`参数 first 不可为空`)
   })
 
-  it('union([], []) => throw', function() {
+  it('union([], []) => throw', function () {
     expect(() => {
       union([], null)
     }).to.throw(`参数 second 不可为空`)
   })
 
-  it('union([], undefined) => throw', function() {
+  it('union([], undefined) => throw', function () {
     expect(() => {
       union([], undefined)
     }).to.throw(`参数 second 不可为空`)
   })
 
-  it('union([], []) => Empty', function() {
+  it('union([], []) => Empty', function () {
     expect(union([], []).Any()).is.false
   })
 
-  it('union([1], [2]) => [1, 2]', function() {
+  it('union([1], [2]) => [1, 2]', function () {
     let unioned = union([1], [2])
     expect(unioned.Any()).is.true
     expect(unioned.Count()).is.equal(2)
@@ -50,7 +50,7 @@ describe('./enumerables/union.ts', function() {
     expect(list.Get(1)).is.equal(2)
   })
 
-  it('union([2], [1]) => [2, 1]', function() {
+  it('union([2], [1]) => [2, 1]', function () {
     let unioned = union([2], [1])
     expect(unioned.Any()).is.true
     expect(unioned.Count()).is.equal(2)
@@ -61,7 +61,7 @@ describe('./enumerables/union.ts', function() {
     expect(list.Get(1)).is.equal(1)
   })
 
-  it('union([1, 2, 3, 4], [4, 5, 6, 6]) => [1, 2, 3, 4, 5, 6, 7]', function() {
+  it('union([1, 2, 3, 4], [4, 5, 6, 6]) => [1, 2, 3, 4, 5, 6, 7]', function () {
     let unioned = union([1, 2, 3, 4], [4, 5, 6, 7])
     expect(unioned.Any()).is.true
     expect(unioned.Count()).is.equal(7)
@@ -74,7 +74,7 @@ describe('./enumerables/union.ts', function() {
     expect(unioned.ElementAt(6)).is.equal(7)
   })
 
-  it('union([1, 2, 3, 4], new List([4, 5, 6, 7])) => [1, 2, 3, 4, 4, 5, 6, 7]', function() {
+  it('union([1, 2, 3, 4], new List([4, 5, 6, 7])) => [1, 2, 3, 4, 4, 5, 6, 7]', function () {
     let unioned = union([1, 2, 3, 4], new List([4, 5, 6, 7]))
     expect(unioned.Any()).is.true
     expect(unioned.Count()).is.equal(7)
@@ -87,7 +87,7 @@ describe('./enumerables/union.ts', function() {
     expect(unioned.ElementAt(6)).is.equal(7)
   })
 
-  it('union([{text:1, value:2},{text:2, value:3}],[{text:1, value:2},{text:3, value:2}], (x, y) => x.text === y.text && x.value === y.value) => [{{text:1, value:2}, {text:1, value:2}}]', function() {
+  it('union([{text:1, value:2},{text:2, value:3}],[{text:1, value:2},{text:3, value:2}], (x, y) => x.text === y.text && x.value === y.value) => [{{text:1, value:2}, {text:1, value:2}}]', function () {
     let left = [new Spec('1', '2'), new Spec('2', '3')]
     let right = [new Spec('1', '2'), new Spec('3', '2')]
     let unioned = union(left, right, new EqualityImpl())
@@ -100,7 +100,7 @@ describe('./enumerables/union.ts', function() {
     expect(unioned.ElementAt(2).Value).is.equal('2')
   })
 
-  it('union([{text:1, value:2},{text:2, value:3}],[{text:1, value:2},{text:3, value:2}], (x, y) => x.text === y.text|value && x.value === y.text|value) => [{{text:1, value:2}, {text:1, value:2}}, {{text:2, value:3}, {text:3, value:2}}]', function() {
+  it('union([{text:1, value:2},{text:2, value:3}],[{text:1, value:2},{text:3, value:2}], (x, y) => x.text === y.text|value && x.value === y.text|value) => [{{text:1, value:2}, {text:1, value:2}}, {{text:2, value:3}, {text:3, value:2}}]', function () {
     let left = [new Spec('1', '2'), new Spec('2', '3')]
     let right = [new Spec('1', '2'), new Spec('3', '2')]
     let unioned = union(left, right, new EqualityImplPlus())
@@ -124,9 +124,6 @@ class EqualityImpl extends EqualityComparer<Spec> {
 
 class EqualityImplPlus extends EqualityComparer<Spec> {
   public Equals(x: Spec, y: Spec): boolean {
-    return (
-      (x.Text === y.Text || x.Text === y.Value) &&
-      (x.Value === y.Value || x.Value === y.Text)
-    )
+    return (x.Text === y.Text || x.Text === y.Value) && (x.Value === y.Value || x.Value === y.Text)
   }
 }

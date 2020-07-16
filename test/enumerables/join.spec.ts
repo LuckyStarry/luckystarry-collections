@@ -3,20 +3,20 @@ import { expect } from 'chai'
 import { join } from '../../src/enumerables/join'
 import { EqualityComparer } from '../../src/equality-comparer'
 
-describe('./enumerables/join.ts', function() {
-  it('存在 join 方法', function() {
+describe('./enumerables/join.ts', function () {
+  it('存在 join 方法', function () {
     expect(join).not.null
     expect(join).not.undefined
     expect(typeof join).to.equal('function')
   })
 
-  it('join(null, [], o => o, i => i, (o, i) => { return { o: o, i: i } }) => throw', function() {
+  it('join(null, [], o => o, i => i, (o, i) => { return { o: o, i: i } }) => throw', function () {
     expect(() => {
       join(
         null,
         [],
-        o => o,
-        i => i,
+        (o) => o,
+        (i) => i,
         (o, i) => {
           return { o: o, i: i }
         }
@@ -24,13 +24,13 @@ describe('./enumerables/join.ts', function() {
     }).to.throw(`参数 outer 不可为空`)
   })
 
-  it('join(undefined, [], o => o, i => i, (o, i) => { return { o: o, i: i } }) => throw', function() {
+  it('join(undefined, [], o => o, i => i, (o, i) => { return { o: o, i: i } }) => throw', function () {
     expect(() => {
       join(
         undefined,
         [],
-        o => o,
-        i => i,
+        (o) => o,
+        (i) => i,
         (o, i) => {
           return { o: o, i: i }
         }
@@ -38,13 +38,13 @@ describe('./enumerables/join.ts', function() {
     }).to.throw(`参数 outer 不可为空`)
   })
 
-  it('join([], null, o => o, i => i, (o, i) => { return { o: o, i: i } }) => throw', function() {
+  it('join([], null, o => o, i => i, (o, i) => { return { o: o, i: i } }) => throw', function () {
     expect(() => {
       join(
         [],
         null,
-        o => o,
-        i => i,
+        (o) => o,
+        (i) => i,
         (o, i) => {
           return { o: o, i: i }
         }
@@ -52,13 +52,13 @@ describe('./enumerables/join.ts', function() {
     }).to.throw(`参数 inner 不可为空`)
   })
 
-  it('join([], undefined, o => o, i => i, (o, i) => { return { o: o, i: i } }) => throw', function() {
+  it('join([], undefined, o => o, i => i, (o, i) => { return { o: o, i: i } }) => throw', function () {
     expect(() => {
       join(
         [],
         undefined,
-        o => o,
-        i => i,
+        (o) => o,
+        (i) => i,
         (o, i) => {
           return { o: o, i: i }
         }
@@ -66,13 +66,13 @@ describe('./enumerables/join.ts', function() {
     }).to.throw(`参数 inner 不可为空`)
   })
 
-  it('join([], [], null, i => i, (o, i) => { return { o: o, i: i } }) => throw', function() {
+  it('join([], [], null, i => i, (o, i) => { return { o: o, i: i } }) => throw', function () {
     expect(() => {
       join(
         [],
         [],
         null,
-        i => i,
+        (i) => i,
         (o, i) => {
           return { o: o, i: i }
         }
@@ -80,13 +80,13 @@ describe('./enumerables/join.ts', function() {
     }).to.throw(`参数 outerKeySelector 不可为空`)
   })
 
-  it('join([], [], undefined, i => i, (o, i) => { return { o: o, i: i } }) => throw', function() {
+  it('join([], [], undefined, i => i, (o, i) => { return { o: o, i: i } }) => throw', function () {
     expect(() => {
       join(
         [],
         [],
         undefined,
-        i => i,
+        (i) => i,
         (o, i) => {
           return { o: o, i: i }
         }
@@ -94,40 +94,67 @@ describe('./enumerables/join.ts', function() {
     }).to.throw(`参数 outerKeySelector 不可为空`)
   })
 
-  it('join([], [], o => o, null, (o, i) => { return { o: o, i: i } }) => throw', function() {
+  it('join([], [], o => o, null, (o, i) => { return { o: o, i: i } }) => throw', function () {
     expect(() => {
-      join([], [], o => o, null, (o, i) => {
-        return { o: o, i: i }
-      })
+      join(
+        [],
+        [],
+        (o) => o,
+        null,
+        (o, i) => {
+          return { o: o, i: i }
+        }
+      )
     }).to.throw(`参数 innerKeySelector 不可为空`)
   })
 
-  it('join([], [], o => o, undefined, (o, i) => { return { o: o, i: i } }) => throw', function() {
+  it('join([], [], o => o, undefined, (o, i) => { return { o: o, i: i } }) => throw', function () {
     expect(() => {
-      join([], [], o => o, undefined, (o, i) => {
-        return { o: o, i: i }
-      })
+      join(
+        [],
+        [],
+        (o) => o,
+        undefined,
+        (o, i) => {
+          return { o: o, i: i }
+        }
+      )
     }).to.throw(`参数 innerKeySelector 不可为空`)
   })
 
-  it('join([], [], o => o, i => i) => []', function() {
-    let results = join([], [], o => o, i => i)
+  it('join([], [], o => o, i => i) => []', function () {
+    let results = join(
+      [],
+      [],
+      (o) => o,
+      (i) => i
+    )
 
     expect(results).is.not.null
     expect(results).is.not.undefined
     expect(results.Any()).is.false
   })
 
-  it('join([], [1, 2, 3], o => o, i => i) => []', function() {
-    let results = join([], [1, 2, 3], o => o, i => i)
+  it('join([], [1, 2, 3], o => o, i => i) => []', function () {
+    let results = join(
+      [],
+      [1, 2, 3],
+      (o) => o,
+      (i) => i
+    )
 
     expect(results).is.not.null
     expect(results).is.not.undefined
     expect(results.Any()).is.false
   })
 
-  it('join([2], [1, 2, 3], o => o, i => i) => [{2, 2}]', function() {
-    let results = join([2], [1, 2, 3], o => o, i => i)
+  it('join([2], [1, 2, 3], o => o, i => i) => [{2, 2}]', function () {
+    let results = join(
+      [2],
+      [1, 2, 3],
+      (o) => o,
+      (i) => i
+    )
 
     expect(results).is.not.null
     expect(results).is.not.undefined
@@ -136,12 +163,12 @@ describe('./enumerables/join.ts', function() {
     expect(results.ElementAt(0).Inner).is.equal(2)
   })
 
-  it('join([1, 1, 2], [1, 2, 3], o => o, i => i, (o, i) => { return { o: o, i: i } }) => [{1, 1}, {1, 1}, {2, 2}]', function() {
+  it('join([1, 1, 2], [1, 2, 3], o => o, i => i, (o, i) => { return { o: o, i: i } }) => [{1, 1}, {1, 1}, {2, 2}]', function () {
     let results = join(
       [1, 1, 2],
       [1, 2, 3],
-      o => o,
-      i => i,
+      (o) => o,
+      (i) => i,
       (o, i) => {
         return { o: o, i: i }
       }
@@ -158,12 +185,12 @@ describe('./enumerables/join.ts', function() {
     expect(results.ElementAt(2).i).is.equal(2)
   })
 
-  it('join([1, 1, 2, 5], [1, 2, 3, 2, 2, 4], o => o, i => i, (o, i) => { return { o: o, i: i } }) => [{1, 1}, {1, 1}, {2, 2}, {2, 2}, {2, 2}]', function() {
+  it('join([1, 1, 2, 5], [1, 2, 3, 2, 2, 4], o => o, i => i, (o, i) => { return { o: o, i: i } }) => [{1, 1}, {1, 1}, {2, 2}, {2, 2}, {2, 2}]', function () {
     let results = join(
       [1, 1, 2, 5],
       [1, 2, 3, 2, 2, 4],
-      o => o,
-      i => i,
+      (o) => o,
+      (i) => i,
       (o, i) => {
         return { o: o, i: i }
       }
@@ -184,14 +211,14 @@ describe('./enumerables/join.ts', function() {
     expect(results.ElementAt(4).i).is.equal(2)
   })
 
-  it('join([{text:1, value:2},{text:2, value:3}],[{text:1, value:2},{text:3, value:2}], (x, y) => x.text === y.text && x.value === y.value) => [{{text:1, value:2}, {text:1, value:2}}]', function() {
+  it('join([{text:1, value:2},{text:2, value:3}],[{text:1, value:2},{text:3, value:2}], (x, y) => x.text === y.text && x.value === y.value) => [{{text:1, value:2}, {text:1, value:2}}]', function () {
     let left = [new Spec('1', '2'), new Spec('2', '3')]
     let right = [new Spec('1', '2'), new Spec('3', '2')]
     let joined = join(
       left,
       right,
-      o => o,
-      i => i,
+      (o) => o,
+      (i) => i,
       (o, i) => {
         return { o: o, i: i }
       },
@@ -204,14 +231,14 @@ describe('./enumerables/join.ts', function() {
     expect(joined.ElementAt(0).i.Value).is.equal('2')
   })
 
-  it('join([{text:1, value:2},{text:2, value:3}],[{text:1, value:2},{text:3, value:2}], (x, y) => x.text === y.text|value && x.value === y.text|value) => [{{text:1, value:2}, {text:1, value:2}}, {{text:2, value:3}, {text:3, value:2}}]', function() {
+  it('join([{text:1, value:2},{text:2, value:3}],[{text:1, value:2},{text:3, value:2}], (x, y) => x.text === y.text|value && x.value === y.text|value) => [{{text:1, value:2}, {text:1, value:2}}, {{text:2, value:3}, {text:3, value:2}}]', function () {
     let left = [new Spec('1', '2'), new Spec('2', '3')]
     let right = [new Spec('1', '2'), new Spec('3', '2')]
     let joined = join(
       left,
       right,
-      o => o,
-      i => i,
+      (o) => o,
+      (i) => i,
       (o, i) => {
         return { o: o, i: i }
       },
@@ -241,9 +268,6 @@ class EqualityImpl extends EqualityComparer<Spec> {
 
 class EqualityImplPlus extends EqualityComparer<Spec> {
   public Equals(x: Spec, y: Spec): boolean {
-    return (
-      (x.Text === y.Text || x.Text === y.Value) &&
-      (x.Value === y.Value || x.Value === y.Text)
-    )
+    return (x.Text === y.Text || x.Text === y.Value) && (x.Value === y.Value || x.Value === y.Text)
   }
 }

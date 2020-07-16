@@ -1,51 +1,51 @@
 /* tslint:disable */
 import { expect } from 'chai'
-import { Dictionary } from '../src/dictionary'
-import { KeyValuePair } from '../src/key-value-pair'
-import { EqualityComparer } from '../src/equality-comparer'
-import { List } from '../src/list'
 import uuid from 'uuid'
+import { Dictionary } from '../src/dictionary'
+import { EqualityComparer } from '../src/equality-comparer'
+import { KeyValuePair } from '../src/key-value-pair'
+import { List } from '../src/list'
 
-describe('./dictionary.ts', function() {
-  it('存在 Class Dictionary', function() {
+describe('./dictionary.ts', function () {
+  it('存在 Class Dictionary', function () {
     expect(Dictionary).not.null
     expect(Dictionary).not.undefined
     expect(typeof Dictionary).to.equal('function')
   })
 
-  it('Dictionary 可使用无参构造函数', function() {
+  it('Dictionary 可使用无参构造函数', function () {
     let dictionary = new Dictionary()
     expect(dictionary.Count()).is.equal(0)
   })
 
-  it('Dictionary 可使用容量构造函数 (0)', function() {
+  it('Dictionary 可使用容量构造函数 (0)', function () {
     let dictionary = new Dictionary(0)
     expect(dictionary.Count()).is.equal(0)
   })
 
-  it('Dictionary 可使用容量构造函数 (2)', function() {
+  it('Dictionary 可使用容量构造函数 (2)', function () {
     let dictionary = new Dictionary(2)
     expect(dictionary.Count()).is.equal(0)
   })
 
-  it('Dictionary 可使用容量构造函数 (3)', function() {
+  it('Dictionary 可使用容量构造函数 (3)', function () {
     let dictionary = new Dictionary(3)
     expect(dictionary.Count()).is.equal(0)
   })
 
-  it('Dictionary 可使用容量构造函数 (7199369 + 1)', function() {
+  it('Dictionary 可使用容量构造函数 (7199369 + 1)', function () {
     this.slow()
     let dictionary = new Dictionary(7199369 + 1)
     expect(dictionary.Count()).is.equal(0)
   })
 
-  it('Dictionary 可使用容量构造函数 (-1) => throw', function() {
+  it('Dictionary 可使用容量构造函数 (-1) => throw', function () {
     expect(() => {
       new Dictionary(-1)
     }).to.throw('capacity 小于 0')
   })
 
-  it('Dictionary 可使用 Map 构造函数', function() {
+  it('Dictionary 可使用 Map 构造函数', function () {
     let original = new Map()
     original.set(1, 2)
     original.set(2, 3)
@@ -55,7 +55,7 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Get(2)).is.equal(3)
   })
 
-  it('Dictionary 可使用 IEnumerable 构造函数', function() {
+  it('Dictionary 可使用 IEnumerable 构造函数', function () {
     let map = new Map()
     map.set(1, 2)
     map.set(2, 3)
@@ -66,7 +66,7 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Get(2)).is.equal(3)
   })
 
-  it('Dictionary.Set 可正常覆盖', function() {
+  it('Dictionary.Set 可正常覆盖', function () {
     let original = new Map()
     original.set(1, 2)
     original.set(2, 3)
@@ -80,7 +80,7 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Get(2)).is.equal(300)
   })
 
-  it('Dictionary.Set 可正常扩容', function() {
+  it('Dictionary.Set 可正常扩容', function () {
     let original = new Map()
     original.set(1, 'AAA')
     original.set(2, 'BBB')
@@ -102,7 +102,7 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Get(8)).is.equal('HHH')
   })
 
-  it('Dictionary.Set 可正常扩容', function() {
+  it('Dictionary.Set 可正常扩容', function () {
     let original = new Map()
     original.set(1, 'AAA')
     original.set(2, 'BBB')
@@ -124,7 +124,7 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Get(8)).is.equal('HHH')
   })
 
-  it('Dictionary.Set 随机设置Key-Value测试（100组）', function() {
+  it('Dictionary.Set 随机设置Key-Value测试（100组）', function () {
     let length = 100
     let keys = []
     let values = []
@@ -148,7 +148,7 @@ describe('./dictionary.ts', function() {
     }
   })
 
-  it('Dictionary.Set 随机设置Key-Value测试（+100 -30 +150 -200）', function() {
+  it('Dictionary.Set 随机设置Key-Value测试（+100 -30 +150 -200）', function () {
     let length = 100
     let keys = []
     let values = []
@@ -214,7 +214,7 @@ describe('./dictionary.ts', function() {
     }
   })
 
-  it('Dictionary.Add 有相同Key时报错', function() {
+  it('Dictionary.Add 有相同Key时报错', function () {
     let original = new Map()
     original.set(1, 2)
     original.set(2, 3)
@@ -226,7 +226,7 @@ describe('./dictionary.ts', function() {
     expect(() => dictionary.Add(2, 300)).to.throw('已经存在相同的Key')
   })
 
-  it('Dictionary.Get Key存在时正常', function() {
+  it('Dictionary.Get Key存在时正常', function () {
     let original = new Map()
     original.set('KEY_01', 2)
     original.set('KEY_02', 3)
@@ -235,7 +235,7 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Get('KEY_02')).is.equal(3)
   })
 
-  it('Dictionary.Get Key不存在时异常', function() {
+  it('Dictionary.Get Key不存在时异常', function () {
     let original = new Map()
     original.set('KEY_01', 2)
     original.set('KEY_02', 3)
@@ -244,14 +244,14 @@ describe('./dictionary.ts', function() {
     expect(() => dictionary.Get('KEY_03')).to.throw('不存在的Key')
   })
 
-  it('Dictionary.ContainsKey 空字典返回 false', function() {
+  it('Dictionary.ContainsKey 空字典返回 false', function () {
     let dictionary = new Dictionary()
     expect(dictionary.Count()).is.equal(0)
     expect(dictionary.ContainsKey('KEY_03')).is.false
     expect(dictionary.Count()).is.equal(0)
   })
 
-  it('Dictionary.ContainsKey 不存在返回 false', function() {
+  it('Dictionary.ContainsKey 不存在返回 false', function () {
     let dictionary = new Dictionary()
     dictionary.Set('KEY_01', 100)
     dictionary.Set('KEY_02', 200)
@@ -264,7 +264,7 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Get('KEY_02')).is.equal(200)
   })
 
-  it('Dictionary.ContainsKey 存在返回 true', function() {
+  it('Dictionary.ContainsKey 存在返回 true', function () {
     let dictionary = new Dictionary()
     dictionary.Set('KEY_01', 100)
     dictionary.Set('KEY_02', 200)
@@ -280,14 +280,14 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Get('KEY_03')).is.equal(300)
   })
 
-  it('Dictionary.Clear 空字典正常', function() {
+  it('Dictionary.Clear 空字典正常', function () {
     let dictionary = new Dictionary()
     expect(dictionary.Count()).is.equal(0)
     dictionary.Clear()
     expect(dictionary.Count()).is.equal(0)
   })
 
-  it('Dictionary.Clear 有数据的字典正常', function() {
+  it('Dictionary.Clear 有数据的字典正常', function () {
     let dictionary = new Dictionary()
     dictionary.Set('KEY_01', 100)
     dictionary.Set('KEY_02', 200)
@@ -296,14 +296,14 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Count()).is.equal(0)
   })
 
-  it('Dictionary.Remove 空字典返回 false', function() {
+  it('Dictionary.Remove 空字典返回 false', function () {
     let dictionary = new Dictionary()
     expect(dictionary.Count()).is.equal(0)
     expect(dictionary.Remove('KEY_01')).is.false
     expect(dictionary.Count()).is.equal(0)
   })
 
-  it('Dictionary.Remove 不存在返回 false', function() {
+  it('Dictionary.Remove 不存在返回 false', function () {
     let dictionary = new Dictionary()
     dictionary.Set('KEY_01', 100)
     dictionary.Set('KEY_02', 200)
@@ -316,7 +316,7 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Get('KEY_02')).is.equal(200)
   })
 
-  it('Dictionary.Remove 存在删除正常返回 true', function() {
+  it('Dictionary.Remove 存在删除正常返回 true', function () {
     let dictionary = new Dictionary()
     dictionary.Set('KEY_01', 100)
     dictionary.Set('KEY_02', 200)
@@ -331,7 +331,7 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Get('KEY_03')).is.equal(300)
   })
 
-  it('Dictionary.TryGetValue 不存在返回 [false, undefined]', function() {
+  it('Dictionary.TryGetValue 不存在返回 [false, undefined]', function () {
     let dictionary = new Dictionary()
     dictionary.Set('KEY_01', 100)
     dictionary.Set('KEY_02', 200)
@@ -346,7 +346,7 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Get('KEY_02')).is.equal(200)
   })
 
-  it('Dictionary.TryGetValue 存在返回 [true, value]', function() {
+  it('Dictionary.TryGetValue 存在返回 [true, value]', function () {
     let dictionary = new Dictionary()
     dictionary.Set('KEY_01', 100)
     dictionary.Set('KEY_02', 200)
@@ -364,27 +364,27 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Get('KEY_03')).is.equal(300)
   })
 
-  it('Dictionary.All 方法正常运作', function() {
+  it('Dictionary.All 方法正常运作', function () {
     let dictionary = new Dictionary()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
 
-    expect(dictionary.All(kv => typeof kv.Key === 'string')).is.true
-    expect(dictionary.All(kv => kv.Value > 0)).is.true
+    expect(dictionary.All((kv) => typeof kv.Key === 'string')).is.true
+    expect(dictionary.All((kv) => kv.Value > 0)).is.true
   })
 
-  it('Dictionary.Any 方法正常运作', function() {
+  it('Dictionary.Any 方法正常运作', function () {
     let dictionary = new Dictionary()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
 
     expect(dictionary.Any()).is.true
-    expect(dictionary.Any(kv => typeof kv.Key === 'string')).is.true
-    expect(dictionary.Any(kv => kv.Value > 0)).is.true
-    expect(dictionary.Any(kv => kv.Value < 0)).is.false
+    expect(dictionary.Any((kv) => typeof kv.Key === 'string')).is.true
+    expect(dictionary.Any((kv) => kv.Value > 0)).is.true
+    expect(dictionary.Any((kv) => kv.Value < 0)).is.false
   })
 
-  it('Dictionary.AsEnumerable 方法正常运作', function() {
+  it('Dictionary.AsEnumerable 方法正常运作', function () {
     let dictionary = new Dictionary()
     dictionary.Set('KEY_01', 'AAA')
     dictionary.Set('KEY_02', 'BBB')
@@ -394,16 +394,16 @@ describe('./dictionary.ts', function() {
     expect(enumerables.Count()).is.equal(2)
   })
 
-  it('Dictionary.Average 方法正常运作', function() {
+  it('Dictionary.Average 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
 
-    let average = dictionary.Average(kv => kv.Value)
+    let average = dictionary.Average((kv) => kv.Value)
     expect(average).is.equal(1.5)
   })
 
-  it('Dictionary.Concat 方法正常运作', function() {
+  it('Dictionary.Concat 方法正常运作', function () {
     let left = new Dictionary<string, number>()
     left.Set('KEY_01', 1)
     left.Set('KEY_02', 2)
@@ -417,7 +417,7 @@ describe('./dictionary.ts', function() {
     expect(enumerables.Count()).is.equal(4)
   })
 
-  it('Dictionary.Contains 方法正常运作', function() {
+  it('Dictionary.Contains 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
@@ -426,10 +426,7 @@ describe('./dictionary.ts', function() {
     let kv2 = new KeyValuePair('KEY_03', 3)
 
     class E extends EqualityComparer<KeyValuePair<string, number>> {
-      public Equals(
-        x: KeyValuePair<string, number>,
-        y: KeyValuePair<string, number>
-      ): boolean {
+      public Equals(x: KeyValuePair<string, number>, y: KeyValuePair<string, number>): boolean {
         return x.Key === y.Key
       }
     }
@@ -439,17 +436,17 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Contains(kv2)).is.false
   })
 
-  it('Dictionary.Count 方法正常运作', function() {
+  it('Dictionary.Count 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
 
     expect(dictionary.Count()).is.equal(2)
-    expect(dictionary.Count(kv => kv.Value > 1)).is.equal(1)
-    expect(dictionary.Count(kv => kv.Value > 2)).is.equal(0)
+    expect(dictionary.Count((kv) => kv.Value > 1)).is.equal(1)
+    expect(dictionary.Count((kv) => kv.Value > 2)).is.equal(0)
   })
 
-  it('Dictionary.DefaultIfEmpty 方法正常运作', function() {
+  it('Dictionary.DefaultIfEmpty 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     let enumerables = dictionary.DefaultIfEmpty()
 
@@ -458,7 +455,7 @@ describe('./dictionary.ts', function() {
     expect(enumerables.Any()).is.false
   })
 
-  it('Dictionary.Distinct 方法正常运作', function() {
+  it('Dictionary.Distinct 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
@@ -468,7 +465,7 @@ describe('./dictionary.ts', function() {
     expect(dictincted.Count()).is.equal(3)
   })
 
-  it('Dictionary.ElementAt 方法正常运作', function() {
+  it('Dictionary.ElementAt 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
@@ -477,23 +474,17 @@ describe('./dictionary.ts', function() {
     expect(dictionary.ElementAt(2).Key).is.equal('KEY_03')
   })
 
-  it('Dictionary.ElementAtOrDefault 方法正常运作', function() {
+  it('Dictionary.ElementAtOrDefault 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
     dictionary.Set('KEY_03', 3)
-    expect(
-      dictionary.ElementAtOrDefault(new KeyValuePair('DEFAULT', 0), 0).Key
-    ).is.equal('KEY_01')
-    expect(
-      dictionary.ElementAtOrDefault(new KeyValuePair('DEFAULT', 0), 2).Key
-    ).is.equal('KEY_03')
-    expect(
-      dictionary.ElementAtOrDefault(new KeyValuePair('DEFAULT', 0), 10).Key
-    ).is.equal('DEFAULT')
+    expect(dictionary.ElementAtOrDefault(new KeyValuePair('DEFAULT', 0), 0).Key).is.equal('KEY_01')
+    expect(dictionary.ElementAtOrDefault(new KeyValuePair('DEFAULT', 0), 2).Key).is.equal('KEY_03')
+    expect(dictionary.ElementAtOrDefault(new KeyValuePair('DEFAULT', 0), 10).Key).is.equal('DEFAULT')
   })
 
-  it('Dictionary.Except 方法正常运作', function() {
+  it('Dictionary.Except 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
@@ -504,10 +495,7 @@ describe('./dictionary.ts', function() {
     let kv3 = new KeyValuePair('KEY_04', 3)
 
     class E extends EqualityComparer<KeyValuePair<string, number>> {
-      public Equals(
-        x: KeyValuePair<string, number>,
-        y: KeyValuePair<string, number>
-      ): boolean {
+      public Equals(x: KeyValuePair<string, number>, y: KeyValuePair<string, number>): boolean {
         return x.Key === y.Key
       }
     }
@@ -517,44 +505,32 @@ describe('./dictionary.ts', function() {
     expect(expected.ElementAt(0).Key).is.equal('KEY_01')
   })
 
-  it('Dictionary.First 方法正常运作', function() {
+  it('Dictionary.First 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
     dictionary.Set('KEY_03', 3)
     expect(dictionary.First().Key).is.equal('KEY_01')
-    expect(dictionary.First(kv => kv.Value > 2).Value).is.equal(3)
+    expect(dictionary.First((kv) => kv.Value > 2).Value).is.equal(3)
   })
 
-  it('Dictionary.FirstOrDefault 方法正常运作', function() {
+  it('Dictionary.FirstOrDefault 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
     dictionary.Set('KEY_03', 3)
-    expect(
-      dictionary.FirstOrDefault(new KeyValuePair('DEFAULT', 100)).Value
-    ).is.equal(1)
-    expect(
-      dictionary.FirstOrDefault(
-        new KeyValuePair('DEFAULT', 100),
-        kv => kv.Value > 2
-      ).Value
-    ).is.equal(3)
-    expect(
-      dictionary.FirstOrDefault(
-        new KeyValuePair('DEFAULT', 100),
-        kv => kv.Value > 3
-      ).Value
-    ).is.equal(100)
+    expect(dictionary.FirstOrDefault(new KeyValuePair('DEFAULT', 100)).Value).is.equal(1)
+    expect(dictionary.FirstOrDefault(new KeyValuePair('DEFAULT', 100), (kv) => kv.Value > 2).Value).is.equal(3)
+    expect(dictionary.FirstOrDefault(new KeyValuePair('DEFAULT', 100), (kv) => kv.Value > 3).Value).is.equal(100)
   })
 
-  it('Dictionary.GroupBy 方法正常运作', function() {
+  it('Dictionary.GroupBy 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
     dictionary.Set('KEY_03', 3)
     dictionary.Set('KEY_04', 1)
-    let grouped = dictionary.GroupBy(x => x.Value)
+    let grouped = dictionary.GroupBy((x) => x.Value)
     expect(grouped.Count()).is.equal(3)
     expect(grouped.ElementAt(0).Key).is.equal(1)
     expect(grouped.ElementAt(0).Count()).is.equal(2)
@@ -564,7 +540,7 @@ describe('./dictionary.ts', function() {
     expect(grouped.ElementAt(2).Key).is.equal(3)
   })
 
-  it('Dictionary.GroupJoin 方法正常运作', function() {
+  it('Dictionary.GroupJoin 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
@@ -577,18 +553,15 @@ describe('./dictionary.ts', function() {
     let kv5 = new KeyValuePair('KEY_03', 31)
 
     class E extends EqualityComparer<KeyValuePair<string, number>> {
-      public Equals(
-        x: KeyValuePair<string, number>,
-        y: KeyValuePair<string, number>
-      ): boolean {
+      public Equals(x: KeyValuePair<string, number>, y: KeyValuePair<string, number>): boolean {
         return x.Key === y.Key
       }
     }
 
     let grouped = dictionary.GroupJoin(
       new List([kv1, kv2, kv3, kv4, kv5]),
-      x => x,
-      y => y,
+      (x) => x,
+      (y) => y,
       (x, ys) => {
         return { Outer: x, Inners: ys }
       },
@@ -605,7 +578,7 @@ describe('./dictionary.ts', function() {
     expect(grouped.ElementAt(2).Inners.Count()).is.equal(2)
   })
 
-  it('Dictionary.Intersect 方法正常运作', function() {
+  it('Dictionary.Intersect 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
@@ -618,23 +591,17 @@ describe('./dictionary.ts', function() {
     let kv5 = new KeyValuePair('KEY_03', 31)
 
     class E extends EqualityComparer<KeyValuePair<string, number>> {
-      public Equals(
-        x: KeyValuePair<string, number>,
-        y: KeyValuePair<string, number>
-      ): boolean {
+      public Equals(x: KeyValuePair<string, number>, y: KeyValuePair<string, number>): boolean {
         return x.Key === y.Key
       }
     }
-    let grouped = dictionary.Intersect(
-      new List([kv1, kv2, kv3, kv4, kv5]),
-      new E()
-    )
+    let grouped = dictionary.Intersect(new List([kv1, kv2, kv3, kv4, kv5]), new E())
     expect(grouped.Count()).is.equal(2)
     expect(grouped.ElementAt(0).Key).is.equal('KEY_02')
     expect(grouped.ElementAt(1).Key).is.equal('KEY_03')
   })
 
-  it('Dictionary.Join 方法正常运作', function() {
+  it('Dictionary.Join 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
@@ -647,17 +614,14 @@ describe('./dictionary.ts', function() {
     let kv5 = new KeyValuePair('KEY_03', 31)
 
     class E extends EqualityComparer<KeyValuePair<string, number>> {
-      public Equals(
-        x: KeyValuePair<string, number>,
-        y: KeyValuePair<string, number>
-      ): boolean {
+      public Equals(x: KeyValuePair<string, number>, y: KeyValuePair<string, number>): boolean {
         return x.Key === y.Key
       }
     }
     let grouped = dictionary.Join(
       new List([kv1, kv2, kv3, kv4, kv5]),
-      x => x,
-      y => y,
+      (x) => x,
+      (y) => y,
       (x, y) => {
         return { Outer: x, Inner: y }
       },
@@ -674,55 +638,43 @@ describe('./dictionary.ts', function() {
     expect(grouped.ElementAt(3).Inner.Value).is.equal(31)
   })
 
-  it('Dictionary.Last 方法正常运作', function() {
+  it('Dictionary.Last 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
     dictionary.Set('KEY_03', 3)
     expect(dictionary.Last().Key).is.equal('KEY_03')
     expect(dictionary.Last().Value).is.equal(3)
-    expect(dictionary.Last(kv => kv.Value < 3).Key).is.equal('KEY_02')
+    expect(dictionary.Last((kv) => kv.Value < 3).Key).is.equal('KEY_02')
   })
 
-  it('Dictionary.LastOrDefault 方法正常运作', function() {
+  it('Dictionary.LastOrDefault 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
     dictionary.Set('KEY_03', 3)
-    expect(
-      dictionary.LastOrDefault(new KeyValuePair('DEFAULT', 100)).Value
-    ).is.equal(3)
-    expect(
-      dictionary.LastOrDefault(
-        new KeyValuePair('DEFAULT', 100),
-        item => item.Value > 2
-      ).Value
-    ).is.equal(3)
-    expect(
-      dictionary.LastOrDefault(
-        new KeyValuePair('DEFAULT', 100),
-        item => item.Value > 3
-      ).Value
-    ).is.equal(100)
+    expect(dictionary.LastOrDefault(new KeyValuePair('DEFAULT', 100)).Value).is.equal(3)
+    expect(dictionary.LastOrDefault(new KeyValuePair('DEFAULT', 100), (item) => item.Value > 2).Value).is.equal(3)
+    expect(dictionary.LastOrDefault(new KeyValuePair('DEFAULT', 100), (item) => item.Value > 3).Value).is.equal(100)
   })
 
-  it('Dictionary.Max 方法正常运作', function() {
+  it('Dictionary.Max 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
     dictionary.Set('KEY_03', 3)
-    expect(dictionary.Max(kv => kv.Value)).is.equal(3)
+    expect(dictionary.Max((kv) => kv.Value)).is.equal(3)
   })
 
-  it('Dictionary.Min 方法正常运作', function() {
+  it('Dictionary.Min 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
     dictionary.Set('KEY_03', 3)
-    expect(dictionary.Min(kv => kv.Value)).is.equal(1)
+    expect(dictionary.Min((kv) => kv.Value)).is.equal(1)
   })
 
-  it('Dictionary.Reverse 方法正常运作', function() {
+  it('Dictionary.Reverse 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
@@ -734,25 +686,25 @@ describe('./dictionary.ts', function() {
     expect(reverse.ElementAt(2).Key).is.equal('KEY_01')
   })
 
-  it('Dictionary.Select 方法正常运作', function() {
+  it('Dictionary.Select 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
     dictionary.Set('KEY_03', 3)
-    let selected = dictionary.Select(kv => kv.Value * 2)
+    let selected = dictionary.Select((kv) => kv.Value * 2)
     expect(selected.Count()).is.equal(3)
     expect(selected.ElementAt(0)).is.equal(2)
     expect(selected.ElementAt(1)).is.equal(4)
     expect(selected.ElementAt(2)).is.equal(6)
   })
 
-  it('Dictionary.SelectMany 方法正常运作', function() {
+  it('Dictionary.SelectMany 方法正常运作', function () {
     let dictionary = new Dictionary<string, List<number>>()
     dictionary.Set('KEY_01', new List([1]))
     dictionary.Set('KEY_02', new List([2, 5]))
     dictionary.Set('KEY_03', new List([3]))
     let selected = dictionary.SelectMany<number, number>(
-      x => x.Value,
+      (x) => x.Value,
       (kv, c) => c * 4
     )
     expect(selected.Count()).is.equal(4)
@@ -762,7 +714,7 @@ describe('./dictionary.ts', function() {
     expect(selected.ElementAt(3)).is.equal(12)
   })
 
-  it('Dictionary.SequenceEqual 方法正常运作', function() {
+  it('Dictionary.SequenceEqual 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
@@ -773,32 +725,26 @@ describe('./dictionary.ts', function() {
     let kv3 = new KeyValuePair('KEY_03', 3)
 
     class E extends EqualityComparer<KeyValuePair<string, number>> {
-      public Equals(
-        x: KeyValuePair<string, number>,
-        y: KeyValuePair<string, number>
-      ): boolean {
+      public Equals(x: KeyValuePair<string, number>, y: KeyValuePair<string, number>): boolean {
         return x.Key === y.Key
       }
     }
-    expect(dictionary.SequenceEqual(new List([kv1, kv3, kv2]), new E())).is
-      .false
+    expect(dictionary.SequenceEqual(new List([kv1, kv3, kv2]), new E())).is.false
     expect(dictionary.SequenceEqual(new List([kv1, kv2, kv3]), new E())).is.true
   })
 
-  it('Dictionary.Single 方法正常运作', function() {
+  it('Dictionary.Single 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     expect(dictionary.Single().Key).is.equal('KEY_01')
   })
 
-  it('Dictionary.SingleOrDefault 方法正常运作', function() {
+  it('Dictionary.SingleOrDefault 方法正常运作', function () {
     let dictionary = new Dictionary([])
-    expect(
-      dictionary.SingleOrDefault(new KeyValuePair('DEFAULT', 100)).Key
-    ).is.equal('DEFAULT')
+    expect(dictionary.SingleOrDefault(new KeyValuePair('DEFAULT', 100)).Key).is.equal('DEFAULT')
   })
 
-  it('Dictionary.Skip 方法正常运作', function() {
+  it('Dictionary.Skip 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
@@ -809,19 +755,19 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Skip(2).ElementAt(0).Value).is.equal(3)
   })
 
-  it('Dictionary.SkipWhile 方法正常运作', function() {
+  it('Dictionary.SkipWhile 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
     dictionary.Set('KEY_03', 3)
     dictionary.Set('KEY_04', 4)
     dictionary.Set('KEY_05', 5)
-    expect(dictionary.SkipWhile(kv => kv.Value > 2).Count()).is.equal(5)
-    expect(dictionary.SkipWhile(kv => kv.Value < 2).Count()).is.equal(4)
-    expect(dictionary.SkipWhile(kv => kv.Value < 1).Count()).is.equal(5)
+    expect(dictionary.SkipWhile((kv) => kv.Value > 2).Count()).is.equal(5)
+    expect(dictionary.SkipWhile((kv) => kv.Value < 2).Count()).is.equal(4)
+    expect(dictionary.SkipWhile((kv) => kv.Value < 1).Count()).is.equal(5)
   })
 
-  it('Dictionary.Sum 方法正常运作', function() {
+  it('Dictionary.Sum 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
@@ -829,11 +775,11 @@ describe('./dictionary.ts', function() {
     dictionary.Set('KEY_04', 4)
     dictionary.Set('KEY_05', 5)
 
-    let sum = dictionary.Sum(kv => kv.Value)
+    let sum = dictionary.Sum((kv) => kv.Value)
     expect(sum).is.equal(15)
   })
 
-  it('Dictionary.Take 方法正常运作', function() {
+  it('Dictionary.Take 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
@@ -844,19 +790,19 @@ describe('./dictionary.ts', function() {
     expect(dictionary.Take(2).ElementAt(0).Value).is.equal(1)
   })
 
-  it('Dictionary.TakeWhile 方法正常运作', function() {
+  it('Dictionary.TakeWhile 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
     dictionary.Set('KEY_03', 3)
     dictionary.Set('KEY_04', 4)
     dictionary.Set('KEY_05', 5)
-    expect(dictionary.TakeWhile(kv => kv.Value > 2).Count()).is.equal(0)
-    expect(dictionary.TakeWhile(kv => kv.Value < 2).Count()).is.equal(1)
-    expect(dictionary.TakeWhile(kv => kv.Value < 1).Count()).is.equal(0)
+    expect(dictionary.TakeWhile((kv) => kv.Value > 2).Count()).is.equal(0)
+    expect(dictionary.TakeWhile((kv) => kv.Value < 2).Count()).is.equal(1)
+    expect(dictionary.TakeWhile((kv) => kv.Value < 1).Count()).is.equal(0)
   })
 
-  it('Dictionary.ToArray 方法正常运作', function() {
+  it('Dictionary.ToArray 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
@@ -871,14 +817,17 @@ describe('./dictionary.ts', function() {
     expect(array[2].Value).is.equal(3)
   })
 
-  it('Dictionary.ToDictionary 方法正常运作', function() {
+  it('Dictionary.ToDictionary 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
     dictionary.Set('KEY_03', 3)
     dictionary.Set('KEY_04', 4)
     dictionary.Set('KEY_05', 5)
-    let dic = dictionary.ToDictionary(x => x.Key, y => y.Value * 3)
+    let dic = dictionary.ToDictionary(
+      (x) => x.Key,
+      (y) => y.Value * 3
+    )
     expect(dic).is.instanceof(Dictionary)
     expect(dic.Count()).is.equal(5)
     expect(dic.Get('KEY_01')).is.equal(3)
@@ -888,7 +837,7 @@ describe('./dictionary.ts', function() {
     expect(dic.Get('KEY_05')).is.equal(15)
   })
 
-  it('Dictionary.ToList 方法正常运作', function() {
+  it('Dictionary.ToList 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
@@ -903,7 +852,7 @@ describe('./dictionary.ts', function() {
     expect(listed.Get(2).Value).is.equal(3)
   })
 
-  it('Dictionary.Union 方法正常运作', function() {
+  it('Dictionary.Union 方法正常运作', function () {
     let left = new Dictionary<string, number>()
     left.Set('KEY_01', 1)
     left.Set('KEY_02', 2)
@@ -915,14 +864,14 @@ describe('./dictionary.ts', function() {
     expect(enumerables.Count()).is.equal(5)
   })
 
-  it('Dictionary.Where 方法正常运作', function() {
+  it('Dictionary.Where 方法正常运作', function () {
     let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
     dictionary.Set('KEY_03', 3)
     dictionary.Set('KEY_04', 1)
     dictionary.Set('KEY_05', 5)
-    let filtered = dictionary.Where(kv => kv.Value >= 2)
+    let filtered = dictionary.Where((kv) => kv.Value >= 2)
     expect(filtered.Count()).is.equal(3)
     expect(filtered.ElementAt(0).Value).is.equal(2)
     expect(filtered.ElementAt(1).Value).is.equal(3)
