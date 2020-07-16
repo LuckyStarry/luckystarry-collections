@@ -1,7 +1,7 @@
-import { IEnumerable, Enumerable } from './enumerable'
-import { List } from './list'
-import { IEqualityComparer } from './equality-comparer'
 import { Dictionary } from './dictionary'
+import { Enumerable, IEnumerable } from './enumerable'
+import { IEqualityComparer } from './equality-comparer'
+import { List } from './list'
 
 export interface IGrouping<TKey, TElement> extends IEnumerable<TElement> {
   readonly Key: TKey
@@ -49,10 +49,7 @@ export class Grouping<TKey, TElement> implements IGrouping<TKey, TElement> {
     return Enumerable.Concat(this, second)
   }
 
-  public Contains(
-    value: TElement,
-    comparer?: IEqualityComparer<TElement>
-  ): boolean {
+  public Contains(value: TElement, comparer?: IEqualityComparer<TElement>): boolean {
     return Enumerable.Contains(this, value, comparer)
   }
 
@@ -60,15 +57,11 @@ export class Grouping<TKey, TElement> implements IGrouping<TKey, TElement> {
     return Enumerable.Count(this, predicate)
   }
 
-  public DefaultIfEmpty(
-    defaultValue?: IEnumerable<TElement>
-  ): IEnumerable<TElement> {
+  public DefaultIfEmpty(defaultValue?: IEnumerable<TElement>): IEnumerable<TElement> {
     return Enumerable.DefaultIfEmpty(this, defaultValue)
   }
 
-  public Distinct(
-    comparer?: IEqualityComparer<TElement>
-  ): IEnumerable<TElement> {
+  public Distinct(comparer?: IEqualityComparer<TElement>): IEnumerable<TElement> {
     return Enumerable.Distinct(this, comparer)
   }
 
@@ -80,10 +73,7 @@ export class Grouping<TKey, TElement> implements IGrouping<TKey, TElement> {
     return Enumerable.ElementAtOrDefault(this, defaultValue, index)
   }
 
-  public Except(
-    second: IEnumerable<TElement>,
-    comparer?: IEqualityComparer<TElement>
-  ): IEnumerable<TElement> {
+  public Except(second: IEnumerable<TElement>, comparer?: IEqualityComparer<TElement>): IEnumerable<TElement> {
     return Enumerable.Except(this, second, comparer)
   }
 
@@ -91,10 +81,7 @@ export class Grouping<TKey, TElement> implements IGrouping<TKey, TElement> {
     return Enumerable.First(this, predicate)
   }
 
-  public FirstOrDefault(
-    defaultValue: TElement,
-    predicate?: (item: TElement) => boolean
-  ): TElement {
+  public FirstOrDefault(defaultValue: TElement, predicate?: (item: TElement) => boolean): TElement {
     return Enumerable.FirstOrDefault(this, defaultValue, predicate)
   }
 
@@ -106,31 +93,17 @@ export class Grouping<TKey, TElement> implements IGrouping<TKey, TElement> {
     return Enumerable.GroupBy(this, keySelector, elementSelector, comparer)
   }
 
-  public GroupJoin<
-    TInner,
-    TKey,
-    TResult = { Outer: TElement; Inners: IEnumerable<TInner> }
-  >(
+  public GroupJoin<TInner, TKey, TResult = { Outer: TElement; Inners: IEnumerable<TInner> }>(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: TElement) => TKey,
     innerKeySelector: (item: TInner) => TKey,
     resultSelector?: (item: TElement, inners: IEnumerable<TInner>) => TResult,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<TResult> {
-    return Enumerable.GroupJoin(
-      this,
-      inner,
-      outerKeySelector,
-      innerKeySelector,
-      resultSelector,
-      comparer
-    )
+    return Enumerable.GroupJoin(this, inner, outerKeySelector, innerKeySelector, resultSelector, comparer)
   }
 
-  public Intersect(
-    second: IEnumerable<TElement>,
-    comparer?: IEqualityComparer<TElement>
-  ): IEnumerable<TElement> {
+  public Intersect(second: IEnumerable<TElement>, comparer?: IEqualityComparer<TElement>): IEnumerable<TElement> {
     return Enumerable.Intersect(this, second, comparer)
   }
 
@@ -141,24 +114,14 @@ export class Grouping<TKey, TElement> implements IGrouping<TKey, TElement> {
     resultSelector?: (item: TElement, inners: TInner) => TResult,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<TResult> {
-    return Enumerable.Join(
-      this,
-      inner,
-      outerKeySelector,
-      innerKeySelector,
-      resultSelector,
-      comparer
-    )
+    return Enumerable.Join(this, inner, outerKeySelector, innerKeySelector, resultSelector, comparer)
   }
 
   public Last(predicate?: (item: TElement) => boolean): TElement {
     return Enumerable.Last(this, predicate)
   }
 
-  public LastOrDefault(
-    defaultValue: TElement,
-    predicate?: (item: TElement) => boolean
-  ): TElement {
+  public LastOrDefault(defaultValue: TElement, predicate?: (item: TElement) => boolean): TElement {
     return Enumerable.LastOrDefault(this, defaultValue, predicate)
   }
 
@@ -174,26 +137,18 @@ export class Grouping<TKey, TElement> implements IGrouping<TKey, TElement> {
     return Enumerable.Reverse(this)
   }
 
-  public Select<TResult>(
-    selector: (item: TElement, index?: number) => TResult
-  ): IEnumerable<TResult> {
+  public Select<TResult>(selector: (item: TElement, index?: number) => TResult): IEnumerable<TResult> {
     return Enumerable.Select(this, selector)
   }
 
   public SelectMany<TCollection, TResult = TCollection>(
-    collectionSelector: (
-      item: TElement,
-      index?: number
-    ) => IEnumerable<TCollection>,
+    collectionSelector: (item: TElement, index?: number) => IEnumerable<TCollection>,
     resultSelector?: (item: TElement, collection: TCollection) => TResult
   ): IEnumerable<TResult> {
     return Enumerable.SelectMany(this, collectionSelector, resultSelector)
   }
 
-  public SequenceEqual(
-    second: Iterable<TElement>,
-    comparer?: IEqualityComparer<TElement>
-  ): boolean {
+  public SequenceEqual(second: Iterable<TElement>, comparer?: IEqualityComparer<TElement>): boolean {
     return Enumerable.SequenceEqual(this, second, comparer)
   }
 
@@ -201,10 +156,7 @@ export class Grouping<TKey, TElement> implements IGrouping<TKey, TElement> {
     return Enumerable.Single(this, predicate)
   }
 
-  public SingleOrDefault(
-    defaultValue: TElement,
-    predicate?: (item: TElement) => boolean
-  ): TElement {
+  public SingleOrDefault(defaultValue: TElement, predicate?: (item: TElement) => boolean): TElement {
     return Enumerable.SingleOrDefault(this, defaultValue, predicate)
   }
 
@@ -212,9 +164,7 @@ export class Grouping<TKey, TElement> implements IGrouping<TKey, TElement> {
     return Enumerable.Skip(this, count)
   }
 
-  public SkipWhile(
-    predicate: (item: TElement, index?: number) => boolean
-  ): IEnumerable<TElement> {
+  public SkipWhile(predicate: (item: TElement, index?: number) => boolean): IEnumerable<TElement> {
     return Enumerable.SkipWhile(this, predicate)
   }
 
@@ -226,9 +176,7 @@ export class Grouping<TKey, TElement> implements IGrouping<TKey, TElement> {
     return Enumerable.Take(this, count)
   }
 
-  public TakeWhile(
-    predicate: (item: TElement, index?: number) => boolean
-  ): IEnumerable<TElement> {
+  public TakeWhile(predicate: (item: TElement, index?: number) => boolean): IEnumerable<TElement> {
     return Enumerable.TakeWhile(this, predicate)
   }
 
@@ -248,16 +196,11 @@ export class Grouping<TKey, TElement> implements IGrouping<TKey, TElement> {
     return Enumerable.ToList(this)
   }
 
-  public Union(
-    second: Iterable<TElement>,
-    comparer?: IEqualityComparer<TElement>
-  ): IEnumerable<TElement> {
+  public Union(second: Iterable<TElement>, comparer?: IEqualityComparer<TElement>): IEnumerable<TElement> {
     return Enumerable.Union(this, second, comparer)
   }
 
-  public Where(
-    predicate: (item: TElement, index?: number) => boolean
-  ): IEnumerable<TElement> {
+  public Where(predicate: (item: TElement, index?: number) => boolean): IEnumerable<TElement> {
     return Enumerable.Where(this, predicate)
   }
 }

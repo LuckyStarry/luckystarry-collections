@@ -1,11 +1,7 @@
-import { IEqualityComparer, EqualityComparer } from '../equality-comparer'
+import { EqualityComparer, IEqualityComparer } from '../equality-comparer'
 import * as utils from '../utils'
 
-export function sequenceEqual<TSource>(
-  first: Iterable<TSource>,
-  second: Iterable<TSource>,
-  comparer?: IEqualityComparer<TSource>
-): boolean {
+export function sequenceEqual<TSource>(first: Iterable<TSource>, second: Iterable<TSource>, comparer?: IEqualityComparer<TSource>): boolean {
   utils.throws.ThrowIfNull('first', first)
   utils.throws.ThrowIfNull('second', second)
   comparer = comparer || EqualityComparer.Default()

@@ -1,10 +1,6 @@
 import * as utils from '../utils'
 
-export function elementAtOrDefault<TSource>(
-  source: Iterable<TSource>,
-  defaultValue: TSource,
-  index: number
-): TSource {
+export function elementAtOrDefault<TSource>(source: Iterable<TSource>, defaultValue: TSource, index: number): TSource {
   utils.throws.ThrowIfNull('source', source)
   if (index < 0) {
     return defaultValue

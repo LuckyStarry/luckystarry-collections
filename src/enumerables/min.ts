@@ -1,24 +1,18 @@
 import { ArgumentNullException } from '../exceptions'
 import * as utils from '../utils'
 
-export function min<TSource>(
-  source: Iterable<TSource>,
-  selector?: (item: TSource) => number
-): number | null {
+export function min<TSource>(source: Iterable<TSource>, selector?: (item: TSource) => number): number | null {
   utils.throws.ThrowIfNull('source', source)
   selector =
     selector ||
-    (x => {
+    ((x) => {
       if (utils.IsNullOrUndefined(x)) {
         return null
       }
       if (typeof x === 'number') {
         return x
       } else {
-        throw new ArgumentNullException(
-          'selector',
-          '数值类型以外的数组必须传入 selector'
-        )
+        throw new ArgumentNullException('selector', '数值类型以外的数组必须传入 selector')
       }
     })
   let found = false

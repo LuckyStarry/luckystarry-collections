@@ -1,13 +1,9 @@
-import { IEnumerable, Enumerable } from '../enumerable'
-import { IEqualityComparer, EqualityComparer } from '../equality-comparer'
+import { Enumerable, IEnumerable } from '../enumerable'
+import { EqualityComparer, IEqualityComparer } from '../equality-comparer'
 import * as utils from '../utils'
 import * as assistance from './assistance'
 
-export function intersect<TSource>(
-  first: Iterable<TSource>,
-  second: Iterable<TSource>,
-  comparer?: IEqualityComparer<TSource>
-): IEnumerable<TSource> {
+export function intersect<TSource>(first: Iterable<TSource>, second: Iterable<TSource>, comparer?: IEqualityComparer<TSource>): IEnumerable<TSource> {
   utils.throws.ThrowIfNull('first', first)
   utils.throws.ThrowIfNull('second', second)
   comparer = comparer || EqualityComparer.Default()

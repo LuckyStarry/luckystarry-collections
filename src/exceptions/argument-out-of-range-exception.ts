@@ -14,11 +14,7 @@ export class ArgumentOutOfRangeException extends ArgumentException {
   }
 }
 
-function composite(
-  paramName?: string,
-  actualValue?: any,
-  message?: string
-): string {
+function composite(paramName?: string, actualValue?: any, message?: string): string {
   if (message) {
     return message
   }

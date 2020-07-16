@@ -1,9 +1,9 @@
 import './array'
+import { Dictionary } from './dictionary'
 import * as enumerables from './enumerables'
 import { IEqualityComparer } from './equality-comparer'
 import { IGrouping } from './grouping'
 import { List } from './list'
-import { Dictionary } from './dictionary'
 
 export interface IEnumerable<TSource> extends Iterable<TSource> {
   [Symbol.iterator](): IterableIterator<TSource>
@@ -19,35 +19,22 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
   Distinct(comparer?: IEqualityComparer<TSource>): IEnumerable<TSource>
   ElementAt(index: number): TSource
   ElementAtOrDefault(defaultValue: TSource, index: number): TSource
-  Except(
-    second: IEnumerable<TSource>,
-    comparer?: IEqualityComparer<TSource>
-  ): IEnumerable<TSource>
+  Except(second: IEnumerable<TSource>, comparer?: IEqualityComparer<TSource>): IEnumerable<TSource>
   First(predicate?: (item: TSource) => boolean): TSource
-  FirstOrDefault(
-    defaultValue: TSource,
-    predicate?: (item: TSource) => boolean
-  ): TSource
+  FirstOrDefault(defaultValue: TSource, predicate?: (item: TSource) => boolean): TSource
   GroupBy<TKey, TElement = TSource>(
     keySelector: (item: TSource) => TKey,
     elementSelector?: (item: TSource) => TElement,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<IGrouping<TKey, TElement>>
-  GroupJoin<
-    TInner,
-    TKey,
-    TResult = { Outer: TSource; Inners: IEnumerable<TInner> }
-  >(
+  GroupJoin<TInner, TKey, TResult = { Outer: TSource; Inners: IEnumerable<TInner> }>(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: TSource) => TKey,
     innerKeySelector: (item: TInner) => TKey,
     resultSelector?: (item: TSource, inners: IEnumerable<TInner>) => TResult,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<TResult>
-  Intersect(
-    second: IEnumerable<TSource>,
-    comparer?: IEqualityComparer<TSource>
-  ): IEnumerable<TSource>
+  Intersect(second: IEnumerable<TSource>, comparer?: IEqualityComparer<TSource>): IEnumerable<TSource>
   Join<TInner, TKey, TResult = { Outer: TSource; Inner: TInner }>(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: TSource) => TKey,
@@ -56,41 +43,23 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<TResult>
   Last(predicate?: (item: TSource) => boolean): TSource
-  LastOrDefault(
-    defaultValue: TSource,
-    predicate?: (item: TSource) => boolean
-  ): TSource
+  LastOrDefault(defaultValue: TSource, predicate?: (item: TSource) => boolean): TSource
   Max(selector?: (item: TSource) => number): number | null
   Min(selector?: (item: TSource) => number): number | null
   Reverse(): IEnumerable<TSource>
-  Select<TResult>(
-    selector: (item: TSource, index?: number) => TResult
-  ): IEnumerable<TResult>
+  Select<TResult>(selector: (item: TSource, index?: number) => TResult): IEnumerable<TResult>
   SelectMany<TCollection, TResult = TCollection>(
-    collectionSelector: (
-      item: TSource,
-      index?: number
-    ) => IEnumerable<TCollection>,
+    collectionSelector: (item: TSource, index?: number) => IEnumerable<TCollection>,
     resultSelector?: (item: TSource, collection: TCollection) => TResult
   ): IEnumerable<TResult>
-  SequenceEqual(
-    second: Iterable<TSource>,
-    comparer?: IEqualityComparer<TSource>
-  ): boolean
+  SequenceEqual(second: Iterable<TSource>, comparer?: IEqualityComparer<TSource>): boolean
   Single(predicate?: (item: TSource) => boolean): TSource
-  SingleOrDefault(
-    defaultValue: TSource,
-    predicate?: (item: TSource) => boolean
-  ): TSource
+  SingleOrDefault(defaultValue: TSource, predicate?: (item: TSource) => boolean): TSource
   Skip(count: number): IEnumerable<TSource>
-  SkipWhile(
-    predicate: (item: TSource, index?: number) => boolean
-  ): IEnumerable<TSource>
+  SkipWhile(predicate: (item: TSource, index?: number) => boolean): IEnumerable<TSource>
   Sum(selector?: (item: TSource) => number): number | null
   Take(count: number): IEnumerable<TSource>
-  TakeWhile(
-    predicate: (item: TSource, index?: number) => boolean
-  ): IEnumerable<TSource>
+  TakeWhile(predicate: (item: TSource, index?: number) => boolean): IEnumerable<TSource>
   ToArray(): Array<TSource>
   ToDictionary<TKey, TElement = TSource>(
     keySelector: (item: TSource) => TKey,
@@ -98,13 +67,8 @@ export interface IEnumerable<TSource> extends Iterable<TSource> {
     comparer?: IEqualityComparer<TKey>
   ): Dictionary<TKey, TElement>
   ToList(): List<TSource>
-  Union(
-    second: Iterable<TSource>,
-    comparer?: IEqualityComparer<TSource>
-  ): IEnumerable<TSource>
-  Where(
-    predicate: (item: TSource, index?: number) => boolean
-  ): IEnumerable<TSource>
+  Union(second: Iterable<TSource>, comparer?: IEqualityComparer<TSource>): IEnumerable<TSource>
+  Where(predicate: (item: TSource, index?: number) => boolean): IEnumerable<TSource>
 }
 
 export class Enumerable {

@@ -1,28 +1,22 @@
 import { Enumerable } from '../enumerable'
-import { throws, IsNullOrUndefined } from '../utils'
 import { ArgumentNullException } from '../exceptions'
+import { IsNullOrUndefined, throws } from '../utils'
 
-export function average<TSource>(
-  source: Iterable<TSource>,
-  selector?: (item: TSource) => number
-): number | null {
+export function average<TSource>(source: Iterable<TSource>, selector?: (item: TSource) => number): number | null {
   throws.ThrowIfNull('source', source)
   if (!Enumerable.Any(source)) {
     return null
   }
   selector =
     selector ||
-    (x => {
+    ((x) => {
       if (IsNullOrUndefined(x)) {
         return null
       }
       if (typeof x === 'number') {
         return x
       } else {
-        throw new ArgumentNullException(
-          'selector',
-          '数值类型以外的数组必须传入 selector'
-        )
+        throw new ArgumentNullException('selector', '数值类型以外的数组必须传入 selector')
       }
     })
   let sum = 0

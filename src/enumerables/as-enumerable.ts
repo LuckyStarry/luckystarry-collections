@@ -1,8 +1,6 @@
 import { IEnumerable } from '../enumerable'
 
-export function asEnumerable<TSource>(
-  source: IEnumerable<TSource> | Iterable<TSource>
-): IEnumerable<TSource> {
+export function asEnumerable<TSource>(source: IEnumerable<TSource> | Iterable<TSource>): IEnumerable<TSource> {
   return [...source]
 }
 

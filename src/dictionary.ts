@@ -1,17 +1,12 @@
-import { IEnumerable, Enumerable } from './enumerable'
-import { IEqualityComparer, EqualityComparer } from './equality-comparer'
-import {
-  ArgumentException,
-  KeyNotFoundException,
-  ArgumentOutOfRangeException
-} from './exceptions'
-import { KeyValuePair } from './key-value-pair'
+import { Enumerable, IEnumerable } from './enumerable'
+import { EqualityComparer, IEqualityComparer } from './equality-comparer'
+import { ArgumentException, ArgumentOutOfRangeException, KeyNotFoundException } from './exceptions'
 import { IGrouping } from './grouping'
+import { KeyValuePair } from './key-value-pair'
 import { List } from './list'
 import * as utils from './utils'
 
-export interface IDictionary<TKey, TValue>
-  extends IEnumerable<KeyValuePair<TKey, TValue>> {
+export interface IDictionary<TKey, TValue> extends IEnumerable<KeyValuePair<TKey, TValue>> {
   Add(key: TKey, value: TValue): void
   Clear(): void
   Set(key: TKey, value: TValue): void
@@ -31,23 +26,13 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
   private entries: Entry<TKey, TValue>[]
   private comparer: IEqualityComparer<TKey>
 
-  public constructor(
-    dictionary?:
-      | Iterable<KeyValuePair<TKey, TValue>>
-      | Iterable<[TKey, TValue]>
-      | number,
-    comparer?: IEqualityComparer<TKey>
-  ) {
+  public constructor(dictionary?: Iterable<KeyValuePair<TKey, TValue>> | Iterable<[TKey, TValue]> | number, comparer?: IEqualityComparer<TKey>) {
     this.comparer = comparer || EqualityComparer.Default()
     if (dictionary) {
       if (typeof dictionary === 'number') {
         let capacity = dictionary
         if (capacity < 0) {
-          throw new ArgumentOutOfRangeException(
-            'capacity',
-            capacity,
-            'capacity 小于 0'
-          )
+          throw new ArgumentOutOfRangeException('capacity', capacity, 'capacity 小于 0')
         }
         this.Initialize(capacity)
       } else {
@@ -128,10 +113,7 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
       let bucket = hashCode % buckets.length
       let last = -1
       for (let i = buckets[bucket]; i >= 0; last = i, i = entries[i].next) {
-        if (
-          entries[i].hashCode === hashCode &&
-          comparer.Equals(entries[i].key, key)
-        ) {
+        if (entries[i].hashCode === hashCode && comparer.Equals(entries[i].key, key)) {
           if (last < 0) {
             buckets[bucket] = entries[i].next
           } else {
@@ -168,15 +150,8 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     let comparer = this.comparer
     if (buckets) {
       let hashCode = comparer.GetHashCode(key) & 0x7fffffff
-      for (
-        let i = buckets[hashCode % buckets.length];
-        i >= 0;
-        i = entries[i].next
-      ) {
-        if (
-          entries[i].hashCode === hashCode &&
-          comparer.Equals(entries[i].key, key)
-        ) {
+      for (let i = buckets[hashCode % buckets.length]; i >= 0; i = entries[i].next) {
+        if (entries[i].hashCode === hashCode && comparer.Equals(entries[i].key, key)) {
           return i
         }
       }
@@ -184,11 +159,7 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return -1
   }
 
-  private TryInsert(
-    key: TKey,
-    value: TValue,
-    behavior: InsertionBehavior
-  ): boolean {
+  private TryInsert(key: TKey, value: TValue, behavior: InsertionBehavior): boolean {
     utils.throws.ThrowIfNull('key', key)
     if (!this.buckets) {
       this.Initialize(0)
@@ -199,10 +170,7 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     let hashCode = comparer.GetHashCode(key) & 0x7fffffff
     let targetBucket = hashCode % this.buckets.length
     for (let i = buckets[targetBucket]; i >= 0; i = entries[i].next) {
-      if (
-        entries[i].hashCode === hashCode &&
-        comparer.Equals(entries[i].key, key)
-      ) {
+      if (entries[i].hashCode === hashCode && comparer.Equals(entries[i].key, key)) {
         if (behavior === InsertionBehavior.ThrowOnExisting) {
           throw new ArgumentException('key', '已经存在相同的Key')
         }
@@ -269,15 +237,11 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     }
   }
 
-  public All(
-    predicate: (item: KeyValuePair<TKey, TValue>) => boolean
-  ): boolean {
+  public All(predicate: (item: KeyValuePair<TKey, TValue>) => boolean): boolean {
     return Enumerable.All(this, predicate)
   }
 
-  public Any(
-    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
-  ): boolean {
+  public Any(predicate?: (item: KeyValuePair<TKey, TValue>) => boolean): boolean {
     return Enumerable.Any(this, predicate)
   }
 
@@ -285,28 +249,19 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.AsEnumerable(this)
   }
 
-  public Average(
-    selector?: (item: KeyValuePair<TKey, TValue>) => number
-  ): number | null {
+  public Average(selector?: (item: KeyValuePair<TKey, TValue>) => number): number | null {
     return Enumerable.Average(this, selector)
   }
 
-  public Concat(
-    second: IEnumerable<KeyValuePair<TKey, TValue>>
-  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+  public Concat(second: IEnumerable<KeyValuePair<TKey, TValue>>): IEnumerable<KeyValuePair<TKey, TValue>> {
     return Enumerable.Concat(this, second)
   }
 
-  public Contains(
-    value: KeyValuePair<TKey, TValue>,
-    comparer?: IEqualityComparer<KeyValuePair<TKey, TValue>>
-  ): boolean {
+  public Contains(value: KeyValuePair<TKey, TValue>, comparer?: IEqualityComparer<KeyValuePair<TKey, TValue>>): boolean {
     return Enumerable.Contains(this, value, comparer)
   }
 
-  public Count(
-    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
-  ): number {
+  public Count(predicate?: (item: KeyValuePair<TKey, TValue>) => boolean): number {
     if (predicate) {
       return Enumerable.Count(this, predicate)
     } else {
@@ -314,15 +269,11 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     }
   }
 
-  public DefaultIfEmpty(
-    defaultValue?: IEnumerable<KeyValuePair<TKey, TValue>>
-  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+  public DefaultIfEmpty(defaultValue?: IEnumerable<KeyValuePair<TKey, TValue>>): IEnumerable<KeyValuePair<TKey, TValue>> {
     return Enumerable.DefaultIfEmpty(this, defaultValue)
   }
 
-  public Distinct(
-    comparer?: IEqualityComparer<KeyValuePair<TKey, TValue>>
-  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+  public Distinct(comparer?: IEqualityComparer<KeyValuePair<TKey, TValue>>): IEnumerable<KeyValuePair<TKey, TValue>> {
     return Enumerable.Distinct(this, comparer)
   }
 
@@ -330,10 +281,7 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.ElementAt(this, index)
   }
 
-  public ElementAtOrDefault(
-    defaultValue: KeyValuePair<TKey, TValue>,
-    index: number
-  ): KeyValuePair<TKey, TValue> {
+  public ElementAtOrDefault(defaultValue: KeyValuePair<TKey, TValue>, index: number): KeyValuePair<TKey, TValue> {
     return Enumerable.ElementAtOrDefault(this, defaultValue, index)
   }
 
@@ -344,16 +292,11 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.Except(this, second, comparer)
   }
 
-  public First(
-    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
-  ): KeyValuePair<TKey, TValue> {
+  public First(predicate?: (item: KeyValuePair<TKey, TValue>) => boolean): KeyValuePair<TKey, TValue> {
     return Enumerable.First(this, predicate)
   }
 
-  public FirstOrDefault(
-    defaultValue: KeyValuePair<TKey, TValue>,
-    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
-  ): KeyValuePair<TKey, TValue> {
+  public FirstOrDefault(defaultValue: KeyValuePair<TKey, TValue>, predicate?: (item: KeyValuePair<TKey, TValue>) => boolean): KeyValuePair<TKey, TValue> {
     return Enumerable.FirstOrDefault(this, defaultValue, predicate)
   }
 
@@ -365,28 +308,14 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.GroupBy(this, keySelector, elementSelector, comparer)
   }
 
-  public GroupJoin<
-    TInner,
-    TGroupKey,
-    TResult = { Outer: KeyValuePair<TKey, TValue>; Inners: IEnumerable<TInner> }
-  >(
+  public GroupJoin<TInner, TGroupKey, TResult = { Outer: KeyValuePair<TKey, TValue>; Inners: IEnumerable<TInner> }>(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: KeyValuePair<TKey, TValue>) => TGroupKey,
     innerKeySelector: (item: TInner) => TGroupKey,
-    resultSelector?: (
-      item: KeyValuePair<TKey, TValue>,
-      inners: IEnumerable<TInner>
-    ) => TResult,
+    resultSelector?: (item: KeyValuePair<TKey, TValue>, inners: IEnumerable<TInner>) => TResult,
     comparer?: IEqualityComparer<TGroupKey>
   ): IEnumerable<TResult> {
-    return Enumerable.GroupJoin(
-      this,
-      inner,
-      outerKeySelector,
-      innerKeySelector,
-      resultSelector,
-      comparer
-    )
+    return Enumerable.GroupJoin(this, inner, outerKeySelector, innerKeySelector, resultSelector, comparer)
   }
 
   public Intersect(
@@ -396,52 +325,29 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.Intersect(this, second, comparer)
   }
 
-  public Join<
-    TInner,
-    TGroupKey,
-    TResult = { Outer: KeyValuePair<TKey, TValue>; Inner: TInner }
-  >(
+  public Join<TInner, TGroupKey, TResult = { Outer: KeyValuePair<TKey, TValue>; Inner: TInner }>(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: KeyValuePair<TKey, TValue>) => TGroupKey,
     innerKeySelector: (item: TInner) => TGroupKey,
-    resultSelector?: (
-      item: KeyValuePair<TKey, TValue>,
-      inners: TInner
-    ) => TResult,
+    resultSelector?: (item: KeyValuePair<TKey, TValue>, inners: TInner) => TResult,
     comparer?: IEqualityComparer<TGroupKey>
   ): IEnumerable<TResult> {
-    return Enumerable.Join(
-      this,
-      inner,
-      outerKeySelector,
-      innerKeySelector,
-      resultSelector,
-      comparer
-    )
+    return Enumerable.Join(this, inner, outerKeySelector, innerKeySelector, resultSelector, comparer)
   }
 
-  public Last(
-    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
-  ): KeyValuePair<TKey, TValue> {
+  public Last(predicate?: (item: KeyValuePair<TKey, TValue>) => boolean): KeyValuePair<TKey, TValue> {
     return Enumerable.Last(this, predicate)
   }
 
-  public LastOrDefault(
-    defaultValue: KeyValuePair<TKey, TValue>,
-    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
-  ): KeyValuePair<TKey, TValue> {
+  public LastOrDefault(defaultValue: KeyValuePair<TKey, TValue>, predicate?: (item: KeyValuePair<TKey, TValue>) => boolean): KeyValuePair<TKey, TValue> {
     return Enumerable.LastOrDefault(this, defaultValue, predicate)
   }
 
-  public Max(
-    selector?: (item: KeyValuePair<TKey, TValue>) => number
-  ): number | null {
+  public Max(selector?: (item: KeyValuePair<TKey, TValue>) => number): number | null {
     return Enumerable.Max(this, selector)
   }
 
-  public Min(
-    selector?: (item: KeyValuePair<TKey, TValue>) => number
-  ): number | null {
+  public Min(selector?: (item: KeyValuePair<TKey, TValue>) => number): number | null {
     return Enumerable.Min(this, selector)
   }
 
@@ -449,42 +355,26 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.Reverse(this)
   }
 
-  public Select<TResult>(
-    selector: (item: KeyValuePair<TKey, TValue>, index?: number) => TResult
-  ): IEnumerable<TResult> {
+  public Select<TResult>(selector: (item: KeyValuePair<TKey, TValue>, index?: number) => TResult): IEnumerable<TResult> {
     return Enumerable.Select(this, selector)
   }
 
   public SelectMany<TCollection, TResult = TCollection>(
-    collectionSelector: (
-      item: KeyValuePair<TKey, TValue>,
-      index?: number
-    ) => IEnumerable<TCollection>,
-    resultSelector?: (
-      item: KeyValuePair<TKey, TValue>,
-      collection: TCollection
-    ) => TResult
+    collectionSelector: (item: KeyValuePair<TKey, TValue>, index?: number) => IEnumerable<TCollection>,
+    resultSelector?: (item: KeyValuePair<TKey, TValue>, collection: TCollection) => TResult
   ): IEnumerable<TResult> {
     return Enumerable.SelectMany(this, collectionSelector, resultSelector)
   }
 
-  public SequenceEqual(
-    second: Iterable<KeyValuePair<TKey, TValue>>,
-    comparer?: IEqualityComparer<KeyValuePair<TKey, TValue>>
-  ): boolean {
+  public SequenceEqual(second: Iterable<KeyValuePair<TKey, TValue>>, comparer?: IEqualityComparer<KeyValuePair<TKey, TValue>>): boolean {
     return Enumerable.SequenceEqual(this, second, comparer)
   }
 
-  public Single(
-    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
-  ): KeyValuePair<TKey, TValue> {
+  public Single(predicate?: (item: KeyValuePair<TKey, TValue>) => boolean): KeyValuePair<TKey, TValue> {
     return Enumerable.Single(this, predicate)
   }
 
-  public SingleOrDefault(
-    defaultValue: KeyValuePair<TKey, TValue>,
-    predicate?: (item: KeyValuePair<TKey, TValue>) => boolean
-  ): KeyValuePair<TKey, TValue> {
+  public SingleOrDefault(defaultValue: KeyValuePair<TKey, TValue>, predicate?: (item: KeyValuePair<TKey, TValue>) => boolean): KeyValuePair<TKey, TValue> {
     return Enumerable.SingleOrDefault(this, defaultValue, predicate)
   }
 
@@ -492,15 +382,11 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.Skip(this, count)
   }
 
-  public SkipWhile(
-    predicate: (item: KeyValuePair<TKey, TValue>, index?: number) => boolean
-  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+  public SkipWhile(predicate: (item: KeyValuePair<TKey, TValue>, index?: number) => boolean): IEnumerable<KeyValuePair<TKey, TValue>> {
     return Enumerable.SkipWhile(this, predicate)
   }
 
-  public Sum(
-    selector?: (item: KeyValuePair<TKey, TValue>) => number
-  ): number | null {
+  public Sum(selector?: (item: KeyValuePair<TKey, TValue>) => number): number | null {
     return Enumerable.Sum(this, selector)
   }
 
@@ -508,9 +394,7 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.Take(this, count)
   }
 
-  public TakeWhile(
-    predicate: (item: KeyValuePair<TKey, TValue>, index?: number) => boolean
-  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+  public TakeWhile(predicate: (item: KeyValuePair<TKey, TValue>, index?: number) => boolean): IEnumerable<KeyValuePair<TKey, TValue>> {
     return Enumerable.TakeWhile(this, predicate)
   }
 
@@ -537,9 +421,7 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     return Enumerable.Union(this, second, comparer)
   }
 
-  public Where(
-    predicate: (item: KeyValuePair<TKey, TValue>, index?: number) => boolean
-  ): IEnumerable<KeyValuePair<TKey, TValue>> {
+  public Where(predicate: (item: KeyValuePair<TKey, TValue>, index?: number) => boolean): IEnumerable<KeyValuePair<TKey, TValue>> {
     return Enumerable.Where(this, predicate)
   }
 }

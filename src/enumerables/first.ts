@@ -1,9 +1,6 @@
 import * as utils from '../utils'
 
-export function first<TSource>(
-  source: Iterable<TSource>,
-  predicate?: (item: TSource) => boolean
-): TSource {
+export function first<TSource>(source: Iterable<TSource>, predicate?: (item: TSource) => boolean): TSource {
   utils.throws.ThrowIfNull('source', source)
   for (let item of source) {
     if (predicate) {

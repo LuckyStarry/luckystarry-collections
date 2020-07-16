@@ -1,10 +1,6 @@
 import * as utils from '../utils'
 
-export function lastOrDefault<TSource>(
-  source: Iterable<TSource>,
-  defaultValue: TSource,
-  predicate?: (item: TSource) => boolean
-): TSource {
+export function lastOrDefault<TSource>(source: Iterable<TSource>, defaultValue: TSource, predicate?: (item: TSource) => boolean): TSource {
   utils.throws.ThrowIfNull('source', source)
   let found = false
   let target: TSource

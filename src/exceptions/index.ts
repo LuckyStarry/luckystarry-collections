@@ -1,6 +1,6 @@
-export { Exception } from './exception'
 export { ArgumentException } from './argument-exception'
 export { ArgumentNullException } from './argument-null-exception'
 export { ArgumentOutOfRangeException } from './argument-out-of-range-exception'
+export { Exception } from './exception'
 export { InvalidOperationException } from './invalid-operation-exception'
 export { KeyNotFoundException } from './key-not-found-exception'

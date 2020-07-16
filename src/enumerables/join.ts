@@ -1,14 +1,9 @@
-import { IEnumerable, Enumerable } from '../enumerable'
-import { IEqualityComparer, EqualityComparer } from '../equality-comparer'
+import { Enumerable, IEnumerable } from '../enumerable'
+import { EqualityComparer, IEqualityComparer } from '../equality-comparer'
 import { IGrouping } from '../grouping'
 import * as utils from '../utils'
 
-export function join<
-  TOuter,
-  TInner,
-  TKey,
-  TResult = { Outer: TOuter; Inner: TInner }
->(
+export function join<TOuter, TInner, TKey, TResult = { Outer: TOuter; Inner: TInner }>(
   outer: Iterable<TOuter>,
   inner: Iterable<TInner>,
   outerKeySelector: (item: TOuter) => TKey,
@@ -26,28 +21,16 @@ export function join<
       return { Outer: o, Inner: i }
     })
   comparer = comparer || EqualityComparer.Default()
-  let outerKeys = Enumerable.ToList(
-    Enumerable.Select(outer, item => outerKeySelector(item))
-  )
+  let outerKeys = Enumerable.ToList(Enumerable.Select(outer, (item) => outerKeySelector(item)))
   let groupedInner = Enumerable.ToList(
     Enumerable.GroupBy(
-      Enumerable.Where(inner, item =>
-        Enumerable.Contains(outerKeys, innerKeySelector(item), comparer)
-      ),
-      item => innerKeySelector(item),
-      g => g,
+      Enumerable.Where(inner, (item) => Enumerable.Contains(outerKeys, innerKeySelector(item), comparer)),
+      (item) => innerKeySelector(item),
+      (g) => g,
       comparer
     )
   )
-  return Enumerable.AsEnumerable(
-    process<TOuter, TInner, TKey, TResult>(
-      outer,
-      outerKeySelector,
-      groupedInner,
-      _resultSelector,
-      comparer
-    )
-  )
+  return Enumerable.AsEnumerable(process<TOuter, TInner, TKey, TResult>(outer, outerKeySelector, groupedInner, _resultSelector, comparer))
 }
 
 function* process<TOuter, TInner, TKey, TResult>(
@@ -59,11 +42,7 @@ function* process<TOuter, TInner, TKey, TResult>(
 ) {
   for (let item of outer) {
     let key = outerKeySelector(item)
-    let inners: IEnumerable<TInner> = Enumerable.FirstOrDefault(
-      groupedInner,
-      null,
-      g => comparer.Equals(g.Key, key)
-    )
+    let inners: IEnumerable<TInner> = Enumerable.FirstOrDefault(groupedInner, null, (g) => comparer.Equals(g.Key, key))
     if (inners && Enumerable.Any(inners)) {
       for (let inner of inners) {
         yield resultSelector(item, inner)

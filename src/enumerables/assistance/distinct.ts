@@ -1,7 +1,4 @@
-export function distinct<T>(
-  source: Iterable<T>,
-  compare?: (x: T, y: T) => boolean
-): Iterable<T> {
+export function distinct<T>(source: Iterable<T>, compare?: (x: T, y: T) => boolean): Iterable<T> {
   if (source) {
     compare = compare || ((x, y) => x === y)
     let target

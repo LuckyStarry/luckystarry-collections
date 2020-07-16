@@ -1,9 +1,6 @@
 import * as utils from '../utils'
 
-export function single<TSource>(
-  source: Iterable<TSource>,
-  predicate?: (item: TSource) => boolean
-): TSource {
+export function single<TSource>(source: Iterable<TSource>, predicate?: (item: TSource) => boolean): TSource {
   utils.throws.ThrowIfNull('source', source)
   let found = false
   let target: TSource

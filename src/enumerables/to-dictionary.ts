@@ -1,5 +1,5 @@
 import { Dictionary } from '../dictionary'
-import { IEqualityComparer, EqualityComparer } from '../equality-comparer'
+import { EqualityComparer, IEqualityComparer } from '../equality-comparer'
 import * as utils from '../utils'
 
 export function toDictionary<TSource, TKey, TElement = TSource>(
@@ -10,7 +10,7 @@ export function toDictionary<TSource, TKey, TElement = TSource>(
 ): Dictionary<TKey, TElement> {
   utils.throws.ThrowIfNull('source', source)
   utils.throws.ThrowIfNull('keySelector', keySelector)
-  let _elementSelector: any = elementSelector || (x => x)
+  let _elementSelector: any = elementSelector || ((x) => x)
   comparer = comparer || EqualityComparer.Default()
   let dictionary = new Dictionary<TKey, TElement>(null, comparer)
   for (let item of source) {

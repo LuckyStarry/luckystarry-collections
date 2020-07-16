@@ -1,11 +1,11 @@
-import { IEnumerable, Enumerable } from './enumerable'
 import { ICollection } from './collection'
-import { ArgumentOutOfRangeException, ArgumentException } from './exceptions'
-import { IEqualityComparer } from './equality-comparer'
-import { IGrouping } from './grouping'
 import { Dictionary } from './dictionary'
-import { ReadOnlyCollection } from './read-only-collection'
+import { Enumerable, IEnumerable } from './enumerable'
+import { IEqualityComparer } from './equality-comparer'
+import { ArgumentException, ArgumentOutOfRangeException } from './exceptions'
+import { IGrouping } from './grouping'
 import { Predicate } from './predicate'
+import { ReadOnlyCollection } from './read-only-collection'
 import { throws } from './utils'
 
 export interface IList<T> extends IEnumerable<T>, ICollection<T> {
@@ -23,7 +23,7 @@ export class List<T> implements IList<T> {
   public constructor(collection?: Iterable<T>) {
     if (collection) {
       if (collection instanceof Array) {
-        this.items = collection.map(x => x)
+        this.items = collection.map((x) => x)
       } else {
         this.AddRange(collection)
       }
@@ -94,11 +94,7 @@ export class List<T> implements IList<T> {
     return this.Where(match).ToList()
   }
 
-  public FindIndex(
-    startIndex: number,
-    count: number,
-    match: Predicate<T>
-  ): number {
+  public FindIndex(startIndex: number, count: number, match: Predicate<T>): number {
     if (startIndex < 0 || startIndex >= this.Length) {
       throw new ArgumentOutOfRangeException('startIndex', startIndex)
     }
@@ -127,11 +123,7 @@ export class List<T> implements IList<T> {
     return this.LastOrDefault(null, match)
   }
 
-  public FindLastIndex(
-    startIndex: number,
-    count: number,
-    match: Predicate<T>
-  ): number {
+  public FindLastIndex(startIndex: number, count: number, match: Predicate<T>): number {
     if (startIndex < 0 || startIndex >= this.Length) {
       throw new ArgumentOutOfRangeException('startIndex', startIndex)
     }
@@ -168,7 +160,7 @@ export class List<T> implements IList<T> {
   }
 
   public IndexOf(item: T): number {
-    return this.items.findIndex(x => x === item)
+    return this.items.findIndex((x) => x === item)
   }
 
   public Insert(index: number, item: T): void {
@@ -249,10 +241,7 @@ export class List<T> implements IList<T> {
     return Enumerable.ElementAtOrDefault(this, defaultValue, index)
   }
 
-  public Except(
-    second: IEnumerable<T>,
-    comparer?: IEqualityComparer<T>
-  ): IEnumerable<T> {
+  public Except(second: IEnumerable<T>, comparer?: IEqualityComparer<T>): IEnumerable<T> {
     return Enumerable.Except(this, second, comparer)
   }
 
@@ -272,31 +261,17 @@ export class List<T> implements IList<T> {
     return Enumerable.GroupBy(this, keySelector, elementSelector, comparer)
   }
 
-  public GroupJoin<
-    TInner,
-    TKey,
-    TResult = { Outer: T; Inners: IEnumerable<TInner> }
-  >(
+  public GroupJoin<TInner, TKey, TResult = { Outer: T; Inners: IEnumerable<TInner> }>(
     inner: IEnumerable<TInner>,
     outerKeySelector: (item: T) => TKey,
     innerKeySelector: (item: TInner) => TKey,
     resultSelector?: (item: T, inners: IEnumerable<TInner>) => TResult,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<TResult> {
-    return Enumerable.GroupJoin(
-      this,
-      inner,
-      outerKeySelector,
-      innerKeySelector,
-      resultSelector,
-      comparer
-    )
+    return Enumerable.GroupJoin(this, inner, outerKeySelector, innerKeySelector, resultSelector, comparer)
   }
 
-  public Intersect(
-    second: IEnumerable<T>,
-    comparer?: IEqualityComparer<T>
-  ): IEnumerable<T> {
+  public Intersect(second: IEnumerable<T>, comparer?: IEqualityComparer<T>): IEnumerable<T> {
     return Enumerable.Intersect(this, second, comparer)
   }
 
@@ -307,14 +282,7 @@ export class List<T> implements IList<T> {
     resultSelector?: (item: T, inners: TInner) => TResult,
     comparer?: IEqualityComparer<TKey>
   ): IEnumerable<TResult> {
-    return Enumerable.Join(
-      this,
-      inner,
-      outerKeySelector,
-      innerKeySelector,
-      resultSelector,
-      comparer
-    )
+    return Enumerable.Join(this, inner, outerKeySelector, innerKeySelector, resultSelector, comparer)
   }
 
   public Last(predicate?: (item: T) => boolean): T {
@@ -337,9 +305,7 @@ export class List<T> implements IList<T> {
     return Enumerable.Reverse(this)
   }
 
-  public Select<TResult>(
-    selector: (item: T, index?: number) => TResult
-  ): IEnumerable<TResult> {
+  public Select<TResult>(selector: (item: T, index?: number) => TResult): IEnumerable<TResult> {
     return Enumerable.Select(this, selector)
   }
 
@@ -350,10 +316,7 @@ export class List<T> implements IList<T> {
     return Enumerable.SelectMany(this, collectionSelector, resultSelector)
   }
 
-  public SequenceEqual(
-    second: Iterable<T>,
-    comparer?: IEqualityComparer<T>
-  ): boolean {
+  public SequenceEqual(second: Iterable<T>, comparer?: IEqualityComparer<T>): boolean {
     return Enumerable.SequenceEqual(this, second, comparer)
   }
 
@@ -369,9 +332,7 @@ export class List<T> implements IList<T> {
     return Enumerable.Skip(this, count)
   }
 
-  public SkipWhile(
-    predicate: (item: T, index?: number) => boolean
-  ): IEnumerable<T> {
+  public SkipWhile(predicate: (item: T, index?: number) => boolean): IEnumerable<T> {
     return Enumerable.SkipWhile(this, predicate)
   }
 
@@ -383,9 +344,7 @@ export class List<T> implements IList<T> {
     return Enumerable.Take(this, count)
   }
 
-  public TakeWhile(
-    predicate: (item: T, index?: number) => boolean
-  ): IEnumerable<T> {
+  public TakeWhile(predicate: (item: T, index?: number) => boolean): IEnumerable<T> {
     return Enumerable.TakeWhile(this, predicate)
   }
 
@@ -405,16 +364,11 @@ export class List<T> implements IList<T> {
     return Enumerable.ToList(this)
   }
 
-  public Union(
-    second: Iterable<T>,
-    comparer?: IEqualityComparer<T>
-  ): IEnumerable<T> {
+  public Union(second: Iterable<T>, comparer?: IEqualityComparer<T>): IEnumerable<T> {
     return Enumerable.Union(this, second, comparer)
   }
 
-  public Where(
-    predicate: (item: T, index?: number) => boolean
-  ): IEnumerable<T> {
+  public Where(predicate: (item: T, index?: number) => boolean): IEnumerable<T> {
     return Enumerable.Where(this, predicate)
   }
 }
