@@ -1,6 +1,6 @@
 /* tslint:disable */
 import { expect } from 'chai'
-import uuid from 'uuid'
+import { v4 as uuid } from 'uuid'
 import { Dictionary } from '../src/dictionary'
 import { EqualityComparer } from '../src/equality-comparer'
 import { KeyValuePair } from '../src/key-value-pair'

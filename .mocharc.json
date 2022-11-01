@@ -1,0 +1,7 @@
+{
+  "bail": true,
+  "no-timeouts": true,
+  "recursive": true,
+  "require": "ts-node/register",
+  "extension": "ts"
+}
