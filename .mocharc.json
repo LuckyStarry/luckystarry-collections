@@ -1,6 +1,6 @@
 {
   "bail": true,
-  "no-timeouts": true,
+  "timeout": 0,
   "recursive": true,
   "require": "ts-node/register",
   "extension": "ts"
