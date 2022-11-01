@@ -16,7 +16,7 @@
     "bundle": "browserify dist/index.js > dist/index.bundle.js",
     "postbundle": "npm run uglify",
     "uglify": "uglifyjs dist/index.bundle.js --compress --mangle --output dist/index.min.js",
-    "test": "nyc mocha --require ts-node/register --bail --recursive --no-timeouts ./test/**/*.spec.ts",
+    "test": "nyc mocha --require ts-node/register --bail --no-timeouts --recursive test/**/*.spec.ts",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "main": "dist/index.js",
