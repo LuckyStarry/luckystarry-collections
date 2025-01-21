@@ -4,7 +4,7 @@
 
 一个模仿 .NET 风格的集合库，为数组提供类似 LINQ 的方法，如 _Select_、_Where_、_ToList_ 等。
 
-[![Build Status](https://www.travis-ci.org/LuckyStarry/luckystarry-collections.svg?branch=master)](https://www.travis-ci.org/LuckyStarry/luckystarry-collections?branch=master)
+[![CI Test](https://github.com/LuckyStarry/luckystarry-collections/actions/workflows/ci-test.yml/badge.svg)](https://github.com/LuckyStarry/luckystarry-collections/actions/workflows/ci-test.yml)
 [![Coverage Status](https://coveralls.io/repos/github/LuckyStarry/luckystarry-collections/badge.svg?branch=master)](https://coveralls.io/github/LuckyStarry/luckystarry-collections?branch=master)
 [![Npm Status](https://img.shields.io/npm/v/luckystarry-collections.svg)](https://www.npmjs.com/package/luckystarry-collections)
 [![install size](https://packagephobia.now.sh/badge?p=luckystarry-collections)](https://packagephobia.now.sh/result?p=luckystarry-collections)
