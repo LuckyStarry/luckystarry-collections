@@ -2,7 +2,7 @@
 
 [English](README.md) | [中文](README_CN.md)
 
-A .NET-style collection library that provides LINQ-like methods for arrays, such as _Select_, _Where_, _ToList_, etc.
+一个模仿 .NET 风格的集合库，为数组提供类似 LINQ 的方法，如 _Select_、_Where_、_ToList_ 等。
 
 [![Build Status](https://www.travis-ci.org/LuckyStarry/luckystarry-collections.svg?branch=master)](https://www.travis-ci.org/LuckyStarry/luckystarry-collections?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/LuckyStarry/luckystarry-collections/badge.svg?branch=master)](https://coveralls.io/github/LuckyStarry/luckystarry-collections?branch=master)
@@ -13,55 +13,55 @@ A .NET-style collection library that provides LINQ-like methods for arrays, such
 [![Known Vulnerabilities](https://snyk.io/test/github/LuckyStarry/luckystarry-collections/badge.svg?targetFile=package.json)](https://snyk.io/test/github/LuckyStarry/luckystarry-collections?targetFile=package.json)
 [![License Status](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://raw.githubusercontent.com/LuckyStarry/luckystarry-collections/master/LICENSE)
 
-## Install
+## 安装
 
-### Package Installation
+### 包安装
 
 ```bash
 npm install -S luckystarry-collections
 ```
 
-When using this method, add the following code at your project entry point to extend the **Array** prototype:
+使用此方式时，需要在项目入口处添加以下代码来扩展 **Array** 原型：
 
 ```typescript
 import 'luckystarry-collections'
 ```
 
-### Browser Usage
+### 浏览器使用
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/luckystarry-collections/dist/index.min.js"></script>
 ```
 
-## Usage
+## 使用说明
 
-### Classes and Interfaces
+### 类和接口
 
 #### IEnumerable<T>
 
-Interface for enumerable collections
+可枚举集合的接口
 
-#### List<T> and IList<T>
+#### List<T> 和 IList<T>
 
-List object and list interface
+列表对象和列表接口
 
-#### Dictionary<TKey, TValue> and IDictionary<TKey, TValue>
+#### Dictionary<TKey, TValue> 和 IDictionary<TKey, TValue>
 
-Dictionary object and dictionary interface
+字典对象和字典接口
 
 #### ReadOnlyCollection<T>
 
-Read-only list
+只读列表
 
 #### Array<T>
 
-Array
+数组
 
-### Common Collection Methods
+### 常用集合方法
 
 #### All(predicate: (item: T) => boolean): boolean
 
-Determines whether all elements in the collection satisfy the specified condition. Returns true if all elements meet the condition, otherwise returns false.
+判断集合中的所有元素是否都满足指定条件。如果所有元素都满足条件则返回 true，否则返回 false。
 
 ```typescript
 [1, 2, 3].All(x => x > 0)    // true
@@ -70,7 +70,7 @@ Determines whether all elements in the collection satisfy the specified conditio
 
 #### Any(predicate: (item: T) => boolean): boolean
 
-Determines whether any element in the collection satisfies the specified condition. Returns true if any element meets the condition, otherwise returns false.
+判断集合中是否存在满足指定条件的元素。如果存在任一元素满足条件则返回 true，否则返回 false。
 
 ```typescript
 [1, 2, 3].Any(x => x > 0)    // true
@@ -80,7 +80,7 @@ Determines whether any element in the collection satisfies the specified conditi
 
 #### AsEnumerable(): IEnumerable<T>
 
-Converts the collection to its enumerable interface form.
+将集合转换为其可枚举接口形式。
 
 ```typescript
 [1, 2, 3].AsEnumerable()     // [1, 2, 3]
@@ -88,7 +88,7 @@ Converts the collection to its enumerable interface form.
 
 #### Average(selector?: (item: T) => number): number | null
 
-Computes the average of the collection. For non-numeric collections, use the selector to map elements to numbers.
+计算集合的平均值。如果集合包含非数值元素，使用选择器将每个元素映射为数值。
 
 ```typescript
 [1, 2, 3].Average()          // 2
@@ -97,7 +97,7 @@ Computes the average of the collection. For non-numeric collections, use the sel
 
 #### Concat(second: IEnumerable<T>): IEnumerable<T>
 
-Concatenates two collections.
+连接两个集合。
 
 ```typescript
 [1, 2, 3].Concat([3, 4, 5])    // [1, 2, 3, 3, 4, 5]
@@ -105,7 +105,7 @@ Concatenates two collections.
 
 #### Contains(value: T, comparer?: IEqualityComparer<T>): boolean
 
-Determines whether the collection contains the specified element. An optional equality comparer can be provided.
+判断集合是否包含指定元素。可以提供可选的相等比较器。
 
 ```typescript
 [1, 2, 3].Contains(2)    // true
@@ -113,7 +113,7 @@ Determines whether the collection contains the specified element. An optional eq
 
 #### Count(predicate?: (item: T) => boolean): number
 
-Counts the number of elements that satisfy the specified condition. If no condition is provided, returns the total count of elements.
+计算满足指定条件的元素数量。如果未提供条件，则返回元素总数。
 
 ```typescript
 [1, 2, 3].Count()            // 3
@@ -122,7 +122,7 @@ Counts the number of elements that satisfy the specified condition. If no condit
 
 #### DefaultIfEmpty(defaultValue?: IEnumerable<T>): IEnumerable<T>
 
-Returns defaultValue if the collection is empty; otherwise, returns a new collection containing all original elements.
+如果集合为空则返回默认值；否则返回包含所有原始元素的新集合。
 
 ```typescript
 [1, 2, 3].DefaultIfEmpty()   // [1, 2, 3]
@@ -131,7 +131,7 @@ Returns defaultValue if the collection is empty; otherwise, returns a new collec
 
 #### Distinct(comparer?: IEqualityComparer<T>): IEnumerable<T>
 
-Returns distinct elements from the collection. An optional equality comparer can be provided.
+返回集合中的不重复元素。可以提供可选的相等比较器。
 
 ```typescript
 [1, 2, 3].Distinct()         // [1, 2, 3]
@@ -140,7 +140,7 @@ Returns distinct elements from the collection. An optional equality comparer can
 
 #### ElementAt(index: number): T
 
-Returns the element at the specified index.
+返回指定索引处的元素。
 
 ```typescript
 [1, 2, 3].ElementAt(1)       // 2
@@ -148,7 +148,7 @@ Returns the element at the specified index.
 
 #### ElementAtOrDefault(defaultValue: T, index: number): T
 
-Returns the element at the specified index or defaultValue if the index is out of range.
+返回指定索引处的元素，如果索引超出范围则返回默认值。
 
 ```typescript
 [1, 2, 3].ElementAtOrDefault(0, 1)    // 2
@@ -157,7 +157,7 @@ Returns the element at the specified index or defaultValue if the index is out o
 
 #### Except(second: IEnumerable<T>, comparer?: IEqualityComparer<T>): IEnumerable<T>
 
-Returns elements that exist in the first collection but not in the second collection.
+返回第一个集合中存在但在第二个集合中不存在的元素。
 
 ```typescript
 [1, 2, 3].Except([3, 4])    // [1, 2]
@@ -165,7 +165,7 @@ Returns elements that exist in the first collection but not in the second collec
 
 #### First(predicate?: (item: T) => boolean): T
 
-Returns the first element that satisfies the condition. If no condition is provided, returns the first element.
+返回满足条件的第一个元素。如果未提供条件，则返回第一个元素。
 
 ```typescript
 [1, 2, 3].First()           // 1
@@ -174,7 +174,7 @@ Returns the first element that satisfies the condition. If no condition is provi
 
 #### FirstOrDefault(defaultValue: T, predicate?: (item: T) => boolean): T
 
-Returns the first element that satisfies the condition, or defaultValue if no element is found. If no condition is provided, returns the first element or defaultValue if the collection is empty.
+返回满足条件的第一个元素，如果未找到则返回默认值。如果未提供条件，则返回第一个元素，如果集合为空则返回默认值。
 
 ```typescript
 [1, 2, 3].FirstOrDefault(0)                // 1
@@ -184,7 +184,7 @@ Returns the first element that satisfies the condition, or defaultValue if no el
 
 #### GroupBy<TKey, TElement = T>(keySelector: (item: T) => TKey, elementSelector?: (item: T) => TElement, comparer?: IEqualityComparer<TKey>): IEnumerable<IGrouping<TKey, TElement>>
 
-Groups elements by a key selector and maps elements using an optional element selector. An optional comparer can be used for key equality comparison.
+根据键选择器对元素进行分组，并使用可选的元素选择器映射元素。可以使用可选的比较器进行键相等性比较。
 
 ```typescript
 [1, 2, 3].GroupBy(x => x)    
@@ -196,7 +196,7 @@ Groups elements by a key selector and maps elements using an optional element se
 
 #### GroupJoin<TInner, TKey, TResult>(inner: IEnumerable<TInner>, outerKeySelector: (item: T) => TKey, innerKeySelector: (item: TInner) => TKey, resultSelector?: (item: T, inners: IEnumerable<TInner>) => TResult, comparer?: IEqualityComparer<TKey>): IEnumerable<TResult>
 
-Correlates elements of two sequences based on key equality and groups the results.
+基于键相等性关联两个序列的元素并对结果进行分组。
 
 ```typescript
 [1, 2, 3].GroupJoin([3, 4, 5], o => o, i => i)
@@ -205,7 +205,7 @@ Correlates elements of two sequences based on key equality and groups the result
 
 #### Intersect(second: IEnumerable<T>, comparer?: IEqualityComparer<T>): IEnumerable<T>
 
-Returns elements that exist in both collections. An optional comparer can be used for element equality comparison.
+返回同时存在于两个集合中的元素。可以使用可选的比较器进行元素相等性比较。
 
 ```typescript
 [1, 2, 3].Intersect([3, 4])    // [3]
@@ -213,7 +213,7 @@ Returns elements that exist in both collections. An optional comparer can be use
 
 #### Join<TInner, TKey, TResult>(inner: IEnumerable<TInner>, outerKeySelector: (item: T) => TKey, innerKeySelector: (item: TInner) => TKey, resultSelector?: (item: T, inners: TInner) => TResult, comparer?: IEqualityComparer<TKey>): IEnumerable<TResult>
 
-Correlates elements of two sequences based on matching keys.
+基于匹配键关联两个序列的元素。
 
 ```typescript
 [1, 2, 3].Join([3, 4, 5], o => o, i => i)
@@ -222,7 +222,7 @@ Correlates elements of two sequences based on matching keys.
 
 #### Last(predicate?: (item: T) => boolean): T
 
-Returns the last element that satisfies the condition. If no condition is provided, returns the last element.
+返回满足条件的最后一个元素。如果未提供条件，则返回最后一个元素。
 
 ```typescript
 [1, 2, 3].Last()            // 3
@@ -231,7 +231,7 @@ Returns the last element that satisfies the condition. If no condition is provid
 
 #### LastOrDefault(defaultValue: T, predicate?: (item: T) => boolean): T
 
-Returns the last element that satisfies the condition, or defaultValue if no element is found. If no condition is provided, returns the last element or defaultValue if the collection is empty.
+返回满足条件的最后一个元素，如果未找到则返回默认值。如果未提供条件，则返回最后一个元素，如果集合为空则返回默认值。
 
 ```typescript
 [1, 2, 3].LastOrDefault(0)                 // 3
@@ -241,7 +241,7 @@ Returns the last element that satisfies the condition, or defaultValue if no ele
 
 #### Max(selector?: (item: T) => number): number | null
 
-Returns the maximum value in the collection. For non-numeric collections, use the selector to map elements to numbers.
+返回集合中的最大值。对于非数值集合，使用选择器将元素映射为数值。
 
 ```typescript
 [1, 2, 3].Max()             // 3
@@ -250,7 +250,7 @@ Returns the maximum value in the collection. For non-numeric collections, use th
 
 #### Min(selector?: (item: T) => number): number | null
 
-Returns the minimum value in the collection. For non-numeric collections, use the selector to map elements to numbers.
+返回集合中的最小值。对于非数值集合，使用选择器将元素映射为数值。
 
 ```typescript
 [1, 2, 3].Min()             // 1
@@ -259,7 +259,7 @@ Returns the minimum value in the collection. For non-numeric collections, use th
 
 #### Reverse(): IEnumerable<T>
 
-Returns a new collection with elements in reverse order.
+返回一个新集合，元素顺序相反。
 
 ```typescript
 [1, 2, 3].Reverse()         // [3, 2, 1]
@@ -267,7 +267,7 @@ Returns a new collection with elements in reverse order.
 
 #### Select<TResult>(selector: (item: T, index?: number) => TResult): IEnumerable<TResult>
 
-Projects each element into a new form using the selector function.
+使用选择器函数将每个元素投影为新形式。
 
 ```typescript
 [1, 2, 3].Select(x => x)        // [1, 2, 3]
@@ -276,7 +276,7 @@ Projects each element into a new form using the selector function.
 
 #### SelectMany<TCollection, TResult = TCollection>(collectionSelector: (item: T, index?: number) => IEnumerable<TCollection>, resultSelector?: (item: T, collection: TCollection) => TResult): IEnumerable<TResult>
 
-Projects each element to an IEnumerable<T> and flattens the resulting sequences into one sequence.
+将每个元素投影到 IEnumerable<T> 并将结果序列平展为一个序列。
 
 ```typescript
 [[1, 2], [2, 3], [3, 4]].SelectMany(x => x)    // [1, 2, 2, 3, 3, 4]
@@ -284,7 +284,7 @@ Projects each element to an IEnumerable<T> and flattens the resulting sequences 
 
 #### SequenceEqual(second: Iterable<T>, comparer?: IEqualityComparer<T>): boolean
 
-Determines whether two sequences are equal by comparing their elements.
+通过比较元素确定两个序列是否相等。
 
 ```typescript
 [1, 2, 3].SequenceEqual([1, 2, 3])         // true
@@ -294,7 +294,7 @@ Determines whether two sequences are equal by comparing their elements.
 
 #### Single(predicate?: (item: T) => boolean): T
 
-Returns the only element that satisfies the condition. Throws an exception if there is not exactly one element.
+返回满足条件的唯一元素。如果不是恰好一个元素，则抛出异常。
 
 ```typescript
 [1].Single()                    // 1
@@ -303,7 +303,7 @@ Returns the only element that satisfies the condition. Throws an exception if th
 
 #### SingleOrDefault(defaultValue: T, predicate?: (item: T) => boolean): T
 
-Returns the only element that satisfies the condition, or defaultValue if no element is found. Throws an exception if there is more than one matching element.
+返回满足条件的唯一元素，如果未找到则返回默认值。如果有多个匹配元素，则抛出异常。
 
 ```typescript
 [1].SingleOrDefault(0)                      // 1
@@ -313,7 +313,7 @@ Returns the only element that satisfies the condition, or defaultValue if no ele
 
 #### Skip(count: number): IEnumerable<T>
 
-Bypasses a specified number of elements and returns the remaining elements.
+跳过指定数量的元素并返回剩余元素。
 
 ```typescript
 [1, 2, 3].Skip(1)    // [2, 3]
@@ -321,7 +321,7 @@ Bypasses a specified number of elements and returns the remaining elements.
 
 #### SkipWhile(predicate: (item: T, index?: number) => boolean): IEnumerable<T>
 
-Bypasses elements while the predicate is true and returns the remaining elements.
+当谓词为真时跳过元素，然后返回剩余元素。
 
 ```typescript
 [1, 2, 3].SkipWhile(x => x < 2)    // [2, 3]
@@ -329,7 +329,7 @@ Bypasses elements while the predicate is true and returns the remaining elements
 
 #### Sum(selector?: (item: T) => number): number | null
 
-Computes the sum of the sequence. For non-numeric collections, use the selector to map elements to numbers.
+计算序列的和。对于非数值集合，使用选择器将元素映射为数值。
 
 ```typescript
 [1, 2, 3].Sum()                 // 6
@@ -338,7 +338,7 @@ Computes the sum of the sequence. For non-numeric collections, use the selector 
 
 #### Take(count: number): IEnumerable<T>
 
-Returns a specified number of contiguous elements from the start of the sequence.
+从序列的开始返回指定数量的连续元素。
 
 ```typescript
 [1, 2, 3].Take(2)    // [1, 2]
@@ -346,7 +346,7 @@ Returns a specified number of contiguous elements from the start of the sequence
 
 #### TakeWhile(predicate: (item: T, index?: number) => boolean): IEnumerable<T>
 
-Returns elements from the start of the sequence while the predicate is true.
+当谓词为真时从序列的开始返回元素。
 
 ```typescript
 [1, 2, 3].TakeWhile(x => x < 2)    // [1]
@@ -354,7 +354,7 @@ Returns elements from the start of the sequence while the predicate is true.
 
 #### ToArray(): Array<T>
 
-Creates an array from the collection.
+从集合创建数组。
 
 ```typescript
 [1, 2, 3].ToArray()    // [1, 2, 3]
@@ -362,7 +362,7 @@ Creates an array from the collection.
 
 #### ToDictionary<TKey, TElement = T>(keySelector: (item: T) => TKey, elementSelector?: (item: T) => TElement, comparer?: IEqualityComparer<TKey>): Dictionary<TKey, TElement>
 
-Creates a Dictionary<TKey, TElement> from the collection using the specified key and element selectors.
+使用指定的键和元素选择器从集合创建 Dictionary<TKey, TElement>。
 
 ```typescript
 [1, 2, 3].ToDictionary(x => x)    // Dictionary { 1 => 1, 2 => 2, 3 => 3 }
@@ -370,7 +370,7 @@ Creates a Dictionary<TKey, TElement> from the collection using the specified key
 
 #### ToList(): List<T>
 
-Creates a List<T> from the collection.
+从集合创建 List<T>。
 
 ```typescript
 [1, 2, 3].ToList()    // List [1, 2, 3]
@@ -378,7 +378,7 @@ Creates a List<T> from the collection.
 
 #### Union(second: Iterable<T>, comparer?: IEqualityComparer<T>): IEnumerable<T>
 
-Produces the set union of two sequences by using the specified equality comparer.
+使用指定的相等比较器生成两个序列的并集。
 
 ```typescript
 [1, 2, 3].Union([3, 4, 5])    // [1, 2, 3, 4, 5]
@@ -386,32 +386,29 @@ Produces the set union of two sequences by using the specified equality comparer
 
 #### Where(predicate: (item: T, index?: number) => boolean): IEnumerable<T>
 
-Filters a sequence of values based on a predicate.
+基于谓词筛选值序列。
 
 ```typescript
 [1, 2, 3].Where(x => x > 1)    // [2, 3]
 ```
 
-## LICENSE
+## 许可证
+
+**重要提示：以下中文译文仅供参考。本项目的许可协议以英文原文为准，如有歧义应以英文原文为准。**
 
 MIT License
 
 Copyright (c) 2018 SUN BO <starry@vip.qq.com>
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+特此免费授予任何获得本软件副本和相关文档文件（"软件"）的人不受限制地处理本软件的权利，
+包括不受限制地使用、复制、修改、合并、发布、分发、再许可和/或出售本软件副本，
+以及允许本软件的使用者这样做，但须符合以下条件：
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+上述版权声明和本许可声明应包含在本软件的所有副本或重要部分中。
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+本软件按"原样"提供，不提供任何形式的明示或暗示的保证，包括但不限于对适销性、
+特定用途的适用性和非侵权性的保证。在任何情况下，作者或版权持有人均不对任何索赔、
+损害或其他责任负责，无论是在合同诉讼、侵权行为或其他方面，由软件或软件的使用或
+其他交易引起、产生或与之相关。
+
+For the original English version of the license, please see [LICENSE](LICENSE) file or [README.md](README.md#license).
