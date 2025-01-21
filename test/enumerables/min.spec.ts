@@ -12,13 +12,13 @@ describe('./enumerables/min.ts', function () {
 
   it('min(null) => throw', function () {
     expect(() => {
-      min(null)
+      min(null as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('min(undefined) => throw', function () {
     expect(() => {
-      min(undefined)
+      min(undefined as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
@@ -63,11 +63,11 @@ describe('./enumerables/min.ts', function () {
   })
 
   it('min([1, 2, null, 3], x => x * 2) => 0', function () {
-    expect(min([1, 2, null, 3], (x) => x * 2)).is.equal(0)
+    expect(min([1, 2, null, 3], (x) => x! * 2)).is.equal(0)
   })
 
   it('min([null, null, null, null], x => x * 2) => 0', function () {
-    expect(min([null, null, null, null], (x) => x * 2)).is.equal(0)
+    expect(min([null, null, null, null], (x) => x! * 2)).is.equal(0)
   })
 
   it('min([{value : 1}, {value : 2}, {value : 3}], x => x.value * 3) => 3', function () {
@@ -79,7 +79,7 @@ describe('./enumerables/min.ts', function () {
   })
 
   it('min(new List([1, 2, null, 3]), x => x * 2) => 0', function () {
-    expect(min(new List([1, 2, null, 3]), (x) => x * 2)).is.equal(0)
+    expect(min(new List([1, 2, null, 3]), (x) => x! * 2)).is.equal(0)
   })
 
   it('min(new List([{value : 1}, {value : 2}, {value : 3}]), x => x.value * 3) => 3', function () {

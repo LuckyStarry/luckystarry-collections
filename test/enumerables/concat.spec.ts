@@ -12,25 +12,25 @@ describe('./enumerables/concat.ts', function () {
 
   it('concat(null, []) => throw', function () {
     expect(() => {
-      concat(null, [])
+      concat(null as any, [])
     }).to.throw(`参数 first 不可为空`)
   })
 
   it('concat(undefined, []) => throw', function () {
     expect(() => {
-      concat(undefined, [])
+      concat(undefined as any, [])
     }).to.throw(`参数 first 不可为空`)
   })
 
   it('concat([], []) => throw', function () {
     expect(() => {
-      concat([], null)
+      concat([], null as any)
     }).to.throw(`参数 second 不可为空`)
   })
 
   it('concat([], undefined) => throw', function () {
     expect(() => {
-      concat([], undefined)
+      concat([], undefined as any)
     }).to.throw(`参数 second 不可为空`)
   })
 

@@ -12,13 +12,13 @@ describe('./enumerables/reverse.ts', function () {
 
   it('reverse(null) => throw', function () {
     expect(() => {
-      reverse(null)
+      reverse(null as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('reverse(undefined) => throw', function () {
     expect(() => {
-      reverse(undefined)
+      reverse(undefined as any)
     }).to.throw(`参数 source 不可为空`)
   })
 

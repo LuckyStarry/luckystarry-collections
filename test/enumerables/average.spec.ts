@@ -12,13 +12,13 @@ describe('./enumerables/average.ts', function () {
 
   it('average(null) => throw', function () {
     expect(() => {
-      average(null)
+      average(null as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('average(undefined) => throw', function () {
     expect(() => {
-      average(undefined)
+      average(undefined as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
@@ -63,11 +63,11 @@ describe('./enumerables/average.ts', function () {
   })
 
   it('average([1, 2, null, 3], x => x * 2) => 3', function () {
-    expect(average([1, 2, null, 3], (x) => x * 2)).is.equal(3)
+    expect(average([1, 2, null, 3], (x) => x! * 2)).is.equal(3)
   })
 
   it('average([null, null, null, null], x => x * 2) => 0', function () {
-    expect(average([null, null, null, null], (x) => x * 2)).is.equal(0)
+    expect(average([null, null, null, null], (x) => x! * 2)).is.equal(0)
   })
 
   it('average([{value : 1}, {value : 2}, {value : 3}], x => x.value * 3) => 6', function () {
@@ -79,7 +79,7 @@ describe('./enumerables/average.ts', function () {
   })
 
   it('average(new List([1, 2, null, 3]), x => x * 2) => 3', function () {
-    expect(average(new List([1, 2, null, 3]), (x) => x * 2)).is.equal(3)
+    expect(average(new List([1, 2, null, 3]), (x) => x! * 2)).is.equal(3)
   })
 
   it('average(new List([{value : 1}, {value : 2}, {value : 3}]), x => x.value * 3) => 6', function () {

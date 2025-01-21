@@ -11,13 +11,13 @@ describe('./enumerables/take-while.ts', function () {
 
   it('takeWhile(null, x => x > 0) => throw', function () {
     expect(() => {
-      takeWhile(null, (x) => x > 0)
+      takeWhile(null as any, (x: any) => x > 0)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('takeWhile(undefined, x => x > 1) => throw', function () {
     expect(() => {
-      takeWhile(undefined, (x) => x > 1)
+      takeWhile(undefined as any, (x: any) => x > 1)
     }).to.throw(`参数 source 不可为空`)
   })
 
@@ -49,7 +49,7 @@ describe('./enumerables/take-while.ts', function () {
   })
 
   it('takeWhile([10, 20, 30], (x, i) => i < 1) => [10]', function () {
-    let takeWhileped = takeWhile([10, 20, 30], (x, i) => i < 1)
+    let takeWhileped = takeWhile([10, 20, 30], (x, i) => i! < 1)
     expect(takeWhileped.Count()).is.equal(1)
     expect(takeWhileped.ElementAt(0)).is.equal(10)
   })

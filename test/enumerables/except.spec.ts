@@ -12,25 +12,25 @@ describe('./enumerables/except.ts', function () {
 
   it('except(null, []) => throw', function () {
     expect(() => {
-      except(null, [])
+      except(null as any, [])
     }).to.throw(`参数 first 不可为空`)
   })
 
   it('except(undefined, []) => throw', function () {
     expect(() => {
-      except(undefined, [])
+      except(undefined as any, [])
     }).to.throw(`参数 first 不可为空`)
   })
 
   it('except([], []) => throw', function () {
     expect(() => {
-      except([], null)
+      except([], null as any)
     }).to.throw(`参数 second 不可为空`)
   })
 
   it('except([], undefined) => throw', function () {
     expect(() => {
-      except([], undefined)
+      except([], undefined as any)
     }).to.throw(`参数 second 不可为空`)
   })
 

@@ -12,9 +12,9 @@ describe('./enumerables/to-dictionary.ts', function () {
   it('toDictionary(null, x => x, y => y) => throw', function () {
     expect(() => {
       toDictionary(
-        null,
-        (x) => x,
-        (y) => y
+        null as any,
+        (x: any) => x,
+        (y: any) => y
       )
     }).to.throw(`参数 source 不可为空`)
   })
@@ -22,22 +22,22 @@ describe('./enumerables/to-dictionary.ts', function () {
   it('toDictionary(undefined, x => x, y => y) => throw', function () {
     expect(() => {
       toDictionary(
-        undefined,
-        (x) => x,
-        (y) => y
+        undefined as any,
+        (x: any) => x,
+        (y: any) => y
       )
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('toDictionary([], null, y => y) => throw', function () {
     expect(() => {
-      toDictionary([], null, (y) => y)
+      toDictionary([], null as any, (y) => y)
     }).to.throw(`参数 keySelector 不可为空`)
   })
 
   it('toDictionary([], undefined, y => y) => throw', function () {
     expect(() => {
-      toDictionary([], undefined, (y) => y)
+      toDictionary([], undefined as any, (y) => y)
     }).to.throw(`参数 keySelector 不可为空`)
   })
 

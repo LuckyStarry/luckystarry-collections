@@ -25,13 +25,13 @@ describe('./read-only-collection.ts', function () {
 
   it('ReadOnlyCollection 不可使用 null 构造函数', function () {
     expect(() => {
-      new ReadOnlyCollection(null)
+      new ReadOnlyCollection(null as any)
     }).to.throw('参数 list 不可为空')
   })
 
   it('ReadOnlyCollection 不可使用 undefined 构造函数', function () {
     expect(() => {
-      new ReadOnlyCollection(undefined)
+      new ReadOnlyCollection(undefined as any)
     }).to.throw('参数 list 不可为空')
   })
 
@@ -399,7 +399,7 @@ describe('./read-only-collection.ts', function () {
   })
 
   it('ReadOnlyCollection.SingleOrDefault 方法正常运作', function () {
-    let list = new ReadOnlyCollection(new List([]))
+    let list = new ReadOnlyCollection(new List<number>([]))
     expect(list.SingleOrDefault(100)).is.equal(100)
   })
 

@@ -13,13 +13,13 @@ describe('./enumerables/contains.ts', function () {
 
   it('contains(null, 1) => throw', function () {
     expect(() => {
-      contains(null, 1)
+      contains(null as any, 1)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('contains(undefined, 1) => throw', function () {
     expect(() => {
-      contains(undefined, 1)
+      contains(undefined as any, 1)
     }).to.throw(`参数 source 不可为空`)
   })
 

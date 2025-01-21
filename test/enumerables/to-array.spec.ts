@@ -12,13 +12,13 @@ describe('./enumerables/to-array.ts', function () {
 
   it('toArray(null) => throw', function () {
     expect(() => {
-      toArray(null)
+      toArray(null as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('toArray(undefined) => throw', function () {
     expect(() => {
-      toArray(undefined)
+      toArray(undefined as any)
     }).to.throw(`参数 source 不可为空`)
   })
 

@@ -12,25 +12,25 @@ describe('./enumerables/intersect.ts', function () {
 
   it('intersect(null, []) => throw', function () {
     expect(() => {
-      intersect(null, [])
+      intersect(null as any, [])
     }).to.throw(`参数 first 不可为空`)
   })
 
   it('intersect(undefined, []) => throw', function () {
     expect(() => {
-      intersect(undefined, [])
+      intersect(undefined as any, [])
     }).to.throw(`参数 first 不可为空`)
   })
 
   it('intersect([], []) => throw', function () {
     expect(() => {
-      intersect([], null)
+      intersect([], null as any)
     }).to.throw(`参数 second 不可为空`)
   })
 
   it('intersect([], undefined) => throw', function () {
     expect(() => {
-      intersect([], undefined)
+      intersect([], undefined as any)
     }).to.throw(`参数 second 不可为空`)
   })
 

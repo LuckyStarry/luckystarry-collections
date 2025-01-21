@@ -11,25 +11,25 @@ describe('./enumerables/select.ts', function () {
 
   it('select(null, x => x) => throw', function () {
     expect(() => {
-      select(null, (x) => x)
+      select(null as any, (x) => x)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('select(undefined, x => x) => throw', function () {
     expect(() => {
-      select(undefined, (x) => x)
+      select(undefined as any, (x) => x)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('select([], null) => throw', function () {
     expect(() => {
-      select([], null)
+      select([], null as any)
     }).to.throw(`参数 selector 不可为空`)
   })
 
   it('select([], undefined) => throw', function () {
     expect(() => {
-      select([], undefined)
+      select([], undefined as any)
     }).to.throw(`参数 selector 不可为空`)
   })
 

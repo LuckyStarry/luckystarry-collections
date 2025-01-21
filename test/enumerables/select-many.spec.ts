@@ -12,25 +12,25 @@ describe('./enumerables/select-many.ts', function () {
 
   it('selectMany(null, x => x) => throw', function () {
     expect(() => {
-      selectMany(null, (x) => new List([x]))
+      selectMany(null as any, (x) => new List([x]))
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('selectMany(undefined, x => x) => throw', function () {
     expect(() => {
-      selectMany(undefined, (x) => new List([x]))
+      selectMany(undefined as any, (x) => new List([x]))
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('selectMany([], null) => throw', function () {
     expect(() => {
-      selectMany([], null)
+      selectMany([], null as any)
     }).to.throw(`参数 collectionSelector 不可为空`)
   })
 
   it('selectMany([], undefined) => throw', function () {
     expect(() => {
-      selectMany([], undefined)
+      selectMany([], undefined as any)
     }).to.throw(`参数 collectionSelector 不可为空`)
   })
 
@@ -110,7 +110,7 @@ describe('./enumerables/select-many.ts', function () {
   })
 
   it('selectMany([{text:1, value:[1, 2]},{text:2, value:[]]},{text:3, value:[]]},{text:2, value:[2, 1]]}], x => x.Value, (x, c) => c * 3) => [3, 6， 6, 3]', function () {
-    let list = [new Spec('1', new List([1, 2])), new Spec('2', null), new Spec('3', new List()), new Spec('2', new List([2, 1]))]
+    let list = [new Spec('1', new List([1, 2])), new Spec('2', null as any), new Spec('3', new List()), new Spec('2', new List([2, 1]))]
     let results = selectMany<Spec, number>(
       list,
       (x) => x.Value,

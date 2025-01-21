@@ -12,13 +12,13 @@ describe('./enumerables/max.ts', function () {
 
   it('max(null) => throw', function () {
     expect(() => {
-      max(null)
+      max(null as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('max(undefined) => throw', function () {
     expect(() => {
-      max(undefined)
+      max(undefined as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
@@ -63,11 +63,11 @@ describe('./enumerables/max.ts', function () {
   })
 
   it('max([1, 2, null, 3], x => x * 2) => 6', function () {
-    expect(max([1, 2, null, 3], (x) => x * 2)).is.equal(6)
+    expect(max([1, 2, null, 3], (x) => x! * 2)).is.equal(6)
   })
 
   it('max([null, null, null, null], x => x * 2) => 0', function () {
-    expect(max([null, null, null, null], (x) => x * 2)).is.equal(0)
+    expect(max([null, null, null, null], (x) => x! * 2)).is.equal(0)
   })
 
   it('max([{value : 1}, {value : 2}, {value : 3}], x => x.value * 3) => 9', function () {
@@ -79,7 +79,7 @@ describe('./enumerables/max.ts', function () {
   })
 
   it('max(new List([1, 2, null, 3]), x => x * 2) => 6', function () {
-    expect(max(new List([1, 2, null, 3]), (x) => x * 2)).is.equal(6)
+    expect(max(new List([1, 2, null, 3]), (x) => x! * 2)).is.equal(6)
   })
 
   it('max(new List([{value : 1}, {value : 2}, {value : 3}]), x => x.value * 3) => 9', function () {

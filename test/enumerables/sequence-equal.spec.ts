@@ -12,25 +12,25 @@ describe('./enumerables/sequence-equal.ts', function () {
 
   it('sequenceEqual(null, []) => throw', function () {
     expect(() => {
-      sequenceEqual(null, [])
+      sequenceEqual(null as any, [])
     }).to.throw(`参数 first 不可为空`)
   })
 
   it('sequenceEqual(undefined, []) => throw', function () {
     expect(() => {
-      sequenceEqual(undefined, [])
+      sequenceEqual(undefined as any, [])
     }).to.throw(`参数 first 不可为空`)
   })
 
   it('sequenceEqual([], []) => throw', function () {
     expect(() => {
-      sequenceEqual([], null)
+      sequenceEqual([], null as any)
     }).to.throw(`参数 second 不可为空`)
   })
 
   it('sequenceEqual([], undefined) => throw', function () {
     expect(() => {
-      sequenceEqual([], undefined)
+      sequenceEqual([], undefined as any)
     }).to.throw(`参数 second 不可为空`)
   })
 

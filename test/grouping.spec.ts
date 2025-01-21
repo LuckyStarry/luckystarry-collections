@@ -242,7 +242,7 @@ describe('./grouping.ts', function () {
   })
 
   it('Grouping.SingleOrDefault 方法正常运作', function () {
-    let list = new Grouping(0, [])
+    let list = new Grouping(0, [] as number[])
     expect(list.SingleOrDefault(100)).is.equal(100)
   })
 

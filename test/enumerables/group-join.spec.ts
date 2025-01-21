@@ -13,7 +13,7 @@ describe('./enumerables/group-join.ts', function () {
   it('groupJoin(null, [], o => o, i => i, (o, is) => { return { o: o, is: is } }) => throw', function () {
     expect(() => {
       groupJoin(
-        null,
+        null as any,
         [],
         (o) => o,
         (i) => i,
@@ -27,7 +27,7 @@ describe('./enumerables/group-join.ts', function () {
   it('groupJoin(undefined, [], o => o, i => i, (o, is) => { return { o: o, is: is } }) => throw', function () {
     expect(() => {
       groupJoin(
-        undefined,
+        undefined as any,
         [],
         (o) => o,
         (i) => i,
@@ -42,7 +42,7 @@ describe('./enumerables/group-join.ts', function () {
     expect(() => {
       groupJoin(
         [],
-        null,
+        null as any,
         (o) => o,
         (i) => i,
         (o, is) => {
@@ -56,7 +56,7 @@ describe('./enumerables/group-join.ts', function () {
     expect(() => {
       groupJoin(
         [],
-        undefined,
+        undefined as any,
         (o) => o,
         (i) => i,
         (o, is) => {
@@ -71,7 +71,7 @@ describe('./enumerables/group-join.ts', function () {
       groupJoin(
         [],
         [],
-        null,
+        null as any,
         (i) => i,
         (o, is) => {
           return { o: o, is: is }
@@ -85,7 +85,7 @@ describe('./enumerables/group-join.ts', function () {
       groupJoin(
         [],
         [],
-        undefined,
+        undefined as any,
         (i) => i,
         (o, is) => {
           return { o: o, is: is }
@@ -100,7 +100,7 @@ describe('./enumerables/group-join.ts', function () {
         [],
         [],
         (o) => o,
-        null,
+        null as any,
         (o, is) => {
           return { o: o, is: is }
         }
@@ -114,7 +114,7 @@ describe('./enumerables/group-join.ts', function () {
         [],
         [],
         (o) => o,
-        undefined,
+        undefined as any,
         (o, is) => {
           return { o: o, is: is }
         }

@@ -11,25 +11,25 @@ describe('./enumerables/where.ts', function () {
 
   it('where(null, x => !!x) => throw', function () {
     expect(() => {
-      where(null, (x) => !!x)
+      where(null as any, (x) => !!x)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('where(undefined, x => !!x) => throw', function () {
     expect(() => {
-      where(undefined, (x) => !!x)
+      where(undefined as any, (x) => !!x)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('where([], null) => throw', function () {
     expect(() => {
-      where([], null)
+      where([], null as any)
     }).to.throw(`参数 predicate 不可为空`)
   })
 
   it('where([], undefined) => throw', function () {
     expect(() => {
-      where([], undefined)
+      where([], undefined as any)
     }).to.throw(`参数 predicate 不可为空`)
   })
 

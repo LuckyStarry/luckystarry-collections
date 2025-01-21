@@ -12,13 +12,13 @@ describe('./enumerables/all.ts', function () {
 
   it('all(null, x => true) => throw', function () {
     expect(() => {
-      all(null, (x) => true)
+      all(null as any, (x) => true)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('all(undefined, x => true) => throw', function () {
     expect(() => {
-      all(undefined, (x) => true)
+      all(undefined as any, (x) => true)
     }).to.throw(`参数 source 不可为空`)
   })
 

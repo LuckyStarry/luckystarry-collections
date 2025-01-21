@@ -12,13 +12,13 @@ describe('./enumerables/first.ts', function () {
 
   it('first(null) => throw', function () {
     expect(() => {
-      first(null)
+      first(null as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('first(undefined) => throw', function () {
     expect(() => {
-      first(undefined)
+      first(undefined as any)
     }).to.throw(`参数 source 不可为空`)
   })
 

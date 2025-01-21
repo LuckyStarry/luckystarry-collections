@@ -11,13 +11,13 @@ describe('./enumerables/take.ts', function () {
 
   it('take(null, 1) => throw', function () {
     expect(() => {
-      take(null, 1)
+      take(null as any, 1)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('take(undefined, 2) => throw', function () {
     expect(() => {
-      take(undefined, 2)
+      take(undefined as any, 2)
     }).to.throw(`参数 source 不可为空`)
   })
 

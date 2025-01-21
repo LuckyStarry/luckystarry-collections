@@ -235,7 +235,7 @@ describe('./array.ts', function () {
   })
 
   it('Array.SingleOrDefault 方法正常运作', function () {
-    let list = []
+    let list: number[] = []
     expect(list.SingleOrDefault(100)).is.equal(100)
   })
 

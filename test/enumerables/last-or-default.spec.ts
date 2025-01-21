@@ -12,13 +12,13 @@ describe('./enumerables/last-or-default.ts', function () {
 
   it('lastOrDefault(null, 1) => throw', function () {
     expect(() => {
-      lastOrDefault(null, 1)
+      lastOrDefault(null as any, 1)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('lastOrDefault(undefined, 1) => throw', function () {
     expect(() => {
-      lastOrDefault(undefined, 1)
+      lastOrDefault(undefined as any, 1)
     }).to.throw(`参数 source 不可为空`)
   })
 
@@ -58,17 +58,17 @@ describe('./enumerables/last-or-default.ts', function () {
   })
 
   it('lastOrDefault([1, 2, 3], null, x => x > 2) => 3', function () {
-    let value = lastOrDefault([1, 2, 3], null, (x) => x > 2)
+    let value = lastOrDefault([1, 2, 3], null, (x) => x! > 2)
     expect(value).is.equal(3)
   })
 
   it('lastOrDefault([1, 2, 3], null, x => x > 3) => 3', function () {
-    let value = lastOrDefault([1, 2, 3], null, (x) => x > 3)
+    let value = lastOrDefault([1, 2, 3], null, (x) => x! > 3)
     expect(value).is.null
   })
 
   it('lastOrDefault([1, 2, 3], null, x => x > 1) => 3', function () {
-    let value = lastOrDefault([1, 2, 3], null, (x) => x > 1)
+    let value = lastOrDefault([1, 2, 3], null, (x) => x! > 1)
     expect(value).is.equal(3)
   })
 })

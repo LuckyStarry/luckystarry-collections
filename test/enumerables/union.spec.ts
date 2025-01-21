@@ -13,25 +13,25 @@ describe('./enumerables/union.ts', function () {
 
   it('union(null, []) => throw', function () {
     expect(() => {
-      union(null, [])
+      union(null as any, [])
     }).to.throw(`参数 first 不可为空`)
   })
 
   it('union(undefined, []) => throw', function () {
     expect(() => {
-      union(undefined, [])
+      union(undefined as any, [])
     }).to.throw(`参数 first 不可为空`)
   })
 
   it('union([], []) => throw', function () {
     expect(() => {
-      union([], null)
+      union([], null as any)
     }).to.throw(`参数 second 不可为空`)
   })
 
   it('union([], undefined) => throw', function () {
     expect(() => {
-      union([], undefined)
+      union([], undefined as any)
     }).to.throw(`参数 second 不可为空`)
   })
 

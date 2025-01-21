@@ -11,13 +11,13 @@ describe('./enumerables/skip.ts', function () {
 
   it('skip(null, 1) => throw', function () {
     expect(() => {
-      skip(null, 1)
+      skip(null as any, 1)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('skip(undefined, 2) => throw', function () {
     expect(() => {
-      skip(undefined, 2)
+      skip(undefined as any, 2)
     }).to.throw(`参数 source 不可为空`)
   })
 

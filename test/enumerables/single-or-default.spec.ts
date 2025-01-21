@@ -12,13 +12,13 @@ describe('./enumerables/single-or-default.ts', function () {
 
   it('singleOrDefault(null, 1) => throw', function () {
     expect(() => {
-      singleOrDefault(null, 1)
+      singleOrDefault(null as any, 1)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('singleOrDefault(undefined, 1) => throw', function () {
     expect(() => {
-      singleOrDefault(undefined, 1)
+      singleOrDefault(undefined as any, 1)
     }).to.throw(`参数 source 不可为空`)
   })
 
@@ -72,18 +72,18 @@ describe('./enumerables/single-or-default.ts', function () {
   })
 
   it('singleOrDefault([1, 2, 3], null, x => x > 2) => 3', function () {
-    let value = singleOrDefault([1, 2, 3], null, (x) => x > 2)
+    let value = singleOrDefault([1, 2, 3], null, (x) => x! > 2)
     expect(value).is.equal(3)
   })
 
   it('singleOrDefault([1, 2, 3], null, x => x > 3) => 3', function () {
-    let value = singleOrDefault([1, 2, 3], null, (x) => x > 3)
+    let value = singleOrDefault([1, 2, 3], null, (x) => x! > 3)
     expect(value).is.null
   })
 
   it('singleOrDefault([1, 2, 3], null, x => x > 1) => throw', function () {
     expect(() => {
-      singleOrDefault([1, 2, 3], null, (x) => x > 1)
+      singleOrDefault([1, 2, 3], null, (x) => x! > 1)
     }).to.throw(`输入的序列包含多个元素`)
   })
 })

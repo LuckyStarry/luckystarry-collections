@@ -12,13 +12,13 @@ describe('./enumerables/sum.ts', function () {
 
   it('sum(null) => throw', function () {
     expect(() => {
-      sum(null)
+      sum(null as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('sum(undefined) => throw', function () {
     expect(() => {
-      sum(undefined)
+      sum(undefined as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
@@ -63,11 +63,11 @@ describe('./enumerables/sum.ts', function () {
   })
 
   it('sum([1, 2, null, 3], x => x * 2) => 12', function () {
-    expect(sum([1, 2, null, 3], (x) => x * 2)).is.equal(12)
+    expect(sum([1, 2, null, 3], (x) => x! * 2)).is.equal(12)
   })
 
   it('sum([null, null, null, null], x => x * 2) => 0', function () {
-    expect(sum([null, null, null, null], (x) => x * 2)).is.equal(0)
+    expect(sum([null, null, null, null], (x) => x! * 2)).is.equal(0)
   })
 
   it('sum([{value : 1}, {value : 2}, {value : 3}], x => x.value * 3) => 18', function () {
@@ -79,7 +79,7 @@ describe('./enumerables/sum.ts', function () {
   })
 
   it('sum(new List([1, 2, null, 3]), x => x * 2) => 12', function () {
-    expect(sum(new List([1, 2, null, 3]), (x) => x * 2)).is.equal(12)
+    expect(sum(new List([1, 2, null, 3]), (x) => x! * 2)).is.equal(12)
   })
 
   it('sum(new List([{value : 1}, {value : 2}, {value : 3}]), x => x.value * 3) => 18', function () {

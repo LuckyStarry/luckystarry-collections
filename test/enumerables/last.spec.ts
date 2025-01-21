@@ -12,19 +12,19 @@ describe('./enumerables/last.ts', function () {
 
   it('last(null) => throw', function () {
     expect(() => {
-      last(null)
+      last(null as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('last(undefined) => throw', function () {
     expect(() => {
-      last(undefined)
+      last(undefined as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('last([]) => throw', function () {
     expect(() => {
-      last([])
+      last([] as any)
     }).to.throw(`源序列为空`)
   })
 

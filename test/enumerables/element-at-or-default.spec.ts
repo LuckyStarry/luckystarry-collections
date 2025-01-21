@@ -11,13 +11,13 @@ describe('./enumerables/element-at-or-default.ts', function () {
 
   it('elementAtOrDefault(null, null, 0) => throw', function () {
     expect(() => {
-      elementAtOrDefault(null, null, 0)
+      elementAtOrDefault(null as any, null, 0)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('elementAtOrDefault(undefined, null, 0) => throw', function () {
     expect(() => {
-      elementAtOrDefault(undefined, null, 0)
+      elementAtOrDefault(undefined as any, null, 0)
     }).to.throw(`参数 source 不可为空`)
   })
 

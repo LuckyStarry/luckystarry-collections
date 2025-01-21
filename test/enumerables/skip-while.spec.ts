@@ -11,13 +11,13 @@ describe('./enumerables/skip-while.ts', function () {
 
   it('skipWhile(null, x => x > 0) => throw', function () {
     expect(() => {
-      skipWhile(null, (x) => x > 0)
+      skipWhile(null as any, (x: any) => x > 0)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('skipWhile(undefined, x => x > 1) => throw', function () {
     expect(() => {
-      skipWhile(undefined, (x) => x > 1)
+      skipWhile(undefined as any, (x: any) => x > 1)
     }).to.throw(`参数 source 不可为空`)
   })
 
@@ -42,7 +42,7 @@ describe('./enumerables/skip-while.ts', function () {
   })
 
   it('skipWhile([10, 20, 30], (x, i) => i < 1) => [20, 30]', function () {
-    let skipWhileped = skipWhile([10, 20, 30], (x, i) => i < 1)
+    let skipWhileped = skipWhile([10, 20, 30], (x, i) => i! < 1)
     expect(skipWhileped.Count()).is.equal(2)
     expect(skipWhileped.ElementAt(0)).is.equal(20)
     expect(skipWhileped.ElementAt(1)).is.equal(30)

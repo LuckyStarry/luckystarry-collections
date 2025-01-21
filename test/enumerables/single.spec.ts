@@ -12,13 +12,13 @@ describe('./enumerables/single.ts', function () {
 
   it('single(null) => throw', function () {
     expect(() => {
-      single(null)
+      single(null as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('single(undefined) => throw', function () {
     expect(() => {
-      single(undefined)
+      single(undefined as any)
     }).to.throw(`参数 source 不可为空`)
   })
 

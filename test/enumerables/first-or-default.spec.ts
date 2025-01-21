@@ -12,13 +12,13 @@ describe('./enumerables/first-or-default.ts', function () {
 
   it('firstOrDefault(null, 1) => throw', function () {
     expect(() => {
-      firstOrDefault(null, 1)
+      firstOrDefault(null as any, 1)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('firstOrDefault(undefined, 1) => throw', function () {
     expect(() => {
-      firstOrDefault(undefined, 1)
+      firstOrDefault(undefined as any, 1)
     }).to.throw(`参数 source 不可为空`)
   })
 
@@ -58,17 +58,17 @@ describe('./enumerables/first-or-default.ts', function () {
   })
 
   it('firstOrDefault([1, 2, 3], null, x => x > 2) => 3', function () {
-    let value = firstOrDefault([1, 2, 3], null, (x) => x > 2)
+    let value = firstOrDefault([1, 2, 3], null, (x) => x! > 2)
     expect(value).is.equal(3)
   })
 
   it('firstOrDefault([1, 2, 3], null, x => x > 3) => 3', function () {
-    let value = firstOrDefault([1, 2, 3], null, (x) => x > 3)
+    let value = firstOrDefault([1, 2, 3], null, (x) => x! > 3)
     expect(value).is.null
   })
 
   it('firstOrDefault([1, 2, 3], null, x => x > 1) => 2', function () {
-    let value = firstOrDefault([1, 2, 3], null, (x) => x > 1)
+    let value = firstOrDefault([1, 2, 3], null, (x) => x! > 1)
     expect(value).is.equal(2)
   })
 })

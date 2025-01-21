@@ -13,7 +13,7 @@ describe('./enumerables/group-by.ts', function () {
   it('groupBy(null, k => k, e => e) => throw', function () {
     expect(() => {
       groupBy(
-        null,
+        null as any,
         (k) => k,
         (e) => e
       )
@@ -23,7 +23,7 @@ describe('./enumerables/group-by.ts', function () {
   it('groupBy(undefined, k => k, e => e) => throw', function () {
     expect(() => {
       groupBy(
-        undefined,
+        undefined as any,
         (k) => k,
         (e) => e
       )
@@ -32,13 +32,13 @@ describe('./enumerables/group-by.ts', function () {
 
   it('groupBy([], null, e => e) => throw', function () {
     expect(() => {
-      groupBy([], null, (e) => e)
+      groupBy([], null as any, (e) => e)
     }).to.throw(`参数 keySelector 不可为空`)
   })
 
   it('groupBy([], undefined, e => e) => throw', function () {
     expect(() => {
-      groupBy([], undefined, (e) => e)
+      groupBy([], undefined as any, (e) => e)
     }).to.throw(`参数 keySelector 不可为空`)
   })
 

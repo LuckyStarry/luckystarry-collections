@@ -13,7 +13,7 @@ describe('./enumerables/join.ts', function () {
   it('join(null, [], o => o, i => i, (o, i) => { return { o: o, i: i } }) => throw', function () {
     expect(() => {
       join(
-        null,
+        null as any,
         [],
         (o) => o,
         (i) => i,
@@ -27,7 +27,7 @@ describe('./enumerables/join.ts', function () {
   it('join(undefined, [], o => o, i => i, (o, i) => { return { o: o, i: i } }) => throw', function () {
     expect(() => {
       join(
-        undefined,
+        undefined as any,
         [],
         (o) => o,
         (i) => i,
@@ -42,7 +42,7 @@ describe('./enumerables/join.ts', function () {
     expect(() => {
       join(
         [],
-        null,
+        null as any,
         (o) => o,
         (i) => i,
         (o, i) => {
@@ -56,7 +56,7 @@ describe('./enumerables/join.ts', function () {
     expect(() => {
       join(
         [],
-        undefined,
+        undefined as any,
         (o) => o,
         (i) => i,
         (o, i) => {
@@ -71,7 +71,7 @@ describe('./enumerables/join.ts', function () {
       join(
         [],
         [],
-        null,
+        null as any,
         (i) => i,
         (o, i) => {
           return { o: o, i: i }
@@ -85,7 +85,7 @@ describe('./enumerables/join.ts', function () {
       join(
         [],
         [],
-        undefined,
+        undefined as any,
         (i) => i,
         (o, i) => {
           return { o: o, i: i }
@@ -100,7 +100,7 @@ describe('./enumerables/join.ts', function () {
         [],
         [],
         (o) => o,
-        null,
+        null as any,
         (o, i) => {
           return { o: o, i: i }
         }
@@ -114,7 +114,7 @@ describe('./enumerables/join.ts', function () {
         [],
         [],
         (o) => o,
-        undefined,
+        undefined as any,
         (o, i) => {
           return { o: o, i: i }
         }

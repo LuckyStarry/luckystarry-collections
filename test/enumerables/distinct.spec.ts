@@ -13,13 +13,13 @@ describe('./enumerables/distinct.ts', function () {
 
   it('distinct(null) => throw', function () {
     expect(() => {
-      distinct(null)
+      distinct(null as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('distinct(undefined) => throw', function () {
     expect(() => {
-      distinct(undefined)
+      distinct(undefined as any)
     }).to.throw(`参数 source 不可为空`)
   })
 
