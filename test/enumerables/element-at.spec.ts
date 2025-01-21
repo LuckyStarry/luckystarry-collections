@@ -11,13 +11,13 @@ describe('./enumerables/element-at-or-default.ts', function () {
 
   it('elementAt(null, 0) => throw', function () {
     expect(() => {
-      elementAt(null, 0)
+      elementAt(null as any, 0)
     }).to.throw(`参数 source 不可为空`)
   })
 
   it('elementAt(undefined, 0) => throw', function () {
     expect(() => {
-      elementAt(undefined, 0)
+      elementAt(undefined as any, 0)
     }).to.throw(`参数 source 不可为空`)
   })
 

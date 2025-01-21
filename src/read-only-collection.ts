@@ -5,6 +5,7 @@ import { InvalidOperationException } from './exceptions'
 import { IGrouping } from './grouping'
 import { IList, List } from './list'
 import { throws } from './utils'
+import { I18n } from './i18n'
 
 export interface IReadOnlyCollection<T> extends IEnumerable<T> {}
 
@@ -25,7 +26,7 @@ export class ReadOnlyCollection<T> implements IReadOnlyCollection<T>, IList<T> {
   }
 
   public Set(index: number, item: T): void {
-    throw new InvalidOperationException('不可向只读列表中写入数据')
+    throw new InvalidOperationException(I18n.t('errors.readonly.write'))
   }
 
   public Get(index: number): T {
@@ -33,11 +34,11 @@ export class ReadOnlyCollection<T> implements IReadOnlyCollection<T>, IList<T> {
   }
 
   public Add(item: T): void {
-    throw new InvalidOperationException('不可向只读列表中写入数据')
+    throw new InvalidOperationException(I18n.t('errors.readonly.write'))
   }
 
   public Clear(): void {
-    throw new InvalidOperationException('不可清空只读列表')
+    throw new InvalidOperationException(I18n.t('errors.readonly.clear'))
   }
 
   public CopyTo(array: T[], arrayIndex: number): void {
@@ -49,15 +50,15 @@ export class ReadOnlyCollection<T> implements IReadOnlyCollection<T>, IList<T> {
   }
 
   public Insert(index: number, item: T): void {
-    throw new InvalidOperationException('不可向只读列表中写入数据')
+    throw new InvalidOperationException(I18n.t('errors.readonly.write'))
   }
 
   public Remove(item: T): boolean {
-    throw new InvalidOperationException('不可从只读列表中删除数据')
+    throw new InvalidOperationException(I18n.t('errors.readonly.remove'))
   }
 
   public RemoveAt(index: number): void {
-    throw new InvalidOperationException('不可从只读列表中删除数据')
+    throw new InvalidOperationException(I18n.t('errors.readonly.remove'))
   }
 
   public [Symbol.iterator](): IterableIterator<T> {

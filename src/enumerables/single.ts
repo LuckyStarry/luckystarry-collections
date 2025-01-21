@@ -1,4 +1,5 @@
 import * as utils from '../utils'
+import { I18n } from '../i18n'
 
 export function single<TSource>(source: Iterable<TSource>, predicate?: (item: TSource) => boolean): TSource {
   utils.throws.ThrowIfNull('source', source)
@@ -8,14 +9,14 @@ export function single<TSource>(source: Iterable<TSource>, predicate?: (item: TS
     if (predicate) {
       if (predicate(item)) {
         if (found) {
-          utils.throws.ThrowInvalidOperation('输入的序列包含多个元素')
+          throw utils.throws.ThrowInvalidOperation(I18n.t('errors.array.multiple_elements'))
         }
         target = item
         found = true
       }
     } else {
       if (found) {
-        utils.throws.ThrowInvalidOperation('输入的序列包含多个元素')
+        throw utils.throws.ThrowInvalidOperation(I18n.t('errors.array.multiple_elements'))
       }
       target = item
       found = true
@@ -25,8 +26,8 @@ export function single<TSource>(source: Iterable<TSource>, predicate?: (item: TS
     return target
   }
   if (predicate) {
-    utils.throws.ThrowInvalidOperation('没有元素满足条件或源序列为空')
+    throw utils.throws.ThrowInvalidOperation(I18n.t('errors.array.no_match'))
   } else {
-    utils.throws.ThrowInvalidOperation('源序列为空')
+    throw utils.throws.ThrowInvalidOperation(I18n.t('errors.array.empty'))
   }
 }

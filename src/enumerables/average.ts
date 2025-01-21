@@ -1,6 +1,7 @@
 import { Enumerable } from '../enumerable'
 import { ArgumentNullException } from '../exceptions'
 import { IsNullOrUndefined, throws } from '../utils'
+import { I18n } from '../i18n'
 
 export function average<TSource>(source: Iterable<TSource>, selector?: (item: TSource) => number): number | null {
   throws.ThrowIfNull('source', source)
@@ -16,7 +17,7 @@ export function average<TSource>(source: Iterable<TSource>, selector?: (item: TS
       if (typeof x === 'number') {
         return x
       } else {
-        throw new ArgumentNullException('selector', '数值类型以外的数组必须传入 selector')
+        throw new ArgumentNullException('selector', I18n.t('errors.array.selector_required'))
       }
     })
   let sum = 0

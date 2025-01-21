@@ -1,4 +1,5 @@
 import * as utils from '../utils'
+import { I18n } from '../i18n'
 
 export function singleOrDefault<TSource>(source: Iterable<TSource>, defaultValue: TSource, predicate?: (item: TSource) => boolean): TSource {
   utils.throws.ThrowIfNull('source', source)
@@ -8,14 +9,14 @@ export function singleOrDefault<TSource>(source: Iterable<TSource>, defaultValue
     if (predicate) {
       if (predicate(item)) {
         if (found) {
-          utils.throws.ThrowInvalidOperation('输入的序列包含多个元素')
+          throw utils.throws.ThrowInvalidOperation(I18n.t('errors.array.multiple_elements'))
         }
         target = item
         found = true
       }
     } else {
       if (found) {
-        utils.throws.ThrowInvalidOperation('输入的序列包含多个元素')
+        throw utils.throws.ThrowInvalidOperation(I18n.t('errors.array.multiple_elements'))
       }
       target = item
       found = true

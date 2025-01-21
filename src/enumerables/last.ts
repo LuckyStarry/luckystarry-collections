@@ -1,4 +1,5 @@
 import * as utils from '../utils'
+import { I18n } from '../i18n'
 
 export function last<TSource>(source: Iterable<TSource>, predicate?: (item: TSource) => boolean): TSource {
   utils.throws.ThrowIfNull('source', source)
@@ -19,8 +20,8 @@ export function last<TSource>(source: Iterable<TSource>, predicate?: (item: TSou
     return target
   }
   if (predicate) {
-    utils.throws.ThrowInvalidOperation('没有元素满足条件或源序列为空')
+    throw utils.throws.ThrowInvalidOperation(I18n.t('errors.array.no_match'))
   } else {
-    utils.throws.ThrowInvalidOperation('源序列为空')
+    throw utils.throws.ThrowInvalidOperation(I18n.t('errors.array.empty'))
   }
 }

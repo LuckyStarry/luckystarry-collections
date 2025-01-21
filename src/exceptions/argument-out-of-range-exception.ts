@@ -1,11 +1,11 @@
 import { ArgumentException } from './argument-exception'
+import { I18n } from '../i18n'
 
 export class ArgumentOutOfRangeException extends ArgumentException {
   private actualValue: any
   /* istanbul ignore next */
   public constructor(paramName?: string, actualValue?: any, message?: string) {
-    super(paramName, composite(paramName, actualValue, message))
-
+    super(paramName, message || composite(paramName, actualValue))
     this.actualValue = actualValue
   }
 
@@ -14,15 +14,12 @@ export class ArgumentOutOfRangeException extends ArgumentException {
   }
 }
 
-function composite(paramName?: string, actualValue?: any, message?: string): string {
-  if (message) {
-    return message
-  }
+function composite(paramName?: string, actualValue?: any): string {
   if (paramName) {
     if (actualValue !== undefined) {
-      return `参数 ${paramName} 的范围越界 ${actualValue}`
+      return I18n.t('errors.params.out_of_range_with_value', paramName, actualValue)
     }
-    return `参数 ${paramName} 的范围越界`
+    return I18n.t('errors.params.out_of_range', paramName)
   }
-  return '数组下标越界'
+  return I18n.t('errors.array.index_out_of_range')
 }

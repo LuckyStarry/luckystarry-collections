@@ -1,18 +1,16 @@
 import { ArgumentException } from './argument-exception'
+import { I18n } from '../i18n'
 
 export class ArgumentNullException extends ArgumentException {
   /* istanbul ignore next */
   public constructor(paramName?: string, message?: string) {
-    super(paramName, composite(paramName, message))
+    super(paramName, message || composite(paramName))
   }
 }
 
-function composite(paramName?: string, message?: string): string {
-  if (message) {
-    return message
-  }
+function composite(paramName?: string): string {
   if (paramName) {
-    return `参数 ${paramName} 不可为空`
+    return I18n.t('errors.params.null', paramName)
   }
-  return '参数不可为空'
+  return I18n.t('errors.params.null_without_name')
 }

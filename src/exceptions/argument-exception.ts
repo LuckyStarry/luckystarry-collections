@@ -1,11 +1,11 @@
 import { Exception } from './exception'
+import { I18n } from '../i18n'
 
 export class ArgumentException extends Exception {
   private paramName: string
   /* istanbul ignore next */
   public constructor(paramName?: string, message?: string) {
-    super(composite(paramName, message))
-
+    super(message || composite(paramName))
     this.paramName = paramName
   }
 
@@ -14,12 +14,9 @@ export class ArgumentException extends Exception {
   }
 }
 
-function composite(paramName?: string, message?: string): string {
-  if (message) {
-    return message
-  }
+function composite(paramName?: string): string {
   if (paramName) {
-    return `参数 ${paramName} 存在异常`
+    return I18n.t('errors.params.invalid_with_name', paramName)
   }
-  return '参数存在异常'
+  return I18n.t('errors.params.invalid_without_name')
 }

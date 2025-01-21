@@ -126,8 +126,8 @@ describe('./dictionary.ts', function () {
 
   it('Dictionary.Set 随机设置Key-Value测试（100组）', function () {
     let length = 100
-    let keys = []
-    let values = []
+    let keys: string[] = []
+    let values: string[] = []
     for (let i = 0; i < length; i++) {
       keys.push(uuid())
       values.push(uuid())
@@ -150,8 +150,8 @@ describe('./dictionary.ts', function () {
 
   it('Dictionary.Set 随机设置Key-Value测试（+100 -30 +150 -200）', function () {
     let length = 100
-    let keys = []
-    let values = []
+    let keys: string[] = []
+    let values: string[] = []
     for (let i = 0; i < length; i++) {
       keys.push(uuid())
       values.push(uuid())
@@ -347,7 +347,7 @@ describe('./dictionary.ts', function () {
   })
 
   it('Dictionary.TryGetValue 存在返回 [true, value]', function () {
-    let dictionary = new Dictionary()
+    let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 100)
     dictionary.Set('KEY_02', 200)
     dictionary.Set('KEY_03', 300)
@@ -365,7 +365,7 @@ describe('./dictionary.ts', function () {
   })
 
   it('Dictionary.All 方法正常运作', function () {
-    let dictionary = new Dictionary()
+    let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
 
@@ -374,7 +374,7 @@ describe('./dictionary.ts', function () {
   })
 
   it('Dictionary.Any 方法正常运作', function () {
-    let dictionary = new Dictionary()
+    let dictionary = new Dictionary<string, number>()
     dictionary.Set('KEY_01', 1)
     dictionary.Set('KEY_02', 2)
 
@@ -385,7 +385,7 @@ describe('./dictionary.ts', function () {
   })
 
   it('Dictionary.AsEnumerable 方法正常运作', function () {
-    let dictionary = new Dictionary()
+    let dictionary = new Dictionary<string, string>()
     dictionary.Set('KEY_01', 'AAA')
     dictionary.Set('KEY_02', 'BBB')
 
