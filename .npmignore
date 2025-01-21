@@ -1,9 +1,11 @@
-.vscode
-.nyc_output
-coverage
-node_modules
+/.github/
+/.nyc_output/
+/.vscode/
+/coverage/
+/node_modules/
 
-npm-debug.log*
-*.orig
 .travis.yml
+npm-debug.log*
 package-lock.json
+
+*.orig
