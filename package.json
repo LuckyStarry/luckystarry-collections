@@ -1,6 +1,6 @@
 {
   "name": "luckystarry-collections",
-  "version": "1.1.0-beta",
+  "version": "1.1.0",
   "description": "A .NET-style collection library that extends JavaScript arrays with LINQ-like methods such as Select, Where, and ToList. Provides familiar collection operations for developers with .NET background.",
   "keywords": [
     "collections",
