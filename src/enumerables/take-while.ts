@@ -9,7 +9,7 @@ export function takeWhile<TSource>(source: Iterable<TSource>, predicate: (item: 
 
 function* process<TSource>(source: Iterable<TSource>, predicate: (item: TSource, index?: number) => boolean): Iterable<TSource> {
   let i = 0
-  for (let item of source) {
+  for (const item of source) {
     if (predicate(item, i++)) {
       yield item
     } else {

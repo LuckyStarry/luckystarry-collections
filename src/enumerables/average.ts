@@ -23,8 +23,8 @@ export function average<TSource>(source: Iterable<TSource>, selector?: (item: TS
   let sum = 0
   let count = 0
   let allNull = true
-  for (let item of source) {
-    let value = selector(item)
+  for (const item of source) {
+    const value = selector(item)
     if (!IsNullOrUndefined(value)) {
       allNull = false
       sum += value

@@ -9,7 +9,7 @@ export function where<TSource>(source: Iterable<TSource>, predicate: (item: TSou
 
 function* filter<TSource>(source: Iterable<TSource>, predicate: (item: TSource, index?: number) => boolean): Iterable<TSource> {
   let index = 0
-  for (let item of source) {
+  for (const item of source) {
     if (predicate(item, index++)) {
       yield item
     }

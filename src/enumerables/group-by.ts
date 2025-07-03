@@ -12,7 +12,7 @@ export function groupBy<TSource, TKey, TElement = TSource>(
 ): IEnumerable<IGrouping<TKey, TElement>> {
   utils.throws.ThrowIfNull('source', source)
   utils.throws.ThrowIfNull('keySelector', keySelector)
-  let _elementSelector: any = elementSelector || ((x) => x)
+  const _elementSelector: any = elementSelector || ((x) => x)
   comparer = comparer || EqualityComparer.Default()
   return Enumerable.AsEnumerable(
     assistance

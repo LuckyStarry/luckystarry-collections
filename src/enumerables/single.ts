@@ -5,7 +5,7 @@ export function single<TSource>(source: Iterable<TSource>, predicate?: (item: TS
   utils.throws.ThrowIfNull('source', source)
   let found = false
   let target: TSource
-  for (let item of source) {
+  for (const item of source) {
     if (predicate) {
       if (predicate(item)) {
         if (found) {

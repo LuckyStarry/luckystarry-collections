@@ -7,7 +7,7 @@ export function elementAt<TSource>(source: Iterable<TSource>, index: number): TS
     throw new ArgumentOutOfRangeException('index', index)
   }
   let i = 0
-  for (let item of source) {
+  for (const item of source) {
     if (i === index) {
       return item
     }

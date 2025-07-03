@@ -5,7 +5,7 @@ export function all<TSource>(source: Iterable<TSource>, predicate: (item: TSourc
   throws.ThrowIfNull('source', source)
   throws.ThrowIfNull('predicate', predicate)
 
-  for (let item of source) {
+  for (const item of source) {
     if (!predicate(item)) {
       return false
     }

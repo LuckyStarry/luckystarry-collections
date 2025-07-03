@@ -5,11 +5,12 @@ export function sequenceEqual<TSource>(first: Iterable<TSource>, second: Iterabl
   utils.throws.ThrowIfNull('first', first)
   utils.throws.ThrowIfNull('second', second)
   comparer = comparer || EqualityComparer.Default()
-  let left = first[Symbol.iterator]()
-  let right = second[Symbol.iterator]()
+  const left = first[Symbol.iterator]()
+  const right = second[Symbol.iterator]()
+  // eslint-disable-next-line no-constant-condition
   while (true) {
-    let x = left.next()
-    let y = right.next()
+    const x = left.next()
+    const y = right.next()
     if (x.done) {
       return y.done
     } else if (y.done) {

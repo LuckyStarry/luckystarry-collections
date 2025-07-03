@@ -15,14 +15,14 @@ export function groupJoin<TOuter, TInner, TKey, TResult = { Outer: TOuter; Inner
   utils.throws.ThrowIfNull('inner', inner)
   utils.throws.ThrowIfNull('outerKeySelector', outerKeySelector)
   utils.throws.ThrowIfNull('innerKeySelector', innerKeySelector)
-  let _resultSelector: any =
+  const _resultSelector: any =
     resultSelector ||
     ((o, is) => {
       return { Outer: o, Inners: is }
     })
   comparer = comparer || EqualityComparer.Default()
-  let outerKeys = Enumerable.ToList(Enumerable.Select(outer, (item) => outerKeySelector(item)))
-  let groupedInner = Enumerable.ToList(
+  const outerKeys = Enumerable.ToList(Enumerable.Select(outer, (item) => outerKeySelector(item)))
+  const groupedInner = Enumerable.ToList(
     Enumerable.GroupBy(
       Enumerable.Where(inner, (item) => Enumerable.Contains(outerKeys, innerKeySelector(item), comparer)),
       (item) => innerKeySelector(item),
@@ -40,8 +40,8 @@ function* join<TOuter, TInner, TKey, TResult>(
   resultSelector: (item: TOuter, inners: IEnumerable<TInner>) => TResult,
   comparer?: IEqualityComparer<TKey>
 ) {
-  for (let item of outer) {
-    let key = outerKeySelector(item)
+  for (const item of outer) {
+    const key = outerKeySelector(item)
     let inners: IEnumerable<TInner> = Enumerable.FirstOrDefault(groupedInner, null, (g) => comparer.Equals(g.Key, key))
     if (!inners) {
       inners = Enumerable.Empty<TInner>()
