@@ -9,7 +9,7 @@ export function select<TSource, TResult>(source: Iterable<TSource>, selector: (i
 
 function* mapping<TSource, TResult>(source: Iterable<TSource>, selector: (item: TSource, index?: number) => TResult): Iterable<TResult> {
   let index = 0
-  for (let item of source) {
+  for (const item of source) {
     yield selector(item, index++)
   }
 }

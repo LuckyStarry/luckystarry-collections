@@ -10,7 +10,7 @@ export function skipWhile<TSource>(source: Iterable<TSource>, predicate: (item: 
 function* process<TSource>(source: Iterable<TSource>, predicate: (item: TSource, index?: number) => boolean): Iterable<TSource> {
   let i = 0
   let skip = false
-  for (let item of source) {
+  for (const item of source) {
     if (!skip) {
       if (predicate(item, i++)) {
         continue

@@ -3,7 +3,7 @@ import { I18n } from '../i18n'
 
 export function first<TSource>(source: Iterable<TSource>, predicate?: (item: TSource) => boolean): TSource {
   utils.throws.ThrowIfNull('source', source)
-  for (let item of source) {
+  for (const item of source) {
     if (predicate) {
       if (predicate(item)) {
         return item

@@ -10,12 +10,12 @@ export function toDictionary<TSource, TKey, TElement = TSource>(
 ): Dictionary<TKey, TElement> {
   utils.throws.ThrowIfNull('source', source)
   utils.throws.ThrowIfNull('keySelector', keySelector)
-  let _elementSelector: any = elementSelector || ((x) => x)
+  const _elementSelector: any = elementSelector || ((x) => x)
   comparer = comparer || EqualityComparer.Default()
-  let dictionary = new Dictionary<TKey, TElement>(null, comparer)
-  for (let item of source) {
-    let key = keySelector(item)
-    let value = _elementSelector(item)
+  const dictionary = new Dictionary<TKey, TElement>(null, comparer)
+  for (const item of source) {
+    const key = keySelector(item)
+    const value = _elementSelector(item)
     dictionary.Add(key, value)
   }
   return dictionary

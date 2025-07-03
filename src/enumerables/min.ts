@@ -18,8 +18,8 @@ export function min<TSource>(source: Iterable<TSource>, selector?: (item: TSourc
     })
   let found = false
   let target: number
-  for (let item of source) {
-    let value = selector(item)
+  for (const item of source) {
+    const value = selector(item)
     if (!utils.IsNullOrUndefined(value)) {
       if (!found) {
         target = value

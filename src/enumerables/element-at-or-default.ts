@@ -6,7 +6,7 @@ export function elementAtOrDefault<TSource>(source: Iterable<TSource>, defaultVa
     return defaultValue
   }
   let i = 0
-  for (let item of source) {
+  for (const item of source) {
     if (i === index) {
       return item
     }

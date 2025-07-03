@@ -8,7 +8,7 @@ export function skip<TSource>(source: Iterable<TSource>, count: number): IEnumer
 
 function* process<TSource>(source: Iterable<TSource>, count: number): Iterable<TSource> {
   let i = 1
-  for (let item of source) {
+  for (const item of source) {
     if (i++ > count) {
       yield item
     }

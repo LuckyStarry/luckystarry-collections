@@ -4,7 +4,7 @@ export function count<TSource>(source: Iterable<TSource>, predicate?: (item: TSo
   throws.ThrowIfNull('source', source)
   predicate = predicate || (() => true)
   let count = 0
-  for (let item of source) {
+  for (const item of source) {
     if (predicate(item)) {
       count++
     }
